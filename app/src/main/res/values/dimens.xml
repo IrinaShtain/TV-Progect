@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="margin_45">45dp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="corner_radius_2">2dp</dimen>
+</resources>

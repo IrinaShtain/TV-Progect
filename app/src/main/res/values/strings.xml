@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TV Project</string>
+    <string name="my_tv_project">My TV Project</string>
+    <string name="authorize_please">Authorize please</string>
+    <string name="email">User name</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="error_empty_user_name">Input user name!</string>
+    <string name="error_empty_password">Input password!</string>
+    <string name="error_not_valid_password">Not a valid password!</string>
+    <string name="sign_up">Sign up</string>
+    <string name="username">Username: %s</string>
+    <string name="name">Name: %s</string>
+    <string name="include_adult">Include adult: %s</string>
+    <string name="my_lists">My lists</string>
+</resources>

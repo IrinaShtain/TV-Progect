@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_dark_background"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_12"
+        android:layout_marginTop="@dimen/margin_12"
+        app:cardCornerRadius="@dimen/corner_radius_2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/margin_6"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_6"
+                android:text="@string/username"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold|italic"
+                />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_6"
+                android:text="@string/name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold|italic"
+                />
+
+            <TextView
+                android:id="@+id/tvIncludeAult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_6"
+                android:text="@string/include_adult"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_20"
+                android:textStyle="bold|italic"
+                />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/bt_myLists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_12"
+        android:background="@color/colorPrimary"
+        android:text="@string/my_lists"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>
