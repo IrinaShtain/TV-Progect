@@ -35,9 +35,9 @@ public class SplashPresenter implements SplashContract.SplashPresenter {
 
     @Override
     public void startNextScreen() {
-            if (userManager.getSessionId().isEmpty())
-                view.startLoginScreen();
-            else
+        if (userManager.getSessionId().isEmpty())
+            view.startLoginScreen();
+        else
             view.startHomeScreen();
     }
 }

@@ -28,7 +28,8 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
 
     @Override
     public void subscribe() {
-        if (userManager.getCurrentUser() == null) {
+        User currentUser = userManager.getCurrentUser();
+        if (currentUser == null) {
             compositeSubscription.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
                     user -> {
                         userManager.updateUser(user);
@@ -43,17 +44,16 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
             ));
         }
         else {
-            User user = userManager.getCurrentUser();
-            view.setUserNick(user.username);
-            view.setUserName(user.name);
-            view.setAdultPermission(user.include_adult);
+            view.setUserNick(currentUser.username);
+            view.setUserName(currentUser.name);
+            view.setAdultPermission(currentUser.include_adult);
         }
 
     }
 
     @Override
     public void onButtonListsClick() {
-
+        view.openMyLists();
     }
 
     @Override

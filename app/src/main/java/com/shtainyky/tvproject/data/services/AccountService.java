@@ -1,6 +1,7 @@
 package com.shtainyky.tvproject.data.services;
 
 import com.shtainyky.tvproject.data.models.account.User;
+import com.shtainyky.tvproject.utils.Constants;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -11,7 +12,7 @@ import rx.Observable;
  */
 
 public interface AccountService {
-    @GET("/3/account")
+    @GET(Constants.GET_USER_ACCOUNT)
     Observable<User> getDetails(@Query("api_key") String api_key,
                                 @Query("session_id") String sessionId);
 

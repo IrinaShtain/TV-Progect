@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.domain;
 import com.shtainyky.tvproject.data.Rest;
 import com.shtainyky.tvproject.data.models.account.User;
 import com.shtainyky.tvproject.data.services.AccountService;
+import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsContract;
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.Constants;
@@ -17,7 +18,8 @@ import rx.Observable;
  * Created by Bell on 25.05.2017.
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class AccountRepository extends NetworkRepository implements DetailsContract.DetailsModel {
+public class AccountRepository extends NetworkRepository implements DetailsContract.DetailsModel,
+        CreatedListsContract.CreatedListsModel {
 
     @Bean
     protected Rest rest;

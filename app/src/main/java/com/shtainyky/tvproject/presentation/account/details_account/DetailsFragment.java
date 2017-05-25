@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -84,7 +85,7 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
 
     @Override
     public void openMyLists() {
-      //  mActivity.replaceFragment();
+        mActivity.replaceFragment(CreatedListsFragment_.builder().build());
     }
 
     @Override
