@@ -14,6 +14,7 @@ public class Constants {
 
     /*----------------- API ------------------*/
     public static final String KEY_API = "64532829339b134f1b5696678be535a8";
+    public static final String IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
     public static final String GET_USER_TOKEN = "/3/authentication/token/new";
     public static final String GET_VALIDATED_USER_TOKEN = "/3/authentication/token/validate_with_login";
     public static final String GET_USER_SESSION_ID = "3/authentication/session/new";

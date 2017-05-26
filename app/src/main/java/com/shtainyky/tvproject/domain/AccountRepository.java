@@ -1,6 +1,7 @@
 package com.shtainyky.tvproject.domain;
 
 import com.shtainyky.tvproject.data.Rest;
+import com.shtainyky.tvproject.data.models.account.CreatedListsData;
 import com.shtainyky.tvproject.data.models.account.User;
 import com.shtainyky.tvproject.data.services.AccountService;
 import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsContract;
@@ -35,5 +36,11 @@ public class AccountRepository extends NetworkRepository implements DetailsContr
     @Override
     public Observable<User> getUserDetails(String sessionID) {
         return getNetworkObservable(mAccountService.getDetails(Constants.KEY_API, sessionID));
+    }
+
+
+    @Override
+    public Observable<CreatedListsData> getLists(int userID, String sessionID, int page) {
+        return getNetworkObservable(mAccountService.getLists(userID, Constants.KEY_API, sessionID, page));
     }
 }

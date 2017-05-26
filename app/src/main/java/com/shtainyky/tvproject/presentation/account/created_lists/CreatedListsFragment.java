@@ -1,10 +1,13 @@
 package com.shtainyky.tvproject.presentation.account.created_lists;
 
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
@@ -13,6 +16,8 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
+
 /**
  * Created by Bell on 25.05.2017.
  */
@@ -20,12 +25,15 @@ import org.androidannotations.annotations.ViewById;
 public class CreatedListsFragment extends BaseFragment implements CreatedListsContract.CreatedListsView {
 
     @ViewById
-    TextView tvId;
+    RecyclerView rvLists;
     @Bean
     protected SignedUserManager userManager;
     @Bean
     protected AccountRepository mAccountRepository;
     private CreatedListsContract.CreatedListsPresenter mPresenter;
+
+    @Bean
+    protected CreatedListsAdapter listAdapter;
 
     @AfterInject
     @Override
@@ -41,11 +49,24 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     @AfterViews
     protected void initUI() {
         mPresenter.subscribe();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvLists.setLayoutManager(layoutManager);
+        rvLists.setAdapter(listAdapter);
+        rvLists.addOnScrollListener(new EndlessScrollListener(layoutManager, () -> {
+            mPresenter.getNextPage();
+            Log.e("myLog", "initUI getNextPage ");
+            return true;
+        }));
     }
 
     @Override
-    public void setupID(int id) {
-        tvId.setText(String.valueOf(id));
+    public void setLists(ArrayList<CreatedListsDH> createdListsDHs) {
+        listAdapter.setListDH(createdListsDHs);
+    }
+
+    @Override
+    public void addLists(ArrayList<CreatedListsDH> createdListsDHs) {
+        listAdapter.addListDH(createdListsDHs);
     }
 
     @Override

@@ -13,4 +13,6 @@
     <string name="name">Name: %s</string>
     <string name="include_adult">Include adult: %s</string>
     <string name="my_lists">My lists</string>
+    <string name="description">Description: %s</string>
+    <string name="type">Type: %s</string>
 </resources>
