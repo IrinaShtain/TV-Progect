@@ -15,4 +15,8 @@
     <string name="my_lists">My lists</string>
     <string name="description">Description: %s</string>
     <string name="type">Type: %s</string>
+    <string name="title">Title: %s</string>
+    <string name="genre">Genre: %s</string>
+    <string name="releaseDate">Release Date: %s</string>
+    <string name="popularity">Rate: %s</string>
 </resources>

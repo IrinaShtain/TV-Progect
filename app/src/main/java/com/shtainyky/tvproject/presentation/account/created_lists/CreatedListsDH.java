@@ -21,6 +21,10 @@ public class CreatedListsDH {
         return model.name == null ? "No name" : model.name;
     }
 
+    public int getListsID() {
+        return model.id;
+    }
+
     public String getListsDescription() {
         return model.description.equals("") ? "No description" : model.description;
     }

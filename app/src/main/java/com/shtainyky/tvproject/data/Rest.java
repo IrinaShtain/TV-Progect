@@ -8,6 +8,7 @@ import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.exceptions.TimeoutException;
 import com.shtainyky.tvproject.data.services.AccountService;
 import com.shtainyky.tvproject.data.services.LoginService;
+import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.App;
@@ -35,6 +36,7 @@ public class Rest {
     private Retrofit retrofit;
     private LoginService userService;
     private AccountService accountService;
+    private MovieService movieService;
 
 
     public Rest() {
@@ -74,5 +76,7 @@ public class Rest {
     public AccountService getAccountService() {
         return accountService == null ? accountService = retrofit.create(AccountService.class) : accountService;
     }
-
+    public MovieService getMovieService() {
+        return movieService == null ? movieService = retrofit.create(MovieService.class) : movieService;
+    }
 }

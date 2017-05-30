@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 
 import org.androidannotations.annotations.EBean;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @EBean
 public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
     private List<CreatedListsDH> items;
+    private OnCardClickListener mListener;
 
     public CreatedListsAdapter() {
         items = new ArrayList<>();
@@ -34,6 +36,9 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
         notifyDataSetChanged();
     }
 
+    public void setListener(OnCardClickListener listener) {
+        mListener = listener;
+    }
 
     @Override
     public CreatedListsVH onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,6 +50,9 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
 
     @Override
     public void onBindViewHolder(CreatedListsVH holder, int position) {
+        if (mListener != null) {
+            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getListsID()));
+        }
         holder.bindData(items.get(position));
     }
 
