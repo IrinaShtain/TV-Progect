@@ -1,19 +1,17 @@
 package com.shtainyky.tvproject.presentation.account.movie;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsAdapter;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
-import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
-import com.shtainyky.tvproject.presentation.listeners.OnMovieClickListener;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
@@ -29,10 +27,16 @@ import java.util.ArrayList;
  * Created by Bell on 29.05.2017.
  */
 @EFragment(R.layout.fragment_movies)
-public class MovieFragment extends BaseFragment implements MovieContract.MovieView, OnMovieClickListener {
+public class MovieFragment extends BaseFragment implements MovieContract.MovieView, OnCardClickListener {
 
     @ViewById
     RecyclerView rvLists;
+
+    @ViewById
+    SwipeRefreshLayout swiperefresh;
+
+    @ViewById
+    FloatingActionButton fab_add;
 
     @FragmentArg
     protected int listID;
@@ -51,10 +55,29 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
     @AfterViews
     protected void initUI() {
         mPresenter.subscribe();
+        setupRecyclerView();
+        setupSwipeToRefresh();
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("myLog", "onClick FAB ");
+            }
+        });
+
+    }
+
+    private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvLists.setLayoutManager(layoutManager);
         listAdapter.setListener(this);
         rvLists.setAdapter(listAdapter);
+    }
+
+    private void setupSwipeToRefresh() {
+        swiperefresh.setOnRefreshListener(
+                () ->{ mPresenter.loadMovies();}
+
+        );
     }
 
     @AfterInject
@@ -73,25 +96,31 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
         listAdapter.setListDH(movieDHs);
     }
 
+
     @Override
-    public void onMovieClick(int movieID, int position) {
-        mPresenter.onItemClick(movieID, position);
+    public void onCardClick(int listID, int position) {
+        mPresenter.onItemClick(listID, position);
     }
 
     @Override
     public void notifyAdapter(int itemPosition) {
-        listAdapter.notifyItemChanged(itemPosition);
+        listAdapter.deleteItem(itemPosition);
+    }
+
+    @Override
+    public void dismissRefreshing() {
+        swiperefresh.setRefreshing(false);
     }
 
     @Override
     public void showDialogWithExplanation(int itemID) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Do you want to delete movie");
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        builder.setMessage(R.string.question_about_deleting);
+        builder.setPositiveButton(R.string.answer_yes, (dialog, which) -> {
             dialog.cancel();
             mPresenter.deleteItem();
         });
-        builder.setNegativeButton("Cancel", null);
+        builder.setNegativeButton(R.string.answer_cancel, null);
 
         builder.show();
     }

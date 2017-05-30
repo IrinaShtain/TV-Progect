@@ -1,17 +1,12 @@
 package com.shtainyky.tvproject.presentation.account.movie;
 
-import android.media.tv.TvContract;
-
-import com.shtainyky.tvproject.data.models.account.User;
-import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
-import com.shtainyky.tvproject.data.models.movie.ResponseMessage;
+import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import rx.Observable;
 
@@ -24,10 +19,12 @@ public class MovieContract {
         void setLists(ArrayList<MovieDH> movieDHs);
         void showDialogWithExplanation(int itemID);
         void notifyAdapter(int itemPosition);
+        void dismissRefreshing();
     }
 
     interface MoviePresenter extends BasePresenter {
         void deleteItem();
+        void loadMovies();
         void onItemClick(int listID, int position);
     }
 

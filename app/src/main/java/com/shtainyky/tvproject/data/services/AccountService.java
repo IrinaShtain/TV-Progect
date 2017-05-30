@@ -2,9 +2,12 @@ package com.shtainyky.tvproject.data.services;
 
 import com.shtainyky.tvproject.data.models.account.CreatedListsData;
 import com.shtainyky.tvproject.data.models.account.User;
+import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.utils.Constants;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -23,5 +26,11 @@ public interface AccountService {
                                           @Query("api_key") String api_key,
                                           @Query("session_id") String sessionId,
                                           @Query("page") int page);
+
+    @Headers("content-type: application/json;charset=utf-8")
+    @DELETE("/3/list/{list_id}")
+    Observable<ResponseMessage> deleteList(@Path("list_id") int list_id,
+                                           @Query("api_key") String api_key,
+                                           @Query("session_id") String sessionId);
 
 }

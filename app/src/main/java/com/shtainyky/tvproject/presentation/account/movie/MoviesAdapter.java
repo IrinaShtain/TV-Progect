@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
-import com.shtainyky.tvproject.presentation.listeners.OnMovieClickListener;
 
 import org.androidannotations.annotations.EBean;
 
@@ -20,7 +19,7 @@ import java.util.List;
 @EBean
 public class MoviesAdapter extends RecyclerView.Adapter<MovieVH> {
     private List<MovieDH> items;
-    private OnMovieClickListener mListener;
+    private OnCardClickListener mListener;
 
     public MoviesAdapter() {
         items = new ArrayList<>();
@@ -36,7 +35,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MovieVH> {
         notifyItemChanged(position);
     }
 
-    public void setListener(OnMovieClickListener listener) {
+    public void setListener(OnCardClickListener listener) {
         mListener = listener;
     }
 
@@ -51,7 +50,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MovieVH> {
     @Override
     public void onBindViewHolder(MovieVH holder, int position) {
         if (mListener != null) {
-            holder.itemView.setOnClickListener(v -> mListener.onMovieClick(items.get(position).getMovieID(), position));
+            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getMovieID(), position));
         }
         holder.bindData(items.get(position));
     }

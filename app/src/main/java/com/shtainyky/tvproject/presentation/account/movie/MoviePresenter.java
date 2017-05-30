@@ -26,6 +26,7 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
     private Map<Integer, String> genreMap;
     private int deleteItemID;
     private int deleteItemPosition;
+    private boolean hasGenres;
     private SignedUserManager mUserManager;
 
     public MoviePresenter(MovieContract.MovieView view, int listID, MovieContract.MovieModel model, SignedUserManager userManager) {
@@ -43,15 +44,15 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
     public void subscribe() {
         compositeSubscription.add(model.getGenres()
                 .subscribe(genresList -> {
-
                     Log.e("myLog", "genresList.size() = " + genresList.genres.size());
                     for (int i = 0; i < genresList.genres.size(); i++) {
                         GenreItem item = genresList.genres.get(i);
                         genreMap.put(item.id, item.name);
                     }
-                    loadMovies(true);
+                    hasGenres = true;
+                    loadMovies();
                 }, throwable -> {
-                    loadMovies(false);
+                    loadMovies();
                     Log.e("myLog", "throwable genresList put" + throwable.getMessage());
                 }));
 
@@ -75,11 +76,13 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
         }
         return list;
     }
-
-    private void loadMovies(boolean hasGenres) {
+    @Override
+    public void loadMovies() {
         compositeSubscription.add(model.getMovies(listID)
                 .subscribe(moviesList -> {
+                    Log.e("myLog", "getMovies ");
                     mView.setLists(prepareList(moviesList.movies, hasGenres));
+                    mView.dismissRefreshing();
                 }, throwable -> {
                     Log.e("myLog", "throwable " + throwable.getMessage());
                 }));

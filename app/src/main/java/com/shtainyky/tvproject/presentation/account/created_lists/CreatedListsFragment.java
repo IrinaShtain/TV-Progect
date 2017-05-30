@@ -1,5 +1,8 @@
 package com.shtainyky.tvproject.presentation.account.created_lists;
 
+import android.content.DialogInterface;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +32,10 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
 
     @ViewById
     RecyclerView rvLists;
+
+    @ViewById
+    SwipeRefreshLayout swiperefresh;
+
     @Bean
     protected SignedUserManager userManager;
     @Bean
@@ -37,6 +44,9 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
 
     @Bean
     protected CreatedListsAdapter listAdapter;
+
+    private int listId;
+    private int listPosition;
 
     @AfterInject
     @Override
@@ -61,7 +71,22 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
             Log.e("myLog", "initUI getNextPage ");
             return true;
         }));
+        setupSwipeToRefresh();
+
     }
+
+    @Override
+    public void dismissRefreshing() {
+        swiperefresh.setRefreshing(false);
+    }
+
+    private void setupSwipeToRefresh() {
+        swiperefresh.setOnRefreshListener(
+                () ->{ mPresenter.loadPage(1);}
+
+        );
+    }
+
 
     @Override
     public void setLists(ArrayList<CreatedListsDH> createdListsDHs) {
@@ -80,8 +105,25 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     }
 
     @Override
-    public void onCardClick(int listID) {
-        Toast.makeText(getContext(), "listID "+ listID, Toast.LENGTH_LONG).show();
-        mActivity.replaceFragment(MovieFragment_.builder().listID(listID).build());
+    public void onCardClick(int listID, int position) {
+        listId = listID;
+        listPosition = position;
+        mPresenter.showDialog();
+    }
+
+    public void showMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.question_about_goal);
+        builder.setPositiveButton(R.string.answer_delete_list,
+                (dialog, which) -> mPresenter.deleteItem(listId));
+        builder.setNegativeButton(R.string.answer_open_lish,
+                (dialog, which) -> mActivity.replaceFragment(MovieFragment_.builder().listID(listId).build()));
+
+        builder.show();
+    }
+
+    @Override
+    public void deleteCurrentPosition() {
+        listAdapter.deleteItem(listPosition);
     }
 }

@@ -36,6 +36,12 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
         notifyDataSetChanged();
     }
 
+    public void deleteItem(int position){
+        items.remove(position);
+        notifyDataSetChanged();
+    }
+
+
     public void setListener(OnCardClickListener listener) {
         mListener = listener;
     }
@@ -51,7 +57,7 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
     @Override
     public void onBindViewHolder(CreatedListsVH holder, int position) {
         if (mListener != null) {
-            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getListsID()));
+            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getListsID(), position));
         }
         holder.bindData(items.get(position));
     }

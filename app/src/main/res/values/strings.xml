@@ -19,4 +19,10 @@
     <string name="genre">Genre: %s</string>
     <string name="releaseDate">Release Date: %s</string>
     <string name="popularity">Rate: %s</string>
+    <string name="question_about_deleting">Do you want to delete movie</string>
+    <string name="answer_cancel">Cancel</string>
+    <string name="answer_yes">Yes</string>
+    <string name="question_about_goal">Do you want</string>
+    <string name="answer_delete_list">to delete list?</string>
+    <string name="answer_open_lish">to open list?</string>
 </resources>

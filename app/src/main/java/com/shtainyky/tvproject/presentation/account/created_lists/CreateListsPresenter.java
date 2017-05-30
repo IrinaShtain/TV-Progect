@@ -48,8 +48,8 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         if (current_page < total_pages)
             loadPage(current_page + 1);
     }
-
-    private void loadPage(int pageNumber) {
+    @Override
+    public void loadPage(int pageNumber) {
         compositeSubscription.add(model.getLists(user.id, userManager.getSessionId(), pageNumber)
                 .subscribe(userListResponse -> {
                     total_pages = userListResponse.total_pages;
@@ -60,6 +60,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
                         // TODO: 26.05.2017 Backend returns duplicate
                         view.addLists(prepareList(userListResponse.lists));
                     }
+                    view.dismissRefreshing();
                     Log.e("myLog", "userListResponse.page = " + pageNumber);
                     Log.e("myLog", "userListResponse.lists.size() = " + userListResponse.lists.size());
                     Log.e("myLog", "userListResponse.total_results = " + userListResponse.total_results);
@@ -76,6 +77,24 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
             list.add(new CreatedListsDH(item));
         }
         return list;
+    }
+
+    @Override
+    public void showDialog() {
+        view.showMessage();
+    }
+
+    @Override
+    public void deleteItem(int listID) {
+        Log.e("myLog", "deleteItem listID = " + listID);
+        compositeSubscription.add(model.deleteList(listID, userManager.getSessionId())
+                .subscribe(responseMessage -> {
+                    view.deleteCurrentPosition();
+                }, throwable -> {
+                    Log.e("myLog", "throwable " + throwable.getLocalizedMessage());
+                    if (throwable.getMessage().equals("HTTP 500 Internal Server Error"))
+                        view.deleteCurrentPosition();
+                }));
     }
 
     @Override
