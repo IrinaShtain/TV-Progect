@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.data.models.movie;
+package com.shtainyky.tvproject.data.models.request_body;
 
 import android.os.Parcel;
 import android.os.Parcelable;

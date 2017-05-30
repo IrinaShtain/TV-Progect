@@ -1,11 +1,15 @@
 package com.shtainyky.tvproject.domain;
 
+import android.webkit.ClientCertRequest;
+
 import com.shtainyky.tvproject.data.Rest;
 import com.shtainyky.tvproject.data.models.account.CreatedListsData;
 import com.shtainyky.tvproject.data.models.account.User;
+import com.shtainyky.tvproject.data.models.request_body.NewListRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.AccountService;
 import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListContract;
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.Constants;
@@ -21,7 +25,7 @@ import rx.Observable;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class AccountRepository extends NetworkRepository implements DetailsContract.DetailsModel,
-        CreatedListsContract.CreatedListsModel {
+        CreatedListsContract.CreatedListsModel, CreateNewListContract.CreateNewListModel {
 
     @Bean
     protected Rest rest;
@@ -48,5 +52,10 @@ public class AccountRepository extends NetworkRepository implements DetailsContr
     @Override
     public Observable<ResponseMessage> deleteList(int listID, String sessionID) {
         return getNetworkObservable(mAccountService.deleteList(listID, Constants.KEY_API, sessionID));
+    }
+
+    @Override
+    public Observable<ResponseMessage> createList(String sessionID, String listTitle, String listDesc) {
+        return getNetworkObservable(mAccountService.createList(Constants.KEY_API, sessionID, new NewListRequest(listTitle, listDesc)));
     }
 }

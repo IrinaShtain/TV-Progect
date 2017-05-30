@@ -25,4 +25,9 @@
     <string name="question_about_goal">Do you want</string>
     <string name="answer_delete_list">to delete list?</string>
     <string name="answer_open_lish">to open list?</string>
+    <string name="add_list">Add list</string>
+    <string name="enter_name">Enter title and desccription for new list</string>
+    <string name="text_title">Title</string>
+    <string name="text_description">Description</string>
+    <string name="error_empty_title">Input list\'s title</string>
 </resources>

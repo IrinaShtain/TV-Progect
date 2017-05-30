@@ -1,7 +1,7 @@
 package com.shtainyky.tvproject.domain;
 
 import com.shtainyky.tvproject.data.Rest;
-import com.shtainyky.tvproject.data.models.movie.ActionRequest;
+import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;

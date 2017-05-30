@@ -1,15 +1,19 @@
 package com.shtainyky.tvproject.presentation.account.created_lists;
 
 import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
 import com.shtainyky.tvproject.presentation.account.movie.MovieFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
@@ -35,6 +39,10 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
 
     @ViewById
     SwipeRefreshLayout swiperefresh;
+
+    @ViewById
+    FloatingActionButton fab_add;
+
 
     @Bean
     protected SignedUserManager userManager;
@@ -62,6 +70,18 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     @AfterViews
     protected void initUI() {
         mPresenter.subscribe();
+        setupRecyclerView();
+        setupSwipeToRefresh();
+
+        fab_add.setOnClickListener(v -> {
+            Log.e("myLog", "onClick FAB ");
+            mActivity.replaceFragment(CreateNewListFragment_.builder().build());
+        });
+
+
+    }
+
+    private void setupRecyclerView(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvLists.setLayoutManager(layoutManager);
         listAdapter.setListener(this);
@@ -71,13 +91,6 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
             Log.e("myLog", "initUI getNextPage ");
             return true;
         }));
-        setupSwipeToRefresh();
-
-    }
-
-    @Override
-    public void dismissRefreshing() {
-        swiperefresh.setRefreshing(false);
     }
 
     private void setupSwipeToRefresh() {
@@ -87,6 +100,10 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
         );
     }
 
+    @Override
+    public void dismissRefreshing() {
+        swiperefresh.setRefreshing(false);
+    }
 
     @Override
     public void setLists(ArrayList<CreatedListsDH> createdListsDHs) {

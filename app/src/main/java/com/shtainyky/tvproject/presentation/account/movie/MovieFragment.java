@@ -57,12 +57,7 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
         mPresenter.subscribe();
         setupRecyclerView();
         setupSwipeToRefresh();
-        fab_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("myLog", "onClick FAB ");
-            }
-        });
+        fab_add.setOnClickListener(v -> Log.e("myLog", "onClick FAB "));
 
     }
 
