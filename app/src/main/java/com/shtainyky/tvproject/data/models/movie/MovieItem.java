@@ -17,8 +17,9 @@ import java.util.ArrayList;
 public class MovieItem implements Parcelable {
     public int id;
     public int vote_count;
-    public float popularity;
+    public float vote_average;
     public String title;
+    public String original_title;
     public String release_date;
     public String overview;
     public String poster_path;
@@ -53,26 +54,32 @@ public class MovieItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeInt(this.vote_count);
-        dest.writeFloat(this.popularity);
+        dest.writeFloat(this.vote_average);
         dest.writeString(this.title);
+        dest.writeString(this.original_title);
         dest.writeString(this.release_date);
         dest.writeString(this.overview);
         dest.writeString(this.poster_path);
         dest.writeString(this.media_type);
         dest.writeList(this.genre_ids);
+        dest.writeString(this.genres);
+        dest.writeString(this.avatarUrl);
     }
 
     protected MovieItem(Parcel in) {
         this.id = in.readInt();
         this.vote_count = in.readInt();
-        this.popularity = in.readFloat();
+        this.vote_average = in.readFloat();
         this.title = in.readString();
+        this.original_title = in.readString();
         this.release_date = in.readString();
         this.overview = in.readString();
         this.poster_path = in.readString();
         this.media_type = in.readString();
         this.genre_ids = new ArrayList<Integer>();
         in.readList(this.genre_ids, Integer.class.getClassLoader());
+        this.genres = in.readString();
+        this.avatarUrl = in.readString();
     }
 
     public static final Creator<MovieItem> CREATOR = new Creator<MovieItem>() {

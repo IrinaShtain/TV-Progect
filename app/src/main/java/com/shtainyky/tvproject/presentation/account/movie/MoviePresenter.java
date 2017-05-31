@@ -76,14 +76,19 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
         }
         return list;
     }
+
     @Override
     public void loadMovies() {
         compositeSubscription.add(model.getMovies(listID)
                 .subscribe(moviesList -> {
                     Log.e("myLog", "getMovies ");
-                    mView.setLists(prepareList(moviesList.movies, hasGenres));
+                    if (moviesList.movies.size() > 0)
+                        mView.setLists(prepareList(moviesList.movies, hasGenres));
+                    else
+                        mView.setEmptyMessage();
                     mView.dismissRefreshing();
                 }, throwable -> {
+                    mView.setEmptyMessage();
                     Log.e("myLog", "throwable " + throwable.getMessage());
                 }));
     }
@@ -97,8 +102,8 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
     public void deleteItem() {
         compositeSubscription.add(model.deleteMovie(listID, deleteItemID, mUserManager.getSessionId())
                 .subscribe(response -> {
-                   if (response.status_code == 13)
-                       mView.notifyAdapter(deleteItemPosition);
+                    if (response.status_code == 13)
+                        mView.notifyAdapter(deleteItemPosition);
                 }, throwable -> {
                     Log.e("myLog", "throwable " + throwable.getMessage());
                 }));

@@ -38,7 +38,7 @@ public class MovieDH {
     }
 
     public float getRate() {
-        return model.popularity;
+        return model.vote_average;
     }
 
     public String getGenres() {

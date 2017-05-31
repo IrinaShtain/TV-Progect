@@ -30,4 +30,8 @@
     <string name="text_title">Title</string>
     <string name="text_description">Description</string>
     <string name="error_empty_title">Input list\'s title</string>
+    <string name="no_movies">No movies in this list</string>
+    <string name="btn_search">Search</string>
+    <string name="input_title">Input movie\'s title</string>
+    <string name="question_about_adding">Do you want add this movie in the list?</string>
 </resources>

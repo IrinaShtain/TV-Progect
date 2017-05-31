@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.data.services;
 
+import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
@@ -27,6 +28,18 @@ public interface MovieService {
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list/{list_id}/remove_item")
     Observable<ResponseMessage> deleteMovie(@Path("list_id") int list_id,
+                                            @Query("api_key") String api_key,
+                                            @Query("session_id") String session_id,
+                                            @Body ActionRequest action);
+
+    @GET("/3/search/movie")
+    Observable<SearchMovieResponse> searchMovie(@Query("api_key") String api_key,
+                                                @Query("query") String title,
+                                                @Query("page") int page);
+
+    @Headers("content-type: application/json;charset=utf-8")
+    @POST("/3/list/{list_id}/add_item")
+    Observable<ResponseMessage> addMovie(@Path("list_id") int list_id,
                                             @Query("api_key") String api_key,
                                             @Query("session_id") String session_id,
                                             @Body ActionRequest action);

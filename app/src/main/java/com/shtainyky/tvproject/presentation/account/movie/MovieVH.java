@@ -21,6 +21,7 @@ public class MovieVH extends RecyclerView.ViewHolder {
     private final TextView tv_popularity;
     private final ImageView imageView;
 
+
     private Context mContext;
 
     public MovieVH(View itemView) {

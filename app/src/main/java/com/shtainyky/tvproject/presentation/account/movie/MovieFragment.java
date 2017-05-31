@@ -7,9 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -31,6 +34,9 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
 
     @ViewById
     RecyclerView rvLists;
+
+    @ViewById
+    TextView tv_empty_message;
 
     @ViewById
     SwipeRefreshLayout swiperefresh;
@@ -57,7 +63,10 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
         mPresenter.subscribe();
         setupRecyclerView();
         setupSwipeToRefresh();
-        fab_add.setOnClickListener(v -> Log.e("myLog", "onClick FAB "));
+        fab_add.setOnClickListener(v ->{
+            Log.e("myLog", "onClick FAB ");
+            mActivity.replaceFragment(SearchMovieFragment_.builder().listID(listID).build());
+        });
 
     }
 
@@ -88,6 +97,7 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
 
     @Override
     public void setLists(ArrayList<MovieDH> movieDHs) {
+        tv_empty_message.setVisibility(View.INVISIBLE);
         listAdapter.setListDH(movieDHs);
     }
 
@@ -118,5 +128,17 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
         builder.setNegativeButton(R.string.answer_cancel, null);
 
         builder.show();
+    }
+
+    @Override
+    public void setEmptyMessage() {
+        tv_empty_message.setVisibility(View.VISIBLE);
+        tv_empty_message.setText(R.string.no_movies);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
     }
 }

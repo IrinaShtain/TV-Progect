@@ -20,6 +20,7 @@ public class MovieContract {
         void showDialogWithExplanation(int itemID);
         void notifyAdapter(int itemPosition);
         void dismissRefreshing();
+        void setEmptyMessage();
     }
 
     interface MoviePresenter extends BasePresenter {

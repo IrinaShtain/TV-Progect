@@ -103,4 +103,10 @@ public class CreateNewListFragment extends BaseFragment implements CreateNewList
     public void showMessage() {
         Toast.makeText(getContext(), "New list is created", Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.unsubscribe();
+    }
 }
