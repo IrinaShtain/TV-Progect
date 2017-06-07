@@ -16,10 +16,11 @@ public interface DetailsContract {
         void setUserName(String name);
         void setAdultPermission(boolean hasPermission);
         void openMyLists();
-
+        void openFindingStars();
     }
     interface DetailsPresenter extends BasePresenter {
         void onButtonListsClick();
+        void onButtonStarsClick();
 
     }
     interface DetailsModel {

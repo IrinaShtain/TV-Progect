@@ -60,4 +60,9 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
     public void unsubscribe() {
         if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
     }
+
+    @Override
+    public void onButtonStarsClick() {
+        view.openFindingStars();
+    }
 }

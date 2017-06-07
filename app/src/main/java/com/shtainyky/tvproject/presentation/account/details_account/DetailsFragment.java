@@ -1,6 +1,7 @@
 package com.shtainyky.tvproject.presentation.account.details_account;
 
 
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsFragment_;
+import com.shtainyky.tvproject.presentation.account.find_star.SearchStarFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -46,6 +48,8 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     @ViewById
     Button bt_myLists;
 
+    @ViewById
+    Button bt_findStars;
 
     @AfterInject
     @Override
@@ -63,6 +67,9 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
         RxView.clicks(bt_myLists)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> mPresenter.onButtonListsClick());
+        RxView.clicks(bt_findStars)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> mPresenter.onButtonStarsClick());
         mPresenter.subscribe();
     }
 
@@ -86,6 +93,12 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     @Override
     public void openMyLists() {
         mActivity.replaceFragment(CreatedListsFragment_.builder().build());
+    }
+
+    @Override
+    public void openFindingStars() {
+        mActivity.replaceFragment(SearchStarFragment_.builder().build());
+        Log.e("myLog", "openFindingStars");
     }
 
     @Override

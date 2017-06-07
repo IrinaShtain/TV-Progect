@@ -75,4 +75,16 @@
         android:text="@string/my_lists"
         android:textColor="@android:color/white"/>
 
+    <Button
+        android:id="@+id/bt_findStars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_12"
+        android:background="@color/colorPrimary"
+        android:text="@string/read_about_star"
+        android:textColor="@android:color/white"/>
+
+
 </LinearLayout>

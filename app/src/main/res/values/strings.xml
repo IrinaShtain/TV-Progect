@@ -34,4 +34,8 @@
     <string name="btn_search">Search</string>
     <string name="input_title">Input movie\'s title</string>
     <string name="question_about_adding">Do you want add this movie in the list?</string>
+    <string name="delete_list">Delete list</string>
+    <string name="open_list">Open list</string>
+    <string name="read_about_star">Read about star</string>
+    <string name="famous_for">Famous for</string>
 </resources>

@@ -94,6 +94,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
         AccountActivity_.intent(this)
                 .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
+        finish();
 }
 
     @Override
@@ -101,6 +102,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
         SignUpActivity_.intent(this)
                 .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
+        finish();
 //nothing
     }
 

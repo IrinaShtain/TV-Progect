@@ -60,6 +60,7 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
 
     private ArrayList<MovieDH> prepareList(ArrayList<MovieItem> items, boolean hasGenres) {
         ArrayList<MovieDH> list = new ArrayList<>();
+
         for (MovieItem item : items) {
             String genreMovie = "";
             if (hasGenres)

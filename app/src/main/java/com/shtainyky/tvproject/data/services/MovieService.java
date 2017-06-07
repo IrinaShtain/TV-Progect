@@ -5,6 +5,7 @@ import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
+import com.shtainyky.tvproject.data.models.star.StarResponse;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -43,4 +44,8 @@ public interface MovieService {
                                             @Query("api_key") String api_key,
                                             @Query("session_id") String session_id,
                                             @Body ActionRequest action);
+    @GET("/3/search/person")
+    Observable<StarResponse> searchStar(@Query("api_key") String api_key,
+                                        @Query("query") String title,
+                                        @Query("page") int page);
 }

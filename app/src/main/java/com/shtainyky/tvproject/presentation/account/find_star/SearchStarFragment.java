@@ -1,7 +1,6 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.find_star;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +13,11 @@ import android.widget.Toast;
 import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
+import com.shtainyky.tvproject.domain.StarRepository;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieAdapter;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMoviePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
@@ -31,10 +35,10 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Bell on 30.05.2017.
+ * Created by Bell on 02.06.2017.
  */
 @EFragment(R.layout.fragment_search)
-public class SearchMovieFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
+public class SearchStarFragment extends BaseFragment implements SearchStarContract.SearchStarView, OnCardClickListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -48,28 +52,30 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
     protected int listID;
 
     @Bean
-    protected MovieRepository mMovieRepository;
+    protected StarRepository mMovieRepository;
 
     @Bean
     protected SignedUserManager userManager;
 
-    private SearchMovieContract.SearchMoviePresenter mPresenter;
+    private SearchStarContract.SearchStarPresenter mPresenter;
     @Bean
-    protected SearchMovieAdapter listAdapter;
+    protected SearchStarAdapter listAdapter;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new SearchMoviePresenter(this, mMovieRepository, userManager);
+        new SearchStarPresenter(this, mMovieRepository, userManager);
     }
 
+
     @Override
-    public void setPresenter(SearchMovieContract.SearchMoviePresenter presenter) {
+    public void setPresenter(SearchStarContract.SearchStarPresenter presenter) {
         mPresenter = presenter;
     }
 
     @AfterViews
     protected void initUI() {
+        tvSearch.setHint("Input star's name");
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> mPresenter.onSearchClick());
@@ -97,49 +103,33 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
     }
 
     @Override
-    public void setList(ArrayList<SearchMovieDH> movieDHs) {
-        hideKeyboard();
-        listAdapter.setListDH(movieDHs);
+    public void getInputText() {
+        String title = tvSearch.getText().toString();
+        if (title.isEmpty())
+            Toast.makeText(getContext(), "Empty name", Toast.LENGTH_LONG).show();
+        else {
+            mPresenter.makeSearch(title);
+            hideKeyboard();
+        }
     }
 
     @Override
-    public void addList(ArrayList<SearchMovieDH> movieDHs) {
-        listAdapter.addListDH(movieDHs);
+    public void setList(ArrayList<StarDH> starDHs) {
+        listAdapter.setListDH(starDHs);
     }
 
     @Override
-    public void onCardClick(int movieID, int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.question_about_adding);
-        builder.setPositiveButton(R.string.answer_yes, (dialog, which) -> {
-            dialog.cancel();
-            mPresenter.addMovie(movieID, listID);
-        });
-        builder.setNegativeButton(R.string.answer_cancel, null);
-
-        builder.show();
+    public void addList(ArrayList<StarDH> starDHs) {
+        listAdapter.addListDH(starDHs);
     }
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mPresenter.unsubscribe();
-    }
-
-    @Override
-    public void getInputText() {
-        String title = tvSearch.getText().toString();
-        if (title.isEmpty())
-            Toast.makeText(getContext(), "Empty title", Toast.LENGTH_LONG).show();
-        else
-            mPresenter.makeSearch(title);
+    public void onCardClick(int listID, int position) {
 
     }
-
-
 }
