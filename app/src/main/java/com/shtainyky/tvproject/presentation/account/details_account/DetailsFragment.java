@@ -45,12 +45,6 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     @ViewById
     TextView tvIncludeAult;
 
-    @ViewById
-    Button bt_myLists;
-
-    @ViewById
-    Button bt_findStars;
-
     @AfterInject
     @Override
     public void initPresenter() {
@@ -64,12 +58,6 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
 
     @AfterViews
     protected void initUI() {
-        RxView.clicks(bt_myLists)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onButtonListsClick());
-        RxView.clicks(bt_findStars)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onButtonStarsClick());
         mPresenter.subscribe();
     }
 

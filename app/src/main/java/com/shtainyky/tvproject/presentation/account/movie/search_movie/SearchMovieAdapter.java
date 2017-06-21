@@ -1,11 +1,13 @@
 package com.shtainyky.tvproject.presentation.account.movie.search_movie;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.presentation.listeners.MovieListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 
 import org.androidannotations.annotations.EBean;
@@ -19,7 +21,7 @@ import java.util.List;
 @EBean
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieVH> {
     private List<SearchMovieDH> items;
-    private OnCardClickListener mListener;
+    private MovieListener mListener;
 
     public SearchMovieAdapter() {
         items = new ArrayList<>();
@@ -34,7 +36,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieVH> {
         notifyDataSetChanged();
     }
 
-    public void setListener(OnCardClickListener listener) {
+    public void setListener(MovieListener listener) {
         mListener = listener;
     }
 
@@ -49,7 +51,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieVH> {
     @Override
     public void onBindViewHolder(SearchMovieVH holder, int position) {
         if (mListener != null) {
-            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getModelID(), position));
+            holder.itemView.setOnClickListener(v -> mListener.onMovieClick(items.get(position).getModel()));
         }
         holder.bindData(items.get(position));
     }

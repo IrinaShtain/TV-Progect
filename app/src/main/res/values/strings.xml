@@ -38,4 +38,7 @@
     <string name="open_list">Open list</string>
     <string name="read_about_star">Read about star</string>
     <string name="famous_for">Famous for</string>
+    <string name="add_to_offline_list">Add to offline list</string>
+    <string name="close">Close</string>
+    <string name="add_to_online_list">Add to online list</string>
 </resources>

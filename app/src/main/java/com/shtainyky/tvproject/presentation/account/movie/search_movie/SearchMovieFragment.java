@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
+import com.shtainyky.tvproject.presentation.listeners.MovieListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -34,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Bell on 30.05.2017.
  */
 @EFragment(R.layout.fragment_search)
-public class SearchMovieFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
+public class SearchMovieFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, MovieListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -107,17 +109,24 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
         listAdapter.addListDH(movieDHs);
     }
 
-    @Override
-    public void onCardClick(int movieID, int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.question_about_adding);
-        builder.setPositiveButton(R.string.answer_yes, (dialog, which) -> {
-            dialog.cancel();
-            mPresenter.addMovie(movieID, listID);
-        });
-        builder.setNegativeButton(R.string.answer_cancel, null);
+//    @Override
+//    public void onCardClick(int movieID, int position) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setMessage(R.string.question_about_adding);
+//        builder.setPositiveButton(R.string.answer_yes, (dialog, which) -> {
+//            dialog.cancel();
+//            mPresenter.addMovie(movieID, listID);
+//        });
+//        builder.setNegativeButton(R.string.answer_cancel, null);
+//
+//        builder.show();
+//    }
 
-        builder.show();
+    @Override
+    public void onMovieClick(MovieItem movieItem) {
+        Log.e("myLog", "movieItem.genres = " + movieItem.genres);
+        Log.e("myLog", "movieItem.title = " + movieItem.title);
+        Log.e("myLog", "movieItem.overview = " + movieItem.overview);
     }
 
     @Override

@@ -20,6 +20,10 @@ public class SearchMovieResponse implements Parcelable {
     public int page;
 
 
+
+    public SearchMovieResponse() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -33,9 +37,6 @@ public class SearchMovieResponse implements Parcelable {
         dest.writeInt(this.page);
     }
 
-    public SearchMovieResponse() {
-    }
-
     protected SearchMovieResponse(Parcel in) {
         this.movies = in.createTypedArrayList(MovieItem.CREATOR);
         this.total_pages = in.readInt();
@@ -43,7 +44,7 @@ public class SearchMovieResponse implements Parcelable {
         this.page = in.readInt();
     }
 
-    public static final Parcelable.Creator<SearchMovieResponse> CREATOR = new Parcelable.Creator<SearchMovieResponse>() {
+    public static final Creator<SearchMovieResponse> CREATOR = new Creator<SearchMovieResponse>() {
         @Override
         public SearchMovieResponse createFromParcel(Parcel source) {
             return new SearchMovieResponse(source);

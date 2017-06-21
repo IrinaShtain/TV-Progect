@@ -2,6 +2,7 @@ package com.shtainyky.tvproject.presentation.account.movie.search_movie;
 
 import android.util.Log;
 
+import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.presentation.account.movie.MovieDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -9,6 +10,8 @@ import com.shtainyky.tvproject.utils.SignedUserManager;
 import org.androidannotations.annotations.Bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import rx.subscriptions.CompositeSubscription;
 
@@ -24,6 +27,8 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     private int total_pages;
     private String movieTitle;
     protected SignedUserManager userManager;
+    private Map<Integer, String> genreMap;
+    private boolean hasGenres;
 
     public SearchMoviePresenter(SearchMovieContract.SearchMovieView view,
                                 SearchMovieContract.SearchMovieModel model,
@@ -33,6 +38,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
         this.userManager = userManager;
         view.setPresenter(this);
         compositeSubscription = new CompositeSubscription();
+        genreMap = new HashMap<>();
     }
 
     @Override
@@ -54,9 +60,25 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     public void makeSearch(String movieTitle) {
         Log.e("myLog", "makeSearch " + movieTitle);
         this.movieTitle = movieTitle;
+
+        compositeSubscription.add(model.getGenres()
+                .subscribe(genresList -> {
+                    Log.e("myLog", "genresList.size() = " + genresList.genres.size());
+                    for (int i = 0; i < genresList.genres.size(); i++) {
+                        GenreItem item = genresList.genres.get(i);
+                        genreMap.put(item.id, item.name);
+                    }
+                    hasGenres = true;
+                    loadMovies();
+                }, throwable -> {
+                    loadMovies();
+                    Log.e("myLog", "throwable genresList put" + throwable.getMessage());
+                }));
+
+    }
+    private void loadMovies(){
         current_page = 1;
         loadPage(current_page);
-
     }
 
     @Override
@@ -100,6 +122,17 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     private ArrayList<SearchMovieDH> prepareList(ArrayList<MovieItem> items) {
         ArrayList<SearchMovieDH> list = new ArrayList<>();
         for (MovieItem item : items) {
+            String genreMovie = "";
+            if (hasGenres)
+                for (int i = 0; i < item.genre_ids.size(); i++) {
+                    genreMovie = genreMovie + genreMap.get(item.genre_ids.get(i));
+                    if (i != item.genre_ids.size() - 1) {
+                        genreMovie = genreMovie + ", ";
+                    }
+                }
+            else
+                genreMovie = "Unknown genres";
+            item.setGenres(genreMovie);
             list.add(new SearchMovieDH(item));
         }
         return list;

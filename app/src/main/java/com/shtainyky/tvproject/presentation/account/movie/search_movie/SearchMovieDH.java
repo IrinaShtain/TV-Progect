@@ -24,6 +24,9 @@ public class SearchMovieDH {
     public int getModelID() {
         return model.id;
     }
+    public String getGenre() {
+        return model.genres;
+    }
 
 
     public String getInfo() {

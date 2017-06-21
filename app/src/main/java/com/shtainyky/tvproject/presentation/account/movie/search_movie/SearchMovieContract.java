@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.movie.search_movie;
 
+import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
@@ -31,5 +32,6 @@ public class SearchMovieContract {
     public interface SearchMovieModel {
         Observable<SearchMovieResponse> getMovies(String title, int page);
         Observable<ResponseMessage> addMovie(int listID, int movieID, String sessionID);
+        Observable<GenresResponse> getGenres();
     }
 }
