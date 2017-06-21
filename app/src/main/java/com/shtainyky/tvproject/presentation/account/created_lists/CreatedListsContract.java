@@ -21,7 +21,6 @@ public interface CreatedListsContract {
         void setLists(ArrayList<CreatedListsDH> createdListsDHs);
         void addLists(ArrayList<CreatedListsDH> createdListsDHs);
         void showMessage();
-        void deleteCurrentPosition();
         void dismissRefreshing();
     }
 
@@ -29,12 +28,9 @@ public interface CreatedListsContract {
         void getNextPage();
         void loadPage(int pageNumber);
         void showDialog();
-        void deleteItem(int listID);
     }
 
     interface CreatedListsModel {
         Observable<CreatedListsData> getLists(int userID, String sessionID, int page);
-        Observable<ResponseMessage> deleteList(int listID, String sessionID);
-
     }
 }

@@ -8,6 +8,7 @@ import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.models.star.StarResponse;
 
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -48,4 +49,11 @@ public interface MovieService {
     Observable<StarResponse> searchStar(@Query("api_key") String api_key,
                                         @Query("query") String title,
                                         @Query("page") int page);
+
+
+    @Headers("content-type: application/json;charset=utf-8")
+    @DELETE("/3/list/{list_id}")
+    Observable<ResponseMessage> deleteList(@Path("list_id") int list_id,
+                                           @Query("api_key") String api_key,
+                                           @Query("session_id") String sessionId);
 }

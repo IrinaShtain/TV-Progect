@@ -14,25 +14,28 @@ import rx.Observable;
  * Created by Bell on 29.05.2017.
  */
 
-public class MovieContract {
-    interface MovieView extends BaseView<MovieContract.MoviePresenter> {
+public class MoviesContract {
+    interface MovieView extends BaseView<MoviesContract.MoviePresenter> {
         void setLists(ArrayList<MovieDH> movieDHs);
         void showDialogWithExplanation(int itemID);
         void notifyAdapter(int itemPosition);
         void dismissRefreshing();
         void setEmptyMessage();
+        void close();
     }
 
     interface MoviePresenter extends BasePresenter {
         void deleteItem();
         void loadMovies();
         void onItemClick(int listID, int position);
+        void deleteList(int listID);
     }
 
     public interface MovieModel {
         Observable<GenresResponse> getGenres();
         Observable<MoviesResponse> getMovies(int listID);
         Observable<ResponseMessage> deleteMovie(int listID, int movieID, String sesionID);
+        Observable<ResponseMessage> deleteList(int listID, String sessionID);
 
     }
 }

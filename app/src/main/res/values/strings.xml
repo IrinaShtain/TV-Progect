@@ -22,9 +22,8 @@
     <string name="question_about_deleting">Do you want to delete movie</string>
     <string name="answer_cancel">Cancel</string>
     <string name="answer_yes">Yes</string>
-    <string name="question_about_goal">Do you want</string>
-    <string name="answer_delete_list">to delete list?</string>
-    <string name="answer_open_lish">to open list?</string>
+    <string name="question_about_goal">Do you want delete this list?</string>
+    <string name="answer_no">No</string>
     <string name="add_list">Add list</string>
     <string name="enter_name">Enter title and desccription for new list</string>
     <string name="text_title">Title</string>

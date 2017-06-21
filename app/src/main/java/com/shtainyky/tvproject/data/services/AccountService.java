@@ -31,11 +31,6 @@ public interface AccountService {
                                           @Query("session_id") String sessionId,
                                           @Query("page") int page);
 
-    @Headers("content-type: application/json;charset=utf-8")
-    @DELETE("/3/list/{list_id}")
-    Observable<ResponseMessage> deleteList(@Path("list_id") int list_id,
-                                           @Query("api_key") String api_key,
-                                           @Query("session_id") String sessionId);
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list")

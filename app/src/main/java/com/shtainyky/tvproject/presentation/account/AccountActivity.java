@@ -34,7 +34,7 @@ import org.androidannotations.annotations.ViewById;
 public class AccountActivity extends BaseActivity {
 
     @ViewById
-    Toolbar toolbar;
+    public Toolbar toolbar;
     private Drawer result;
 
     @AfterViews

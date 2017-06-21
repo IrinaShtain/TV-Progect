@@ -6,12 +6,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
  * Created by Bell on 29.05.2017.
  */
 @EFragment(R.layout.fragment_movies)
-public class MovieFragment extends BaseFragment implements MovieContract.MovieView, OnCardClickListener {
+public class MoviesFragment extends BaseFragment implements MoviesContract.MovieView, OnCardClickListener {
 
     @ViewById
     RecyclerView rvLists;
@@ -56,14 +59,15 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
     @Bean
     protected SignedUserManager userManager;
 
-    private MovieContract.MoviePresenter mPresenter;
+    private MoviesContract.MoviePresenter mPresenter;
 
     @AfterViews
     protected void initUI() {
         mPresenter.subscribe();
+        setHasOptionsMenu(true);
         setupRecyclerView();
         setupSwipeToRefresh();
-        fab_add.setOnClickListener(v ->{
+        fab_add.setOnClickListener(v -> {
             Log.e("myLog", "onClick FAB ");
             mActivity.replaceFragment(SearchMovieFragment_.builder().listID(listID).build());
         });
@@ -79,7 +83,9 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
 
     private void setupSwipeToRefresh() {
         swiperefresh.setOnRefreshListener(
-                () ->{ mPresenter.loadMovies();}
+                () -> {
+                    mPresenter.loadMovies();
+                }
 
         );
     }
@@ -87,11 +93,11 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
     @AfterInject
     @Override
     public void initPresenter() {
-        new MoviePresenter(this, listID, mMovieRepository, userManager);
+        new MoviesPresenter(this, listID, mMovieRepository, userManager);
     }
 
     @Override
-    public void setPresenter(MovieContract.MoviePresenter presenter) {
+    public void setPresenter(MoviesContract.MoviePresenter presenter) {
         mPresenter = presenter;
     }
 
@@ -134,6 +140,34 @@ public class MovieFragment extends BaseFragment implements MovieContract.MovieVi
     public void setEmptyMessage() {
         tv_empty_message.setVisibility(View.VISIBLE);
         tv_empty_message.setText(R.string.no_movies);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_delete, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete:
+                Toast.makeText(mActivity, "Delete", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage(R.string.question_about_goal);
+                builder.setPositiveButton(R.string.answer_yes,
+                        (dialog, which) -> mPresenter.deleteList(listID));
+                builder.setNegativeButton(R.string.answer_no, null);
+
+                builder.show();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void close() {
+        mActivity.onBackPressed();
     }
 
     @Override

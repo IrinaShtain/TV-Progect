@@ -10,7 +10,7 @@ import android.util.Log;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
-import com.shtainyky.tvproject.presentation.account.movie.MovieFragment_;
+import com.shtainyky.tvproject.presentation.account.movie.MoviesFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
@@ -125,18 +125,6 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     }
 
     public void showMessage() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.question_about_goal);
-        builder.setPositiveButton(R.string.answer_delete_list,
-                (dialog, which) -> mPresenter.deleteItem(listId));
-        builder.setNegativeButton(R.string.answer_open_lish,
-                (dialog, which) -> mActivity.replaceFragment(MovieFragment_.builder().listID(listId).build()));
-
-        builder.show();
-    }
-
-    @Override
-    public void deleteCurrentPosition() {
-        listAdapter.deleteItem(listPosition);
+        mActivity.replaceFragment(MoviesFragment_.builder().listID(listId).build());
     }
 }

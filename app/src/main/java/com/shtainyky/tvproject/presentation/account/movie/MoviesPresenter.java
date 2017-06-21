@@ -6,8 +6,6 @@ import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
-import org.androidannotations.annotations.Bean;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,18 +16,18 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Bell on 29.05.2017.
  */
 
-public class MoviePresenter implements MovieContract.MoviePresenter {
-    private MovieContract.MovieView mView;
+public class MoviesPresenter implements MoviesContract.MoviePresenter {
+    private MoviesContract.MovieView mView;
     private int listID;
     private CompositeSubscription compositeSubscription;
-    private MovieContract.MovieModel model;
+    private MoviesContract.MovieModel model;
     private Map<Integer, String> genreMap;
     private int deleteItemID;
     private int deleteItemPosition;
     private boolean hasGenres;
     private SignedUserManager mUserManager;
 
-    public MoviePresenter(MovieContract.MovieView view, int listID, MovieContract.MovieModel model, SignedUserManager userManager) {
+    public MoviesPresenter(MoviesContract.MovieView view, int listID, MoviesContract.MovieModel model, SignedUserManager userManager) {
         mView = view;
         mUserManager = userManager;
         this.listID = listID;
@@ -107,6 +105,19 @@ public class MoviePresenter implements MovieContract.MoviePresenter {
                         mView.notifyAdapter(deleteItemPosition);
                 }, throwable -> {
                     Log.e("myLog", "throwable " + throwable.getMessage());
+                }));
+    }
+
+    @Override
+    public void deleteList(int listID) {
+        Log.e("myLog", "deleteItem listID = " + listID);
+        compositeSubscription.add(model.deleteList(listID, mUserManager.getSessionId())
+                .subscribe(responseMessage -> {
+                    mView.close();
+                }, throwable -> {
+                    Log.e("myLog", "throwable " + throwable.getLocalizedMessage());
+                    if (throwable.getMessage().equals("HTTP 500 Internal Server Error"))
+                        mView.close();
                 }));
     }
 

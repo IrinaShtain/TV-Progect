@@ -84,21 +84,11 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         view.showMessage();
     }
 
-    @Override
-    public void deleteItem(int listID) {
-        Log.e("myLog", "deleteItem listID = " + listID);
-        compositeSubscription.add(model.deleteList(listID, userManager.getSessionId())
-                .subscribe(responseMessage -> {
-                    view.deleteCurrentPosition();
-                }, throwable -> {
-                    Log.e("myLog", "throwable " + throwable.getLocalizedMessage());
-                    if (throwable.getMessage().equals("HTTP 500 Internal Server Error"))
-                        view.deleteCurrentPosition();
-                }));
-    }
 
     @Override
     public void unsubscribe() {
         if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
     }
+
+
 }
