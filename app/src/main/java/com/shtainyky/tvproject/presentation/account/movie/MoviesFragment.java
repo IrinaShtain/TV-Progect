@@ -152,7 +152,6 @@ public class MoviesFragment extends BaseFragment implements MoviesContract.Movie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-                Toast.makeText(mActivity, "Delete", Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage(R.string.question_about_goal);
                 builder.setPositiveButton(R.string.answer_yes,

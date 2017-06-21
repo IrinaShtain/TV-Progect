@@ -76,7 +76,8 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
                 }));
 
     }
-    private void loadMovies(){
+
+    private void loadMovies() {
         current_page = 1;
         loadPage(current_page);
     }
@@ -93,7 +94,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
                 .subscribe(response -> {
                     Log.e("myLog", "response.movies.size() makeSearch " + response.movies.size());
                     Log.e("myLog", "response.movies.size() page " + response.page);
-                    Log.e("myLog", "response.movies.size() total_pages "  + response.total_pages);
+                    Log.e("myLog", "response.movies.size() total_pages " + response.total_pages);
                     Log.e("myLog", "response.movies.size() total_results " + response.total_results);
                     Log.e("myLog", "response.movies.size() total_results " + current_page);
                     current_page = pageNumber;
@@ -110,13 +111,13 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 
     @Override
     public void addMovie(int movieID, int listID) {
-        compositeSubscription.add(model.addMovie(listID, movieID, userManager.getSessionId())
-                .subscribe(response -> {
-                   view.showMessage("Movie is successfully added");
-                }, throwable -> {
-                    view.showMessage("Error.  Something went wrong");
-                    Log.e("myLog", "throwable " + throwable.getMessage());
-                }));
+//        compositeSubscription.add(model.addMovie(listID, movieID, userManager.getSessionId())
+//                .subscribe(response -> {
+//                   view.showMessage("Movie is successfully added");
+//                }, throwable -> {
+//                    view.showMessage("Error.  Something went wrong");
+//                    Log.e("myLog", "throwable " + throwable.getMessage());
+//                }));
     }
 
     private ArrayList<SearchMovieDH> prepareList(ArrayList<MovieItem> items) {

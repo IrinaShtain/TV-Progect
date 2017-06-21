@@ -8,6 +8,7 @@ import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesContract;
+import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsContract;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.Constants;
@@ -23,7 +24,7 @@ import rx.Observable;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class MovieRepository extends NetworkRepository implements MoviesContract.MovieModel,
-        SearchMovieContract.SearchMovieModel{
+        SearchMovieContract.SearchMovieModel, MovieDetailsContract.MovieDetailsModel{
 
     @Bean
     protected Rest rest;

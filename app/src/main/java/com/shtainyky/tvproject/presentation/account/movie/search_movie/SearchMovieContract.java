@@ -31,7 +31,6 @@ public class SearchMovieContract {
 
     public interface SearchMovieModel {
         Observable<SearchMovieResponse> getMovies(String title, int page);
-        Observable<ResponseMessage> addMovie(int listID, int movieID, String sessionID);
         Observable<GenresResponse> getGenres();
     }
 }
