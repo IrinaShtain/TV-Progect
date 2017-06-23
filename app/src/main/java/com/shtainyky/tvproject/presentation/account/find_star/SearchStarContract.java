@@ -28,7 +28,6 @@ public class SearchStarContract {
         void onSearchClick();
         void makeSearch(String movieTitle);
         void getNextPage();
-        void addMovie(int movieID, int listID);
     }
 
     public interface SearchStarModel {

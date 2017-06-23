@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
+import com.shtainyky.tvproject.presentation.listeners.StarListener;
 
 import org.androidannotations.annotations.EBean;
 
@@ -20,12 +21,10 @@ import java.util.List;
 @EBean
 public class SearchStarAdapter extends RecyclerView.Adapter<SearchStarVH> {
     private List<StarDH> items;
-    private OnCardClickListener mListener;
-    private final CustomSpinnerAdapter mAdapter;
+    private StarListener mListener;
 
-    public SearchStarAdapter(Context context) {
+    public SearchStarAdapter() {
         items = new ArrayList<>();
-        mAdapter = new CustomSpinnerAdapter(context);
     }
 
     public void setListDH(List<StarDH> listsDHs) {
@@ -37,7 +36,7 @@ public class SearchStarAdapter extends RecyclerView.Adapter<SearchStarVH> {
         notifyDataSetChanged();
     }
 
-    public void setListener(OnCardClickListener listener) {
+    public void setListener(StarListener listener) {
         mListener = listener;
     }
 
@@ -52,11 +51,9 @@ public class SearchStarAdapter extends RecyclerView.Adapter<SearchStarVH> {
     @Override
     public void onBindViewHolder(SearchStarVH holder, int position) {
         if (mListener != null) {
-            holder.itemView.setOnClickListener(v -> mListener.onCardClick(items.get(position).getModelID(), position));
+            holder.itemView.setOnClickListener(v -> mListener.onStarClick(items.get(position).getModel()));
         }
         holder.bindData(items.get(position));
-        mAdapter.setFamousForItems(items.get(position).getFamousFor());
-        holder.spinner.setAdapter(mAdapter);
     }
 
     @Override

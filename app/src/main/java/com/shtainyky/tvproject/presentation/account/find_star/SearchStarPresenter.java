@@ -92,8 +92,5 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
             loadPage(current_page + 1);
     }
 
-    @Override
-    public void addMovie(int movieID, int listID) {
 
-    }
 }

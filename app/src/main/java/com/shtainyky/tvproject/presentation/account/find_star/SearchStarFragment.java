@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.data.models.star.StarItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.domain.StarRepository;
+import com.shtainyky.tvproject.presentation.account.find_star.stars_details.StarsDetailsFragment_;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieAdapter;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieDH;
@@ -21,6 +23,7 @@ import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMov
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
+import com.shtainyky.tvproject.presentation.listeners.StarListener;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -38,7 +41,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Bell on 02.06.2017.
  */
 @EFragment(R.layout.fragment_search)
-public class SearchStarFragment extends BaseFragment implements SearchStarContract.SearchStarView, OnCardClickListener {
+public class SearchStarFragment extends BaseFragment implements SearchStarContract.SearchStarView, StarListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -129,7 +132,7 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
     }
 
     @Override
-    public void onCardClick(int listID, int position) {
-
+    public void onStarClick(StarItem starItem) {
+        mActivity.replaceFragment(StarsDetailsFragment_.builder().starItem(starItem).build());
     }
 }

@@ -18,7 +18,6 @@ public class SearchStarVH extends RecyclerView.ViewHolder {
     private final TextView tvTitle;
     private final TextView tv_info;
     private final ImageView imageView;
-    public final Spinner spinner;
 
 
 
@@ -31,7 +30,6 @@ public class SearchStarVH extends RecyclerView.ViewHolder {
         tv_info = (TextView) itemView.findViewById(R.id.tv_info);
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
 
-        spinner = (Spinner) itemView.findViewById(R.id.spinner);
     }
 
     public void bindData(StarDH starDH) {

@@ -15,15 +15,30 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitStart"
-            android:src="@drawable/ic_user"/>
+            android:scaleType="fitStart"/>
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_marginStart="@dimen/margin_6"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_20"
+            android:textStyle="bold|italic"
+            tools:text="@string/description"
+            />
 
         <LinearLayout
-            android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_6"
@@ -40,22 +55,22 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_20"
                 android:textStyle="bold|italic"
-                tools:text="@string/name"
+                tools:text="@string/title"
                 />
 
             <TextView
-                android:id="@+id/tv_info"
+                android:id="@+id/tv_release"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_6"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_20"
                 android:textStyle="bold|italic"
-                tools:text="@string/popularity"
+                tools:text="@string/releaseDate"
                 />
 
-        </LinearLayout>
 
+        </LinearLayout>
 
     </RelativeLayout>
 

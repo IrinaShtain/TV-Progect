@@ -16,6 +16,7 @@ import com.shtainyky.tvproject.utils.Constants;
 public class FamousForItem implements Parcelable {
     public String poster_path;
     public String media_type;
+    public String overview;
 
     @JsonField(name = "title")
     public String movie_title;
@@ -45,6 +46,7 @@ public class FamousForItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.poster_path);
         dest.writeString(this.media_type);
+        dest.writeString(this.overview);
         dest.writeString(this.movie_title);
         dest.writeString(this.release_date);
         dest.writeString(this.tv_name);
@@ -55,6 +57,7 @@ public class FamousForItem implements Parcelable {
     protected FamousForItem(Parcel in) {
         this.poster_path = in.readString();
         this.media_type = in.readString();
+        this.overview = in.readString();
         this.movie_title = in.readString();
         this.release_date = in.readString();
         this.tv_name = in.readString();
