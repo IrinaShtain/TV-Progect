@@ -1,9 +1,7 @@
 package com.shtainyky.tvproject.presentation.account.created_lists;
 
 import com.shtainyky.tvproject.data.models.account.CreatedListsData;
-import com.shtainyky.tvproject.data.models.account.User;
-import com.shtainyky.tvproject.data.models.response.ResponseMessage;
-import com.shtainyky.tvproject.presentation.account.details_account.DetailsContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 

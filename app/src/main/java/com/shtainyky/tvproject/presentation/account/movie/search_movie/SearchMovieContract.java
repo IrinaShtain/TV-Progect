@@ -2,7 +2,7 @@ package com.shtainyky.tvproject.presentation.account.movie.search_movie;
 
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
-import com.shtainyky.tvproject.data.models.response.ResponseMessage;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 

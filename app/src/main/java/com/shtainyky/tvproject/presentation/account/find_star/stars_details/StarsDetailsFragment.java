@@ -6,15 +6,12 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.star.FamousForItem;
 import com.shtainyky.tvproject.data.models.star.StarItem;
-import com.shtainyky.tvproject.presentation.account.find_star.SearchStarAdapter;
+import com.shtainyky.tvproject.presentation.account.find_star.stars_details.adapter.FamousForAdapter;
+import com.shtainyky.tvproject.presentation.account.find_star.stars_details.adapter.FamousForDH;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
-import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
-import com.shtainyky.tvproject.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -26,7 +23,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Bell on 21.06.2017.

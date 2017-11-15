@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.find_star.stars_details;
+package com.shtainyky.tvproject.presentation.account.find_star.stars_details.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

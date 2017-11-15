@@ -1,10 +1,7 @@
 package com.shtainyky.tvproject.presentation.account.find_star;
 
-import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
-import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.models.star.StarResponse;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 

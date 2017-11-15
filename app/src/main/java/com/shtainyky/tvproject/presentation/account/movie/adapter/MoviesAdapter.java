@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie;
+package com.shtainyky.tvproject.presentation.account.movie.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

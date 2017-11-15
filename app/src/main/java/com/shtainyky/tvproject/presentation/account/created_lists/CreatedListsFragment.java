@@ -2,13 +2,14 @@ package com.shtainyky.tvproject.presentation.account.created_lists;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsAdapter;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;

@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
-import com.shtainyky.tvproject.presentation.account.movie.MovieDH;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
-
-import org.androidannotations.annotations.Bean;
 
 import java.util.ArrayList;
 import java.util.HashMap;

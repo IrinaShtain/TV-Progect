@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.find_star;
+package com.shtainyky.tvproject.presentation.account.find_star.adapters;
 
 import com.shtainyky.tvproject.data.models.star.FamousForItem;
 import com.shtainyky.tvproject.data.models.star.StarItem;

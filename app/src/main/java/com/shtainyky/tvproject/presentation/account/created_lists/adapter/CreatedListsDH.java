@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.created_lists;
+package com.shtainyky.tvproject.presentation.account.created_lists.adapter;
 
 import com.shtainyky.tvproject.data.models.account.ListItem;
 

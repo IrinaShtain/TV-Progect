@@ -1,13 +1,11 @@
-package com.shtainyky.tvproject.presentation.account.find_star;
+package com.shtainyky.tvproject.presentation.account.find_star.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.presentation.listeners.StarListener;
 
 import org.androidannotations.annotations.EBean;

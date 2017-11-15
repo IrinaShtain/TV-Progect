@@ -1,12 +1,12 @@
-package com.shtainyky.tvproject.presentation.account.created_lists;
+package com.shtainyky.tvproject.presentation.account.created_lists.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
 
 /**
  * Created by Bell on 26.05.2017.

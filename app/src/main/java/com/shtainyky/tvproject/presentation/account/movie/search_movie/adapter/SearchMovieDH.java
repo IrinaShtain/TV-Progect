@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter;
 
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 

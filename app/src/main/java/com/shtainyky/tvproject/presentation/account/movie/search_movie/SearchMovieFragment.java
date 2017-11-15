@@ -1,7 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.movie.search_movie;
 
 import android.content.Context;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,12 +14,12 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsFragment;
 import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsFragment_;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieAdapter;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.MovieListener;
-import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 

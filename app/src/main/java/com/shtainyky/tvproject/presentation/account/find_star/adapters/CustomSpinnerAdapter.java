@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.find_star;
+package com.shtainyky.tvproject.presentation.account.find_star.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

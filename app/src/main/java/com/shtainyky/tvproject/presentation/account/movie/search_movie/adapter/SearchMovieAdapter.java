@@ -1,14 +1,14 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieVH;
 import com.shtainyky.tvproject.presentation.listeners.MovieListener;
-import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 
 import org.androidannotations.annotations.EBean;
 

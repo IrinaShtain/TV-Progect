@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
+import com.shtainyky.tvproject.presentation.account.movie.adapter.MovieDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;

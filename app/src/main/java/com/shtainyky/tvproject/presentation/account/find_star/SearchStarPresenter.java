@@ -2,9 +2,8 @@ package com.shtainyky.tvproject.presentation.account.find_star;
 
 import android.util.Log;
 
-import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.star.StarItem;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;

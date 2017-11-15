@@ -1,10 +1,9 @@
-package com.shtainyky.tvproject.presentation.account.find_star;
+package com.shtainyky.tvproject.presentation.account.find_star.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.shtainyky.tvproject.R;

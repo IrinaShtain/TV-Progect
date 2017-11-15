@@ -11,10 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
+import com.shtainyky.tvproject.presentation.account.movie.adapter.MovieDH;
+import com.shtainyky.tvproject.presentation.account.movie.adapter.MoviesAdapter;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;

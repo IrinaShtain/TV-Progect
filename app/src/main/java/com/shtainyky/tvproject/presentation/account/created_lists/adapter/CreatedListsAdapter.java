@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.created_lists;
+package com.shtainyky.tvproject.presentation.account.created_lists.adapter;
 
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsVH;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 
 import org.androidannotations.annotations.EBean;
