@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.account.details_account;
 import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.account.User;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import rx.subscriptions.CompositeSubscription;
@@ -33,27 +34,22 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
             compositeSubscription.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
                     user -> {
                         userManager.updateUser(user);
-                        view.setUserNick(user.username);
-                        view.setUserName(user.name);
-                        view.setAdultPermission(user.include_adult);
-                        Log.e("myLog", "sessionID " + user.name);
-
+                      displayUserData(user);
                     }, throwable -> {
                         Log.e("myLog", "DetailsPresenter subscribe throwable ");
                     }
             ));
         }
         else {
-            view.setUserNick(currentUser.username);
-            view.setUserName(currentUser.name);
-            view.setAdultPermission(currentUser.include_adult);
+            displayUserData(currentUser);
         }
 
     }
 
-    @Override
-    public void onButtonListsClick() {
-        view.openMyLists();
+    private void displayUserData(User user){
+        view.setUserNick(user.username);
+        view.setUserName(user.name);
+        view.setAdultPermission(user.include_adult);
     }
 
     @Override
@@ -61,8 +57,4 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
         if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
     }
 
-    @Override
-    public void onButtonStarsClick() {
-        view.openFindingStars();
-    }
 }

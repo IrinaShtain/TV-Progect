@@ -19,8 +19,6 @@ public interface DetailsContract {
         void openFindingStars();
     }
     interface DetailsPresenter extends BasePresenter {
-        void onButtonListsClick();
-        void onButtonStarsClick();
 
     }
     interface DetailsModel {

@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.account.details_account;
 
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -13,6 +14,7 @@ import com.shtainyky.tvproject.presentation.account.find_star.SearchStarFragment
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -37,7 +39,10 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     private DetailsContract.DetailsPresenter mPresenter;
 
     @ViewById
-    TextView tv_userName;
+    TextView tvUserName;
+
+    @ViewById
+    ImageView ivUserAvatar;
 
     @ViewById
     TextView tvName;
@@ -63,7 +68,7 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
 
     @Override
     public void setUserNick(String name) {
-        tv_userName.setText(getString(R.string.username, name));
+        tvUserName.setText(getString(R.string.username, name));
     }
 
     @Override

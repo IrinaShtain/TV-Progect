@@ -2,6 +2,7 @@ package com.shtainyky.tvproject.presentation.account.movie.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class MovieVH extends RecyclerView.ViewHolder {
                 .load(listsDH.getPosterPath())
                 .error(R.drawable.ic_user)
                 .into(imageView);
+        Log.e("myLog", "listsDH.getPosterPath() " + listsDH.getPosterPath());
 
 
     }

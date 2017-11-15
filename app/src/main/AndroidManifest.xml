@@ -14,10 +14,12 @@
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.login.SignUpActivity_"/>
+        <activity android:name=".presentation.login.SignUpActivity_"
+            android:noHistory="true"/>
         <activity android:name=".presentation.account.AccountActivity_"/>
         <activity
             android:name=".presentation.splash.SplashActivity_"
+            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

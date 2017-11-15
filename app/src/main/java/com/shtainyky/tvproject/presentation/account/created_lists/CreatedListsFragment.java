@@ -51,7 +51,6 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     protected CreatedListsAdapter listAdapter;
 
     private int listId;
-    private int listPosition;
 
     @AfterInject
     @Override
@@ -121,7 +120,6 @@ public class CreatedListsFragment extends BaseFragment implements CreatedListsCo
     @Override
     public void onCardClick(int listID, int position) {
         listId = listID;
-        listPosition = position;
         mPresenter.showDialog();
     }
 
