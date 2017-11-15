@@ -22,20 +22,17 @@ import rx.Observable;
 
 public interface AccountService {
     @GET(Constants.GET_USER_ACCOUNT)
-    Observable<User> getDetails(@Query("api_key") String api_key,
-                                @Query("session_id") String sessionId);
+    Observable<User> getDetails(@Query("session_id") String sessionId);
 
     @GET("/3/account/{account_id}/lists")
     Observable<CreatedListsData> getLists(@Path("account_id") int account_id,
-                                          @Query("api_key") String api_key,
                                           @Query("session_id") String sessionId,
                                           @Query("page") int page);
 
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list")
-    Observable<ResponseMessage> createList(@Query("api_key") String api_key,
-                                           @Query("session_id") String sessionId,
+    Observable<ResponseMessage> createList(@Query("session_id") String sessionId,
                                            @Body NewListRequest request);
 
 }

@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.data;
 import android.util.Log;
 
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
+import com.shtainyky.tvproject.BuildConfig;
 import com.shtainyky.tvproject.TVProjectApplication;
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.exceptions.TimeoutException;
@@ -17,6 +18,7 @@ import org.androidannotations.annotations.EBean;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
@@ -49,9 +51,11 @@ public class Rest {
                         if (!application.hasInternetConnection()) {
                             throw new ConnectionException();
                         } else {
-                            Request request = chain.request().newBuilder()
+                            Request request = chain.request();
+                            HttpUrl url = request.url().newBuilder()
+                                    .addQueryParameter("api_key", BuildConfig.API_KEY)
                                     .build();
-
+                            request = request.newBuilder().url(url).build();
                             return chain.proceed(request);
                         }
                     } catch (SocketTimeoutException e) {

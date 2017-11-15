@@ -22,38 +22,33 @@ import rx.Observable;
 
 public interface MovieService {
     @GET("/3/genre/movie/list")
-    Observable<GenresResponse> getGenres(@Query("api_key") String api_key);
+    Observable<GenresResponse> getGenres();
 
     @GET("/3/list/{list_id}")
-    Observable<MoviesResponse> getMovies(@Path("list_id") int list_id, @Query("api_key") String api_key );
+    Observable<MoviesResponse> getMovies(@Path("list_id") int list_id);
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list/{list_id}/remove_item")
     Observable<ResponseMessage> deleteMovie(@Path("list_id") int list_id,
-                                            @Query("api_key") String api_key,
                                             @Query("session_id") String session_id,
                                             @Body ActionRequest action);
 
     @GET("/3/search/movie")
-    Observable<SearchMovieResponse> searchMovie(@Query("api_key") String api_key,
-                                                @Query("query") String title,
+    Observable<SearchMovieResponse> searchMovie(@Query("query") String title,
                                                 @Query("page") int page);
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list/{list_id}/add_item")
     Observable<ResponseMessage> addMovie(@Path("list_id") int list_id,
-                                            @Query("api_key") String api_key,
                                             @Query("session_id") String session_id,
                                             @Body ActionRequest action);
     @GET("/3/search/person")
-    Observable<StarResponse> searchStar(@Query("api_key") String api_key,
-                                        @Query("query") String title,
+    Observable<StarResponse> searchStar(@Query("query") String title,
                                         @Query("page") int page);
 
 
     @Headers("content-type: application/json;charset=utf-8")
     @DELETE("/3/list/{list_id}")
     Observable<ResponseMessage> deleteList(@Path("list_id") int list_id,
-                                           @Query("api_key") String api_key,
                                            @Query("session_id") String sessionId);
 }

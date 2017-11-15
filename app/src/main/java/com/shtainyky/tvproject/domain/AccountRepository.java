@@ -40,18 +40,18 @@ public class AccountRepository extends NetworkRepository implements DetailsContr
 
     @Override
     public Observable<User> getUserDetails(String sessionID) {
-        return getNetworkObservable(mAccountService.getDetails(Constants.KEY_API, sessionID));
+        return getNetworkObservable(mAccountService.getDetails(sessionID));
     }
 
 
     @Override
     public Observable<CreatedListsData> getLists(int userID, String sessionID, int page) {
-        return getNetworkObservable(mAccountService.getLists(userID, Constants.KEY_API, sessionID, page));
+        return getNetworkObservable(mAccountService.getLists(userID,sessionID, page));
     }
 
 
     @Override
     public Observable<ResponseMessage> createList(String sessionID, String listTitle, String listDesc) {
-        return getNetworkObservable(mAccountService.createList(Constants.KEY_API, sessionID, new NewListRequest(listTitle, listDesc)));
+        return getNetworkObservable(mAccountService.createList(sessionID, new NewListRequest(listTitle, listDesc)));
     }
 }

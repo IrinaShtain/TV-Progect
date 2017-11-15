@@ -36,18 +36,18 @@ public class LoginRepository extends NetworkRepository implements LoginContract.
     @Override
     public Observable<LoginToken> getToken() {
         Log.e("myLog","LoginRepository getToken called " );
-        return getNetworkObservable(userService.getToken(Constants.KEY_API));
+        return getNetworkObservable(userService.getToken());
     }
 
     @Override
     public Observable<LoginToken> getValidatedToken(String username, String password, String request_token) {
         Log.e("myLog","LoginRepository getToken called " + "username " + username
         +" password " + password + " request_token " + request_token);
-        return getNetworkObservable(userService.validateToken(Constants.KEY_API, username, password, request_token ));
+        return getNetworkObservable(userService.validateToken(username, password, request_token ));
     }
 
     @Override
     public Observable<LoginSession> getSessionID(String validatedToken) {
-        return getNetworkObservable(userService.getSessionId(Constants.KEY_API, validatedToken));
+        return getNetworkObservable(userService.getSessionId(validatedToken));
     }
 }

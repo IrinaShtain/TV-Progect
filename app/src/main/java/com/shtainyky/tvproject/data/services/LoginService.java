@@ -14,15 +14,13 @@ import rx.Observable;
 
 public interface LoginService {
     @GET(Constants.GET_USER_TOKEN)
-    Observable<LoginToken> getToken(@Query("api_key") String api_key);
+    Observable<LoginToken> getToken();
 
     @GET(Constants.GET_VALIDATED_USER_TOKEN)
-    Observable<LoginToken> validateToken(@Query("api_key") String api_key,
-                                         @Query("username") String username,
+    Observable<LoginToken> validateToken(@Query("username") String username,
                                          @Query("password") String password,
                                          @Query("request_token") String request_token);
 
     @GET(Constants.GET_USER_SESSION_ID)
-    Observable<LoginSession> getSessionId(@Query("api_key") String api_key,
-                                          @Query("request_token") String request_token);
+    Observable<LoginSession> getSessionId(@Query("request_token") String request_token);
 }

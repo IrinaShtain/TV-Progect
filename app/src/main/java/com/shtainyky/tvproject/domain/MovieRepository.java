@@ -38,32 +38,32 @@ public class MovieRepository extends NetworkRepository implements MoviesContract
 
     @Override
     public Observable<GenresResponse> getGenres() {
-        return  getNetworkObservable(mMovieService.getGenres(Constants.KEY_API));
+        return  getNetworkObservable(mMovieService.getGenres());
     }
 
     @Override
     public Observable<MoviesResponse> getMovies(int listID) {
-        return getNetworkObservable(mMovieService.getMovies(listID, Constants.KEY_API));
+        return getNetworkObservable(mMovieService.getMovies(listID));
     }
 
     @Override
     public Observable<ResponseMessage> deleteMovie(int listID, int movieID, String sessionID) {
-        return getNetworkObservable(mMovieService.deleteMovie(listID, Constants.KEY_API, sessionID, new ActionRequest(movieID)));
+        return getNetworkObservable(mMovieService.deleteMovie(listID, sessionID, new ActionRequest(movieID)));
     }
 
     @Override
     public Observable<SearchMovieResponse> getMovies(String title, int page) {
-        return getNetworkObservable(mMovieService.searchMovie(Constants.KEY_API, title, page));
+        return getNetworkObservable(mMovieService.searchMovie(title, page));
     }
 
     @Override
     public Observable<ResponseMessage> addMovie(int listID, int movieID, String sessionID) {
-        return getNetworkObservable(mMovieService.addMovie(listID, Constants.KEY_API, sessionID, new ActionRequest(movieID)));
+        return getNetworkObservable(mMovieService.addMovie(listID, sessionID, new ActionRequest(movieID)));
     }
 
     @Override
     public Observable<ResponseMessage> deleteList(int listID, String sessionID) {
-        return getNetworkObservable(mMovieService.deleteList(listID, Constants.KEY_API, sessionID));
+        return getNetworkObservable(mMovieService.deleteList(listID, sessionID));
     }
 
 }

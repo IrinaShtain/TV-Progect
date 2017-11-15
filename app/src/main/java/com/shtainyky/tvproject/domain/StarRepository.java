@@ -30,6 +30,6 @@ public class StarRepository extends NetworkRepository implements SearchStarContr
 
     @Override
     public Observable<StarResponse> getStars(String name, int page) {
-        return getNetworkObservable(mMovieService.searchStar(Constants.KEY_API, name, page));
+        return getNetworkObservable(mMovieService.searchStar(name, page));
     }
 }
