@@ -2,10 +2,13 @@ package com.shtainyky.tvproject.presentation.account.details_account;
 
 import android.util.Log;
 
+import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.account.User;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -31,13 +34,12 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
     public void subscribe() {
         User currentUser = userManager.getCurrentUser();
         if (currentUser == null) {
+            view.showProgressMain();
             сompositeDisposable.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
                     user -> {
                         userManager.updateUser(user);
                         displayUserData(user);
-                    }, throwable -> {
-                        Log.e("myLog", "DetailsPresenter subscribe throwable ");
-                    }
+                    }, throwableConsumer
             ));
         } else {
             displayUserData(currentUser);
@@ -55,5 +57,16 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
     public void unsubscribe() {
         сompositeDisposable.clear();
     }
+
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        Log.d("myLogs", "Error! " + throwable.getMessage());
+        throwable.printStackTrace();
+        view.hideProgress();
+        if (throwable instanceof ConnectionException) {
+            view.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else {
+            view.showErrorMessage(Constants.MessageType.UNKNOWN);
+        }
+    };
 
 }

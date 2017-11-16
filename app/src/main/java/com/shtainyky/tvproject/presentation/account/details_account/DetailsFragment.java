@@ -1,15 +1,13 @@
 package com.shtainyky.tvproject.presentation.account.details_account;
 
 
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
-import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsFragment_;
-import com.shtainyky.tvproject.presentation.account.find_star.SearchStarFragment_;
-import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.base.BasePresenter;
+import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
@@ -22,15 +20,15 @@ import org.androidannotations.annotations.ViewById;
 /**
  * Created by Bell on 25.05.2017.
  */
-@EFragment(R.layout.fragment_details)
-public class DetailsFragment extends BaseFragment implements DetailsContract.DetailsView {
+@EFragment
+public class DetailsFragment extends ContentFragment implements DetailsContract.DetailsView {
 
 
     @Bean
     protected SignedUserManager userManager;
     @Bean
     protected AccountRepository mAccountRepository;
-    private DetailsContract.DetailsPresenter mPresenter;
+    private DetailsContract.DetailsPresenter presenter;
 
     @ViewById
     TextView tvUserName;
@@ -44,6 +42,16 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     @ViewById
     TextView tvIncludeAult;
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_details;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return presenter;
+    }
+
     @AfterInject
     @Override
     public void initPresenter() {
@@ -52,12 +60,12 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
 
     @Override
     public void setPresenter(DetailsContract.DetailsPresenter presenter) {
-        mPresenter = presenter;
+        this.presenter = presenter;
     }
 
     @AfterViews
     protected void initUI() {
-        mPresenter.subscribe();
+        presenter.subscribe();
     }
 
     @Override
@@ -78,20 +86,9 @@ public class DetailsFragment extends BaseFragment implements DetailsContract.Det
     }
 
     @Override
-    public void openMyLists() {
-        mActivity.replaceFragment(CreatedListsFragment_.builder().build());
-    }
-
-    @Override
-    public void openFindingStars() {
-        mActivity.replaceFragment(SearchStarFragment_.builder().build());
-        Log.e("myLog", "openFindingStars");
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenter.unsubscribe();
+        presenter.unsubscribe();
     }
 
 }

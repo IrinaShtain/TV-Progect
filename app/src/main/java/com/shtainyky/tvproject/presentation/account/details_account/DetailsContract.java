@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.account.details_account;
 import com.shtainyky.tvproject.data.models.account.User;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
+import com.shtainyky.tvproject.presentation.base.content.ContentView;
 
 import io.reactivex.Observable;
 
@@ -12,12 +13,10 @@ import io.reactivex.Observable;
  */
 
 public interface DetailsContract {
-    interface DetailsView extends BaseView<DetailsContract.DetailsPresenter> {
+    interface DetailsView extends BaseView<DetailsContract.DetailsPresenter>, ContentView {
         void setUserNick(String name);
         void setUserName(String name);
         void setAdultPermission(boolean hasPermission);
-        void openMyLists();
-        void openFindingStars();
     }
     interface DetailsPresenter extends BasePresenter {
 
