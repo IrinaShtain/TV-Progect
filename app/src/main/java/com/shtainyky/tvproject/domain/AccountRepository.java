@@ -6,6 +6,7 @@ import com.shtainyky.tvproject.data.models.account.User;
 import com.shtainyky.tvproject.data.models.request_body.NewListRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.AccountService;
+import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsContract;
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListContract;
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsContract;
@@ -29,10 +30,12 @@ public class AccountRepository extends NetworkRepository implements DetailsContr
     protected Rest rest;
 
     private AccountService mAccountService;
+    private MovieService mMovieService;
 
     @AfterInject
     protected void initServices() {
         mAccountService = rest.getAccountService();
+        mMovieService = rest.getMovieService();
     }
 
 
@@ -51,5 +54,10 @@ public class AccountRepository extends NetworkRepository implements DetailsContr
     @Override
     public Observable<ResponseMessage> createList(String sessionID, String listTitle, String listDesc) {
         return getNetworkObservable(mAccountService.createList(sessionID, new NewListRequest(listTitle, listDesc)));
+    }
+
+    @Override
+    public Observable<ResponseMessage> deleteList(int listID, String sessionID) {
+        return getNetworkObservable(mMovieService.deleteList(listID, sessionID));
     }
 }

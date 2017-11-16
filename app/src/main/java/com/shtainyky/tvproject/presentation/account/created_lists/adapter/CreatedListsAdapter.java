@@ -47,6 +47,10 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
         notifyDataSetChanged();
     }
 
+    public CreatedListsDH getItem(int position){
+        return items.get(position);
+    }
+
 
     public void setListener(OnCardClickListener listener) {
         mListener = listener;
@@ -59,40 +63,10 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
         return new CreatedListsVH(view);
 
     }
-
-    private void smth(View view) {
-        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-        popupMenu.inflate(R.menu.popupmenu);
-        popupMenu.setGravity(Gravity.FILL_HORIZONTAL);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu1:
-                        Toast.makeText(view.getContext(),
-                                "Вы выбрали PopupMenu 1",
-                                Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.menu2:
-                        Toast.makeText(view.getContext(),
-                                "Вы выбрали PopupMenu 2",
-                                Toast.LENGTH_SHORT).show();
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
-        popupMenu.show();
-    }
-
-
     @Override
     public void onBindViewHolder(CreatedListsVH holder, int position) {
         if (mListener != null) {
             holder.itemView.setOnClickListener(v -> {
-             //   smth(holder.itemView);
                 mListener.onCardClick(items.get(position).getListsID(), position);
             });
         }

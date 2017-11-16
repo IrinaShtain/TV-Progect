@@ -112,9 +112,9 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     public void addMovie(int movieID, int listID) {
 //        compositeSubscription.add(model.addMovie(listID, movieID, userManager.getSessionId())
 //                .subscribe(response -> {
-//                   view.showMessage("Movie is successfully added");
+//                   view.openListDetails("Movie is successfully added");
 //                }, throwable -> {
-//                    view.showMessage("Error.  Something went wrong");
+//                    view.openListDetails("Error.  Something went wrong");
 //                    Log.e("myLog", "throwable " + throwable.getMessage());
 //                }));
     }
