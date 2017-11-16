@@ -1,22 +1,22 @@
 package com.shtainyky.tvproject.presentation.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.LoginRepository;
 import com.shtainyky.tvproject.presentation.account.AccountActivity_;
-import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.base.BasePresenter;
+import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -31,8 +31,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Bell on 23.05.2017.
  */
-@EFragment(R.layout.fragment_login)
-public class LoginFragment extends BaseFragment implements LoginContract.LoginView {
+@EFragment
+public class LoginFragment extends ContentFragment implements LoginContract.LoginView {
 
     @ViewById
     TextInputEditText text_userName;
@@ -41,7 +41,7 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginVi
     @ViewById
     Button bt_signIn;
     @ViewById
-    Button bt_signUp;
+    TextView bt_signUp;
     @ViewById(R.id.til_password_container)
     TextInputLayout passwordWrapper;
     @ViewById(R.id.til_userName_container)
@@ -52,6 +52,11 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginVi
     protected LoginRepository mLoginRepository;
     @Bean
     protected SignedUserManager userManager;
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_login;
+    }
 
     @AfterInject
     @Override
@@ -66,68 +71,40 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginVi
 
     @AfterViews
     protected void initUI() {
+        bt_signUp.setMovementMethod(LinkMovementMethod.getInstance());
         RxView.clicks(bt_signIn)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onSignInClick());
-        RxView.clicks(bt_signUp)
-                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onSignUpClick());
-        Log.e("myLog","initUI ");
+                .subscribe(aVoid -> {
+                    hideKeyboard();
+                    mPresenter.onSignInClick(userNameWrapper.getEditText().getText().toString(), passwordWrapper.getEditText().getText().toString());});
+
+        Log.e("myLog", "initUI ");
         mPresenter.subscribe();
     }
+
     @Override
-    public void validate() {
-        hideKeyboard();
-        String username = userNameWrapper.getEditText().getText().toString();
-        String password = passwordWrapper.getEditText().getText().toString();
-        boolean hasPassword = false;
-        boolean hasEmail = false;
-
-        if (username.isEmpty())
-            userNameWrapper.setError(getString(R.string.error_empty_user_name));
-        else {
-            hasEmail = true;
-        }
-        Log.d("myLog", "password = " + password);
-        if (password.isEmpty()) {
-            passwordWrapper.setError(getString(R.string.error_empty_password));
-        } else {
-            if (!validatePassword(password))
-                passwordWrapper.setError(getString(R.string.error_not_valid_password));
-            else
-                hasPassword = true;
-        }
-
-        if (hasEmail && hasPassword) {
-            userNameWrapper.setErrorEnabled(false);
-            passwordWrapper.setErrorEnabled(false);
-            mPresenter.validateTokennAndGetSessoinID(username, password);
-            Log.d("myLog", "username = " + username);
-            Log.d("myLog", "password = " + password);
-        }
-
-        if (hasEmail)
-            userNameWrapper.setErrorEnabled(false);
-        if (hasPassword)
-            passwordWrapper.setErrorEnabled(false);
-
-    }
-
-    public boolean validatePassword(String password) {
-        return password.length() >= 4;
-    }
-
-    private void hideKeyboard() {
-        View view = mActivity.getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
+    public void setUserNameErrorEnabled(boolean isEnabled) {
+        userNameWrapper.setErrorEnabled(false);
     }
 
     @Override
-    public void showResult(String result) {
-        Toast.makeText(mActivity, result, Toast.LENGTH_SHORT).show();
+    public void setPasswordErrorEnabled(boolean isEnabled) {
+        passwordWrapper.setErrorEnabled(false);
+    }
+
+    @Override
+    public void showNotValidPasswordError() {
+        passwordWrapper.setError(getString(R.string.error_not_valid_password));
+    }
+
+    @Override
+    public void showEmptyNameError() {
+        userNameWrapper.setError(getString(R.string.error_empty_user_name));
+    }
+
+    @Override
+    public void showEmptyPasswordError() {
+        passwordWrapper.setError(getString(R.string.error_empty_password));
     }
 
     @Override
@@ -138,15 +115,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.LoginVi
     }
 
     @Override
-    public void redirect(String token) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/authenticate/" + token));
-        mActivity.startActivity(intent);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mPresenter.unsubscribe();
+    protected BasePresenter getPresenter() {
+        return mPresenter;
     }
 
 }

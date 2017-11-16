@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/margin_6"
+    android:layout_margin="@dimen/margin_half"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,17 +12,17 @@
         android:id="@+id/ivUserAvatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_margin="@dimen/margin_6"
+        android:layout_margin="@dimen/margin_half"
         android:src="@drawable/movie_small_icon"/>
 
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_6"
+        android:layout_marginStart="@dimen/margin_half"
         android:text="@string/username"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_size_20"
+        android:textSize="@dimen/text_size_default"
         android:textStyle="bold|italic"
         />
 
@@ -30,10 +30,10 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_6"
+        android:layout_marginStart="@dimen/margin_half"
         android:text="@string/name"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_size_20"
+        android:textSize="@dimen/text_size_default"
         android:textStyle="bold|italic"
         />
 
@@ -41,10 +41,10 @@
         android:id="@+id/tvIncludeAult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_6"
+        android:layout_marginStart="@dimen/margin_half"
         android:text="@string/include_adult"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_size_20"
+        android:textSize="@dimen/text_size_default"
         android:textStyle="bold|italic"
         />
 

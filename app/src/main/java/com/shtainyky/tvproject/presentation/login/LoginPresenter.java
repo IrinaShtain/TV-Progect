@@ -2,9 +2,13 @@ package com.shtainyky.tvproject.presentation.login;
 
 import android.util.Log;
 
+import com.shtainyky.tvproject.data.exceptions.ConnectionException;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
-import rx.subscriptions.CompositeSubscription;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Bell on 23.05.2017.
@@ -13,7 +17,7 @@ import rx.subscriptions.CompositeSubscription;
 public class LoginPresenter implements LoginContract.LoginPresenter {
 
     private LoginContract.LoginView mView;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable mCompositeDisposable;
     private LoginContract.LoginModel model;
     private SignedUserManager userManager;
 
@@ -22,79 +26,94 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
         this.model = model;
         this.userManager = userManager;
         mView.setPresenter(this);
-        compositeSubscription = new CompositeSubscription();
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
-    public void onSignInClick() {
-        mView.validate();
+    public void onSignInClick(String userName, String password) {
+        boolean hasPassword = false;
+        boolean hasEmail = false;
+
+        if (userName.isEmpty())
+            mView.showEmptyNameError();
+        else {
+            hasEmail = true;
+        }
+
+        if (password.isEmpty()) {
+            mView.showEmptyPasswordError();
+        } else {
+            if (!validatePassword(password))
+                mView.showNotValidPasswordError();
+            else
+                hasPassword = true;
+        }
+
+        if (hasEmail && hasPassword) {
+            mView.setPasswordErrorEnabled(false);
+            mView.setUserNameErrorEnabled(false);
+            validateTokenAndGetSessoinID(userName, password);
+        }
+
+        if (hasEmail)
+            mView.setUserNameErrorEnabled(false);
+
+        if (hasPassword)
+            mView.setPasswordErrorEnabled(false);
     }
 
-    @Override
-    public void onSignUpClick() {
-        if (userManager.getAuthToken() != null)
-            mView.redirect(userManager.getAuthToken());
+    private boolean validatePassword(String password) {
+        return password.length() >= 4;
     }
 
-    @Override
-    public void validateTokennAndGetSessoinID(String userName, String password) {
-        mView.showResult("userName " + userName + " password " + password);
-
-        compositeSubscription.add(model.getValidatedToken(userName, password, userManager.getAuthToken())
-                .subscribe(loginResponse -> {
-                    userManager.saveAuthToken(loginResponse.request_token);
-                    getSessionID(userManager.getAuthToken());
-
-                    Log.e("myLog", "getValidatedToken .auth_token " + loginResponse.request_token);
-
-
-                }, throwable -> {
-                    mView.showResult("Wrong credentials");
-                    Log.e("myLog", "request error " + throwable.getMessage());
-
-
-                }));
+    private void validateTokenAndGetSessoinID(String userName, String password) {
+        mView.showProgressMain();
+        mCompositeDisposable.add(
+                model.getValidatedToken(userName, password, userManager.getAuthToken())
+                        .subscribe(loginResponse -> {
+                            userManager.saveAuthToken(loginResponse.request_token);
+                            getSessionID(userManager.getAuthToken());
+                            Log.e("myLog", "getValidatedToken .auth_token " + loginResponse.request_token);
+                        }, throwableConsumer));
 
     }
 
     private void getSessionID(String validatedToken) {
-        compositeSubscription.add(model.getSessionID(validatedToken)
+        mCompositeDisposable.add(model.getSessionID(validatedToken)
                 .subscribe(loginResponse -> {
-                    userManager.saveSessionID(loginResponse.sessionID);
-                    mView.showResult("sessionID:" + loginResponse.sessionID);
-                    mView.openAccountView();
-                    Log.e("myLog", "sessionID " + loginResponse.sessionID);
+                            userManager.saveSessionID(loginResponse.sessionID);
+                            mView.hideProgress();
+                            mView.openAccountView();
+                            Log.e("myLog", "sessionID " + loginResponse.sessionID);
+                        }, throwableConsumer
 
-                }, throwable -> {
-                    mView.showResult("Wrong credentials");
-                    Log.e("myLog", "request error " + throwable.getMessage());
-
-
-                }));
+                ));
     }
 
     @Override
     public void subscribe() {
-        Log.e("myLog", "subscribe ");
-        Log.e("myLog", "subscribe model " + String.valueOf(model == null));
-
-        compositeSubscription.add(model.getToken()
+        mView.showProgressMain();
+        mCompositeDisposable.add(model.getToken()
                 .subscribe(loginResponse -> {
-                    mView.showResult(loginResponse.request_token);
+                    mView.hideProgress();
                     userManager.saveAuthToken(loginResponse.request_token);
                     Log.e("myLog", "loginResponse.data.token.auth_token " + loginResponse.request_token);
-                }, throwable -> {
-
-                    Log.e("myLog", "request error " + throwable.getMessage());
-                    throwable.printStackTrace();
-
-                }));
+                }, throwableConsumer));
     }
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+        mCompositeDisposable.clear();
     }
 
-
+    private Consumer<Throwable> throwableConsumer = throwable -> {
+        Log.d("myLogs", "Error! " + throwable.getMessage());
+        throwable.printStackTrace();
+        mView.hideProgress();
+        if (throwable instanceof ConnectionException) {
+            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        } else {
+            mView.showErrorMessage(Constants.MessageType.USER_NOT_REGISTERED);
+        }
+    };
 }

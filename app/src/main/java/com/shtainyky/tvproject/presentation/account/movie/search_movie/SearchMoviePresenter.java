@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 30.05.2017.
@@ -19,7 +20,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePresenter {
     private SearchMovieContract.SearchMovieView view;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable compositeDisposable;
     private SearchMovieContract.SearchMovieModel model;
     private int current_page;
     private int total_pages;
@@ -35,7 +36,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
         this.model = model;
         this.userManager = userManager;
         view.setPresenter(this);
-        compositeSubscription = new CompositeSubscription();
+        compositeDisposable = new CompositeDisposable();
         genreMap = new HashMap<>();
     }
 
@@ -46,7 +47,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+       compositeDisposable.clear();
     }
 
     @Override
@@ -59,7 +60,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
         Log.e("myLog", "makeSearch " + movieTitle);
         this.movieTitle = movieTitle;
 
-        compositeSubscription.add(model.getGenres()
+        compositeDisposable.add(model.getGenres()
                 .subscribe(genresList -> {
                     Log.e("myLog", "genresList.size() = " + genresList.genres.size());
                     for (int i = 0; i < genresList.genres.size(); i++) {
@@ -88,7 +89,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     }
 
     private void loadPage(int pageNumber) {
-        compositeSubscription.add(model.getMovies(movieTitle, pageNumber)
+        compositeDisposable.add(model.getMovies(movieTitle, pageNumber)
                 .subscribe(response -> {
                     Log.e("myLog", "response.movies.size() makeSearch " + response.movies.size());
                     Log.e("myLog", "response.movies.size() page " + response.page);

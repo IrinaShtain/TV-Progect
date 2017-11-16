@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/iv_logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/margin_default"
         android:text="@string/my_tv_project"
         android:textColor="@color/green"
-        android:textSize="@dimen/text_size_24"
+        android:textSize="@dimen/text_size_default"
         android:textStyle="bold"/>
 
     <ImageView

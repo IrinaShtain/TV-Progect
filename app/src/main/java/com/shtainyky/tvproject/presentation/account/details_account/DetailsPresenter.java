@@ -3,10 +3,10 @@ package com.shtainyky.tvproject.presentation.account.details_account;
 import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.account.User;
-import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 25.05.2017.
@@ -16,14 +16,14 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
 
     private DetailsContract.DetailsView view;
     private SignedUserManager userManager;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable сompositeDisposable;
     private DetailsContract.DetailsModel model;
 
     public DetailsPresenter(DetailsContract.DetailsView view, SignedUserManager userManager, DetailsContract.DetailsModel model) {
         this.view = view;
         this.model = model;
         this.userManager = userManager;
-        compositeSubscription = new CompositeSubscription();
+        сompositeDisposable = new CompositeDisposable();
         view.setPresenter(this);
     }
 
@@ -31,22 +31,21 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
     public void subscribe() {
         User currentUser = userManager.getCurrentUser();
         if (currentUser == null) {
-            compositeSubscription.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
+            сompositeDisposable.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
                     user -> {
                         userManager.updateUser(user);
-                      displayUserData(user);
+                        displayUserData(user);
                     }, throwable -> {
                         Log.e("myLog", "DetailsPresenter subscribe throwable ");
                     }
             ));
-        }
-        else {
+        } else {
             displayUserData(currentUser);
         }
 
     }
 
-    private void displayUserData(User user){
+    private void displayUserData(User user) {
         view.setUserNick(user.username);
         view.setUserName(user.name);
         view.setAdultPermission(user.include_adult);
@@ -54,7 +53,7 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+        сompositeDisposable.clear();
     }
 
 }

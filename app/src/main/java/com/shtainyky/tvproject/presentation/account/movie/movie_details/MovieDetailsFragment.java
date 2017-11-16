@@ -2,11 +2,10 @@ package com.shtainyky.tvproject.presentation.account.movie.movie_details;
 
 import android.support.design.widget.Snackbar;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;

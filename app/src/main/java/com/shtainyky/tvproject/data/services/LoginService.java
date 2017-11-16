@@ -4,9 +4,10 @@ import com.shtainyky.tvproject.data.models.loginization.LoginSession;
 import com.shtainyky.tvproject.data.models.loginization.LoginToken;
 import com.shtainyky.tvproject.utils.Constants;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
+
 
 /**
  * Created by Bell on 24.05.2017.

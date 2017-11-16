@@ -2,10 +2,10 @@ package com.shtainyky.tvproject.presentation.account.movie.movie_details;
 
 import android.util.Log;
 
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 21.06.2017.
@@ -14,7 +14,7 @@ import rx.subscriptions.CompositeSubscription;
 public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsPresenter {
 
     private MovieDetailsContract.MovieDetailsView mView;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable compositeDisposable;
     private MovieDetailsContract.MovieDetailsModel mModel;
     private SignedUserManager mUserManager;
 
@@ -25,7 +25,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
         mModel=model;
         mUserManager = userManager;
         mView.setPresenter(this);
-        compositeSubscription = new CompositeSubscription();
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -35,12 +35,12 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+        compositeDisposable.clear();
     }
 
     @Override
     public void addOnlineClicked(int listID, int movieID) {
-        compositeSubscription.add(mModel.addMovie(listID, movieID, mUserManager.getSessionId())
+        compositeDisposable.add(mModel.addMovie(listID, movieID, mUserManager.getSessionId())
                 .subscribe(response -> {
                     mView.showMessage("Movie is successfully added");
                 }, throwable -> {

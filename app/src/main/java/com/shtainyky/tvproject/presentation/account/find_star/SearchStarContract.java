@@ -7,7 +7,8 @@ import com.shtainyky.tvproject.presentation.base.BaseView;
 
 import java.util.ArrayList;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 02.06.2017.

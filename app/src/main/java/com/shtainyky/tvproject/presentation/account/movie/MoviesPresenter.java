@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 29.05.2017.
@@ -20,7 +21,7 @@ import rx.subscriptions.CompositeSubscription;
 public class MoviesPresenter implements MoviesContract.MoviePresenter {
     private MoviesContract.MovieView mView;
     private int listID;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable compositeDisposable;
     private MoviesContract.MovieModel model;
     private Map<Integer, String> genreMap;
     private int deleteItemID;
@@ -35,13 +36,13 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
         this.model = model;
 
         mView.setPresenter(this);
-        compositeSubscription = new CompositeSubscription();
+        compositeDisposable = new CompositeDisposable();
         genreMap = new HashMap();
     }
 
     @Override
     public void subscribe() {
-        compositeSubscription.add(model.getGenres()
+        compositeDisposable.add(model.getGenres()
                 .subscribe(genresList -> {
                     Log.e("myLog", "genresList.size() = " + genresList.genres.size());
                     for (int i = 0; i < genresList.genres.size(); i++) {
@@ -79,7 +80,7 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
 
     @Override
     public void loadMovies() {
-        compositeSubscription.add(model.getMovies(listID)
+        compositeDisposable.add(model.getMovies(listID)
                 .subscribe(moviesList -> {
                     Log.e("myLog", "getMovies ");
                     if (moviesList.movies.size() > 0)
@@ -95,12 +96,12 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+        compositeDisposable.clear();
     }
 
     @Override
     public void deleteItem() {
-        compositeSubscription.add(model.deleteMovie(listID, deleteItemID, mUserManager.getSessionId())
+        compositeDisposable.add(model.deleteMovie(listID, deleteItemID, mUserManager.getSessionId())
                 .subscribe(response -> {
                     if (response.status_code == 13)
                         mView.notifyAdapter(deleteItemPosition);
@@ -112,7 +113,7 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
     @Override
     public void deleteList(int listID) {
         Log.e("myLog", "deleteItem listID = " + listID);
-        compositeSubscription.add(model.deleteList(listID, mUserManager.getSessionId())
+        compositeDisposable.add(model.deleteList(listID, mUserManager.getSessionId())
                 .subscribe(responseMessage -> {
                     mView.close();
                 }, throwable -> {

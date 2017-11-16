@@ -2,10 +2,10 @@ package com.shtainyky.tvproject.presentation.account.created_lists.create_list;
 
 import android.util.Log;
 
-import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsContract;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 30.05.2017.
@@ -14,7 +14,7 @@ import rx.subscriptions.CompositeSubscription;
 public class CreateNewListPresenter implements CreateNewListContract.CreateNewListPresenter {
     private CreateNewListContract.CreateNewListView view;
     private SignedUserManager userManager;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable сompositeDisposable;
     private CreateNewListContract.CreateNewListModel model;
 
     public CreateNewListPresenter(CreateNewListContract.CreateNewListView view,
@@ -23,7 +23,7 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
         this.view = view;
         this.userManager = userManager;
         this.model = model;
-        compositeSubscription = new CompositeSubscription();
+        сompositeDisposable = new CompositeDisposable();
         view.setPresenter(this);
     }
 
@@ -34,7 +34,7 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+        сompositeDisposable.clear();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
     public void createNewList(String title, String description) {
         Log.e("myLog", "createNewList ");
 
-        compositeSubscription.add(model.createList(userManager.getSessionId(), title, description)
+        сompositeDisposable.add(model.createList(userManager.getSessionId(), title, description)
                 .subscribe(response -> {
                     Log.e("myLog", "createList ");
                     view.clearInput();

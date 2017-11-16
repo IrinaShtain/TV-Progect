@@ -6,7 +6,7 @@
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_12"
+    android:layout_marginBottom="@dimen/margin_default"
     android:background="@color/cardview_dark_background"
     app:cardCornerRadius="@dimen/corner_radius_5">
 
@@ -26,9 +26,9 @@
             android:id="@+id/ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_6"
-            android:layout_marginLeft="@dimen/margin_6"
-            android:layout_marginRight="@dimen/margin_6"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginLeft="@dimen/margin_half"
+            android:layout_marginRight="@dimen/margin_half"
             android:layout_toEndOf="@+id/imageView"
             android:orientation="vertical">
 
@@ -36,9 +36,9 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 tools:text="@string/name"
                 />
@@ -47,9 +47,9 @@
                 android:id="@+id/tv_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 tools:text="@string/popularity"
                 />

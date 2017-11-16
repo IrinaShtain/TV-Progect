@@ -9,7 +9,9 @@ import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.internal.disposables.CancellableDisposable;
+
 
 /**
  * Created by Bell on 25.05.2017.
@@ -18,7 +20,7 @@ import rx.subscriptions.CompositeSubscription;
 public class CreateListsPresenter implements CreatedListsContract.CreatedListsPresenter {
     private CreatedListsContract.CreatedListsView view;
     private SignedUserManager userManager;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable compositeDisposable;
     private CreatedListsContract.CreatedListsModel model;
     private User user;
 
@@ -31,7 +33,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         this.view = view;
         this.model = model;
         this.userManager = userManager;
-        compositeSubscription = new CompositeSubscription();
+        compositeDisposable = new CompositeDisposable();
         view.setPresenter(this);
     }
 
@@ -49,9 +51,11 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         if (current_page < total_pages)
             loadPage(current_page + 1);
     }
+
     @Override
     public void loadPage(int pageNumber) {
-        compositeSubscription.add(model.getLists(user.id, userManager.getSessionId(), pageNumber)
+        compositeDisposable.add(
+                model.getLists(user.id, userManager.getSessionId(), pageNumber)
                 .subscribe(userListResponse -> {
                     total_pages = userListResponse.total_pages;
                     current_page = pageNumber;
@@ -88,7 +92,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+
     }
 
 

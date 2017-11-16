@@ -1,18 +1,17 @@
 package com.shtainyky.tvproject.domain;
 
 import com.shtainyky.tvproject.data.Rest;
-import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.star.StarResponse;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.find_star.SearchStarContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
-import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 02.06.2017.

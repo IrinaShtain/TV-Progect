@@ -8,7 +8,8 @@ import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+
 
 /**
  * Created by Bell on 02.06.2017.
@@ -16,7 +17,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public class SearchStarPresenter implements SearchStarContract.SearchStarPresenter {
     private SearchStarContract.SearchStarView view;
-    private CompositeSubscription compositeSubscription;
+    private CompositeDisposable сompositeDisposable;
     private SearchStarContract.SearchStarModel model;
     private int current_page;
     private int total_pages;
@@ -30,7 +31,7 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
         this.model = model;
         this.userManager = userManager;
         view.setPresenter(this);
-        compositeSubscription = new CompositeSubscription();
+        сompositeDisposable = new CompositeDisposable();
     }
 
 
@@ -42,7 +43,7 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
 
     @Override
     public void unsubscribe() {
-        if (compositeSubscription.hasSubscriptions()) compositeSubscription.clear();
+       сompositeDisposable.clear();
     }
 
 
@@ -60,7 +61,7 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
     }
 
     private void loadPage(int pageNumber) {
-        compositeSubscription.add(model.getStars(name, pageNumber)
+        сompositeDisposable.add(model.getStars(name, pageNumber)
                 .subscribe(response -> {
                     current_page = pageNumber;
                     total_pages = response.total_pages;

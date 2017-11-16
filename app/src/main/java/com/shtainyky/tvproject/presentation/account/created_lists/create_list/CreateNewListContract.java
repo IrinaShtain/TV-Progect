@@ -1,11 +1,11 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.create_list;
 
-import com.shtainyky.tvproject.data.models.request_body.NewListRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 30.05.2017.

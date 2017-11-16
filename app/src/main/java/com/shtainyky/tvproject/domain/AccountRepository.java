@@ -1,7 +1,5 @@
 package com.shtainyky.tvproject.domain;
 
-import android.webkit.ClientCertRequest;
-
 import com.shtainyky.tvproject.data.Rest;
 import com.shtainyky.tvproject.data.models.account.CreatedListsData;
 import com.shtainyky.tvproject.data.models.account.User;
@@ -12,13 +10,13 @@ import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsCo
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListContract;
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
-import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 25.05.2017.

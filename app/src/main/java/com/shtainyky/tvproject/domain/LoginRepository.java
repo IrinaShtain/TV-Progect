@@ -9,13 +9,13 @@ import com.shtainyky.tvproject.data.models.loginization.LoginToken;
 import com.shtainyky.tvproject.data.services.LoginService;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.presentation.login.LoginContract;
-import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 24.05.2017.

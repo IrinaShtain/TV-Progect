@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.facebook.stetho.Stetho;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.shtainyky.tvproject.data.Rest;
 import com.squareup.picasso.Picasso;
@@ -32,6 +33,7 @@ public class TVProjectApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initPicasso();
+        Stetho.initializeWithDefaults(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 

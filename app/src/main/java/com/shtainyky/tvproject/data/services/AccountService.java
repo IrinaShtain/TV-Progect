@@ -2,19 +2,18 @@ package com.shtainyky.tvproject.data.services;
 
 import com.shtainyky.tvproject.data.models.account.CreatedListsData;
 import com.shtainyky.tvproject.data.models.account.User;
-import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.request_body.NewListRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.utils.Constants;
 
+import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
+
 
 /**
  * Created by Bell on 25.05.2017.

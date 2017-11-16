@@ -22,9 +22,9 @@
             android:id="@+id/rvLists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_12"
-            android:layout_marginRight="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:layout_marginRight="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_half"
             />
 
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/margin_12"
+        android:layout_margin="@dimen/margin_default"
         android:clickable="true"
         android:src="@drawable/ic_action_add"
         app:fabSize="normal"

@@ -1,16 +1,13 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.create_list;
 
 
-import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.jakewharton.rxbinding.view.RxView;
+
+import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
@@ -83,14 +80,6 @@ public class CreateNewListFragment extends BaseFragment implements CreateNewList
 
         }
 
-    }
-
-    private void hideKeyboard() {
-        View view = mActivity.getCurrentFocus();
-        if (view != null) {
-            ((InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE)).
-                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        }
     }
 
     @Override

@@ -4,7 +4,7 @@
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_12"
+    android:layout_margin="@dimen/margin_half"
     >
 
     <RelativeLayout
@@ -24,10 +24,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imageView"
-            android:layout_margin="@dimen/margin_6"
+            android:layout_margin="@dimen/margin_half"
             android:text="@string/famous_for"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/text_size_24"
+            android:textSize="@dimen/text_size_default"
             android:textStyle="bold|italic"
             />
 
@@ -36,15 +36,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_famousFor"
-            android:layout_margin="@dimen/margin_6"/>
+            android:layout_margin="@dimen/margin_half"/>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_6"
-            android:layout_marginLeft="@dimen/margin_6"
-            android:layout_marginRight="@dimen/margin_6"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginLeft="@dimen/margin_half"
+            android:layout_marginRight="@dimen/margin_half"
             android:layout_toEndOf="@+id/imageView"
             android:orientation="vertical">
 
@@ -52,10 +52,10 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/name"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 
@@ -63,10 +63,10 @@
                 android:id="@+id/tv_popularity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/popularity"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 

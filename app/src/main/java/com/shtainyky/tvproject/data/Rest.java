@@ -22,7 +22,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 
 /**
  * Created by Bell on 23.05.2017.
@@ -66,7 +67,7 @@ public class Rest {
         Log.e("myLog","Rest called ");
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(LoganSquareConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(clientBuilder.build())
                 .baseUrl(Constants.BASE_URL)
                 .build();

@@ -4,7 +4,7 @@
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_12"
+    android:layout_margin="@dimen/margin_default"
     >
 
     <RelativeLayout
@@ -24,19 +24,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/imageView"
-            android:layout_margin="@dimen/margin_6"
+            android:layout_margin="@dimen/margin_half"
             android:text="@string/description"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_20"
+            android:textSize="@dimen/text_size_default"
             android:textStyle="bold|italic"
             />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_6"
-            android:layout_marginLeft="@dimen/margin_6"
-            android:layout_marginRight="@dimen/margin_6"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginLeft="@dimen/margin_half"
+            android:layout_marginRight="@dimen/margin_half"
             android:layout_toEndOf="@+id/imageView"
             android:orientation="vertical">
 
@@ -44,10 +44,10 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/title"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 
@@ -55,10 +55,10 @@
                 android:id="@+id/tv_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/genre"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 
@@ -66,10 +66,10 @@
                 android:id="@+id/tv_releaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/releaseDate"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 
@@ -78,10 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:text="@string/popularity"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_20"
+                android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
                 />
 
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:text="@string/close"
@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_half"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:text="@string/add_to_offline_list"

@@ -1,23 +1,23 @@
 package com.shtainyky.tvproject.domain;
 
 import com.shtainyky.tvproject.data.Rest;
-import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
-import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
+import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
+import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesContract;
 import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsContract;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
-import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by Bell on 29.05.2017.
