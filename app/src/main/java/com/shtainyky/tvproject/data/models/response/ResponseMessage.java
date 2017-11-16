@@ -12,6 +12,7 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 public class ResponseMessage implements Parcelable {
     public int status_code;
     public String status_message;
+    public int list_id;  //variable for create list
 
     @Override
     public int describeContents() {
@@ -21,6 +22,7 @@ public class ResponseMessage implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.status_code);
+        dest.writeInt(this.list_id);
         dest.writeString(this.status_message);
     }
 
@@ -29,6 +31,7 @@ public class ResponseMessage implements Parcelable {
 
     protected ResponseMessage(Parcel in) {
         this.status_code = in.readInt();
+        this.list_id = in.readInt();
         this.status_message = in.readString();
     }
 

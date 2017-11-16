@@ -24,9 +24,22 @@ public class Constants {
     public static final String GET_USER_SESSION_ID = "3/authentication/session/new";
     public static final String GET_USER_ACCOUNT = "/3/account";
 
+    /*----------------- REQUEST CODE ------------------*/
+    public static final int REQUEST_CODE_CREATE_NEW_LIST = 100;
+
+    /*----------------- KEY CODE ------------------*/
+    public static final String KEY_TITLE = "list_title";
+    public static final String KEY_DESCRIPTION = "list_desc";
+    public static final String KEY_ERROR_CODE = "error_code";
+
+    /*----------------- ERROR CODE ------------------*/
+    public static final int ERROR_CODE_CONNECTION_LOST = -1;
+    public static final int ERROR_CODE_UNKNOWN = -2;
+
     public enum MessageType {
         CONNECTION_PROBLEMS(R.string.err_msg_connection_problem, true),
         USER_NOT_REGISTERED(R.string.err_msg_user_not_registered, true),
+        NEW_LIST_CREATED_SUCCESSFULLY(R.string.msg_new_list_created_successfully, false),
         UNKNOWN(R.string.err_msg_something_goes_wrong, true);
 
         @StringRes

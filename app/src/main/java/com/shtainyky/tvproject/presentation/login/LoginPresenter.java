@@ -111,9 +111,9 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
         throwable.printStackTrace();
         mView.hideProgress();
         if (throwable instanceof ConnectionException) {
-            mView.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+            mView.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
         } else {
-            mView.showErrorMessage(Constants.MessageType.USER_NOT_REGISTERED);
+            mView.showMessage(Constants.MessageType.USER_NOT_REGISTERED);
         }
     };
 }

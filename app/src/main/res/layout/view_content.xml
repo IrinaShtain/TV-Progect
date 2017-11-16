@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
@@ -7,7 +8,7 @@
     <FrameLayout
         android:id="@+id/flContent_VC"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <ProgressBar
         android:id="@+id/pbMain_VC"
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
 
     <ProgressBar
         android:id="@+id/pbPagination_VC"
@@ -25,8 +26,8 @@
         android:layout_gravity="bottom|center_horizontal"
         android:indeterminate="true"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
 
-    <include layout="@layout/view_placeholder" />
+    <include layout="@layout/view_placeholder"/>
 
 </FrameLayout>

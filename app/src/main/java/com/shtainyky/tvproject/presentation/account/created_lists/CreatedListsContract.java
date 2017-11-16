@@ -23,6 +23,7 @@ public interface CreatedListsContract {
         void addLists(ArrayList<CreatedListsDH> createdListsDHs);
         void openListDetails(int lisID);
         void deleteItem(int pos);
+        void addItem(CreatedListsDH createdListsDH);
     }
 
     interface CreatedListsPresenter extends RefreshablePresenter {
@@ -30,6 +31,7 @@ public interface CreatedListsContract {
         void loadPage(int pageNumber);
         void showDetails(int lisID);
         void removeList(CreatedListsDH item, int pos);
+        void showResult(int resultID, String title, String description);
     }
 
     interface CreatedListsModel {

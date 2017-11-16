@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.base.content;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -95,7 +96,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
     }
 
     @Override
-    public void showErrorMessage(Constants.MessageType messageType) {
+    public void showMessage(Constants.MessageType messageType) {
         showCustomMessage(getString(messageType.getMessageRes()), messageType.isDangerous());
     }
 
@@ -104,7 +105,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
         hideProgress();
         if (snackbar.isShown()) snackbar.dismiss();
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(getActivity(), isDangerous
-                ? R.color.colorAccent
+                ? R.color.red
                 : R.color.colorPrimary));
         snackbar.setText(msg);
         snackbar.show();

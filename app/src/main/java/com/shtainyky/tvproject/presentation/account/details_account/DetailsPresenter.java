@@ -63,9 +63,9 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
         throwable.printStackTrace();
         view.hideProgress();
         if (throwable instanceof ConnectionException) {
-            view.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+            view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
         } else {
-            view.showErrorMessage(Constants.MessageType.UNKNOWN);
+            view.showMessage(Constants.MessageType.UNKNOWN);
         }
     };
 

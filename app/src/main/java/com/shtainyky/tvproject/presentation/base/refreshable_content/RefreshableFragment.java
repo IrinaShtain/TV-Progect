@@ -1,8 +1,10 @@
 package com.shtainyky.tvproject.presentation.base.refreshable_content;
 
 import android.support.annotation.LayoutRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
@@ -21,6 +23,8 @@ public abstract class RefreshableFragment extends ContentFragment {
 
     @ViewById
     protected SwipeRefreshLayout swipeContainer_VC;
+    @ViewById
+    protected FloatingActionButton fabAdd_VC;
 
     protected abstract RefreshablePresenter getPresenter();
 
@@ -66,5 +70,11 @@ public abstract class RefreshableFragment extends ContentFragment {
         super.hideProgress();
         enableRefreshing(true);
         if(swipeContainer_VC.isRefreshing()) swipeContainer_VC.setRefreshing(false);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fabAdd_VC.setVisibility(View.GONE);
     }
 }

@@ -47,6 +47,11 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
         notifyDataSetChanged();
     }
 
+    public void addItem(CreatedListsDH createdListsDH) {
+        items.add(createdListsDH);
+        notifyDataSetChanged();
+    }
+
     public CreatedListsDH getItem(int position){
         return items.get(position);
     }

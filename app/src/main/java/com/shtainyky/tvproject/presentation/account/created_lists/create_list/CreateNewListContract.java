@@ -13,13 +13,15 @@ import io.reactivex.Observable;
 
 public interface CreateNewListContract {
     interface CreateNewListView extends BaseView<CreateNewListContract.CreateNewListPresenter> {
-        void validate();
         void clearInput();
-        void showMessage();
+        void updateTargetFragment(int resultCode, String title, String description);
+        void showTitleError();
+        void hideError();
+        void showProgress();
+        void hideProgress();
     }
 
     interface CreateNewListPresenter extends BasePresenter {
-        void onButtonAddClick();
         void createNewList(String title, String description);
     }
 

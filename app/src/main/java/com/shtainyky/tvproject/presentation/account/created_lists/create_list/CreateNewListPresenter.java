@@ -2,6 +2,8 @@ package com.shtainyky.tvproject.presentation.account.created_lists.create_list;
 
 import android.util.Log;
 
+import com.shtainyky.tvproject.data.exceptions.ConnectionException;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -38,21 +40,28 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
     }
 
     @Override
-    public void onButtonAddClick() {
-        view.validate();
-    }
-
-    @Override
     public void createNewList(String title, String description) {
         Log.e("myLog", "createNewList ");
+        if (title.isEmpty())
+            view.showTitleError();
+        else {
+            view.hideError();
+            view.showProgress();
+            сompositeDisposable.add(model.createList(userManager.getSessionId(), title, description)
+                    .subscribe(response -> {
+                        view.clearInput();
+                        view.hideProgress();
+                        view.updateTargetFragment(response.list_id, title, description);
+                    }, throwable -> {
+                        view.hideProgress();
+                        if (throwable instanceof ConnectionException) {
+                            view.updateTargetFragment(Constants.ERROR_CODE_CONNECTION_LOST, title, description);
+                        } else {
+                            view.updateTargetFragment(Constants.ERROR_CODE_UNKNOWN, title, description);
+                        }
+                        Log.e("myLog", "throwable " + throwable.getMessage());
+                    }));
 
-        сompositeDisposable.add(model.createList(userManager.getSessionId(), title, description)
-                .subscribe(response -> {
-                    Log.e("myLog", "createList ");
-                    view.clearInput();
-                    view.showMessage();
-                }, throwable -> {
-                    Log.e("myLog", "throwable " + throwable.getMessage());
-                }));
+        }
     }
 }

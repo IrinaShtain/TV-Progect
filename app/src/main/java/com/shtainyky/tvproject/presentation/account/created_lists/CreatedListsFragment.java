@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.created_lists;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,18 +20,22 @@ import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
-import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog;
+
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog_;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -44,14 +49,12 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     @ViewById
     RecyclerView rvLists;
 
-    @ViewById
-    FloatingActionButton fab_add;
-
     @Bean
     protected SignedUserManager userManager;
     @Bean
     protected AccountRepository repository;
     private CreatedListsContract.CreatedListsPresenter presenter;
+    private CreateNewListDialog newListDialog;
 
     @Bean
     protected CreatedListsAdapter listAdapter;
@@ -83,12 +86,14 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
         setupRecyclerView();
         setupSwipeToRemove();
 
-        fab_add.setOnClickListener(v -> {
+        fabAdd_VC.setVisibility(View.VISIBLE);
+        fabAdd_VC.setOnClickListener(v -> {
             Log.e("myLog", "onClick FAB ");
-            mActivity.replaceFragment(CreateNewListFragment_.builder().build());
+            newListDialog = CreateNewListDialog_.builder()
+                    .build();
+            newListDialog.setTargetFragment(this, Constants.REQUEST_CODE_CREATE_NEW_LIST);
+            newListDialog.show(mActivity.getSupportFragmentManager(), "create_list");
         });
-
-
     }
 
     private void setupRecyclerView() {
@@ -168,6 +173,11 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     }
 
     @Override
+    public void addItem(CreatedListsDH createdListsDH) {
+        listAdapter.addItem(createdListsDH);
+    }
+
+    @Override
     public void onCardClick(int listID, int position) {
         presenter.showDetails(listID);
     }
@@ -175,5 +185,23 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     @Override
     public void openListDetails(int lisID) {
         mActivity.replaceFragment(MoviesFragment_.builder().listID(lisID).build());
+    }
+
+    @Override
+    public void showPlaceholder(Constants.PlaceholderType placeholderType) {
+        super.showPlaceholder(placeholderType);
+        if (placeholderType == Constants.PlaceholderType.EMPTY) {
+            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
+            tvPlaceholderMessage_VC.setText(R.string.no_lists);
+        }
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_CREATE_NEW_LIST)
+    public void onDialogFragmentResult(int resultCode, @OnActivityResult.Extra(value = Constants.KEY_TITLE) String title,
+                                       @OnActivityResult.Extra(value = Constants.KEY_DESCRIPTION) String description,
+                                       @OnActivityResult.Extra(value = Constants.KEY_ERROR_CODE) int errorCode) {
+        if (resultCode == Activity.RESULT_OK) {
+           presenter.showResult(errorCode, title, description);
+        }
     }
 }

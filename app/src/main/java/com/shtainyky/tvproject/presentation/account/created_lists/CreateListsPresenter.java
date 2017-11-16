@@ -26,8 +26,9 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
     private CreatedListsContract.CreatedListsModel model;
     private User user;
 
-    private int total_pages;
-    private int current_page;
+    private int totalPages = Integer.MAX_VALUE;
+    private int currentPage;
+    private int totalResults;
 
     public CreateListsPresenter(CreatedListsContract.CreatedListsView view,
                                 SignedUserManager userManager,
@@ -51,9 +52,9 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
 
     @Override
     public void getNextPage() {
-        if (current_page < total_pages) {
+        if (currentPage < totalPages) {
             view.showProgressPagination();
-            loadPage(current_page + 1);
+            loadPage(currentPage + 1);
         }
     }
 
@@ -69,19 +70,18 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
                 model.getLists(user.id, userManager.getSessionId(), pageNumber)
                         .subscribe(userListResponse -> {
                             view.hideProgress();
-                            total_pages = userListResponse.total_pages;
-                            current_page = pageNumber;
+                            totalPages = userListResponse.total_pages;
+                            currentPage = pageNumber;
+                            totalResults = userListResponse.total_results;
                             if (pageNumber == 1) {
-                                view.setLists(prepareList(userListResponse.lists));
+                                if (userListResponse.lists.isEmpty())
+                                    view.showPlaceholder(Constants.PlaceholderType.EMPTY);
+                                else
+                                    view.setLists(prepareList(userListResponse.lists));
                             } else {
                                 // TODO: 26.05.2017 Backend returns duplicate
                                 view.addLists(prepareList(userListResponse.lists));
                             }
-                            Log.e("myLog", "userListResponse.page = " + pageNumber);
-                            Log.e("myLog", "userListResponse.lists.size() = " + userListResponse.lists.size());
-                            Log.e("myLog", "userListResponse.total_results = " + userListResponse.total_results);
-                            Log.e("myLog", "userListResponse.total_results.id = " + userListResponse.lists.get(0).id);
-
                         }, throwableConsumer));
     }
 
@@ -106,17 +106,46 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
                 .subscribe(responseMessage -> {
                     view.hideProgress();
                     view.deleteItem(pos);
+                    --totalResults;
+                    checkEmptyList();
                 }, throwable -> {
                     view.hideProgress();
                     Log.e("myLog", "throwable " + throwable.getLocalizedMessage());
-                    if (throwable.getMessage().equals("HTTP 500 Internal Server Error")) // backend bug :(
+                    if (throwable.getMessage().equals("HTTP 500 Internal Server Error")) {// backend bug :(
                         view.deleteItem(pos);
-                    else if (throwable instanceof ConnectionException) {
-                        view.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                        --totalResults;
+                        checkEmptyList();
+                    } else if (throwable instanceof ConnectionException) {
+                        view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
                     } else {
-                        view.showErrorMessage(Constants.MessageType.UNKNOWN);
+                        view.showMessage(Constants.MessageType.UNKNOWN);
                     }
                 }));
+    }
+
+    private void checkEmptyList(){
+        if (totalResults == 0)
+            view.showPlaceholder(Constants.PlaceholderType.EMPTY);
+    }
+
+    @Override
+    public void showResult(int resultID, String title, String description) {
+        switch (resultID) {
+            case Constants.ERROR_CODE_CONNECTION_LOST:
+                view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                break;
+            case Constants.ERROR_CODE_UNKNOWN:
+                view.showMessage(Constants.MessageType.UNKNOWN);
+                break;
+            default:
+                view.showMessage(Constants.MessageType.NEW_LIST_CREATED_SUCCESSFULLY);
+                ++totalResults;
+                ListItem listItem = new ListItem();
+                listItem.id = resultID;
+                listItem.description = description;
+                listItem.name = title;
+                view.addItem(new CreatedListsDH(listItem));
+        }
     }
 
     @Override
@@ -128,10 +157,16 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         Log.d("myLogs", "Error! " + throwable.getMessage());
         throwable.printStackTrace();
         view.hideProgress();
-        if (throwable instanceof ConnectionException) {
-            view.showErrorMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        if (totalPages != 0)
+            if (throwable instanceof ConnectionException) {
+                view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+            } else {
+                view.showMessage(Constants.MessageType.UNKNOWN);
+            }
+        else if (throwable instanceof ConnectionException) {
+            view.showPlaceholder(Constants.PlaceholderType.NETWORK);
         } else {
-            view.showErrorMessage(Constants.MessageType.UNKNOWN);
+            view.showPlaceholder(Constants.PlaceholderType.UNKNOWN);
         }
     };
 }
