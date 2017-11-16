@@ -56,8 +56,6 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     @Bean
     protected CreatedListsAdapter listAdapter;
 
-    private int listId;
-
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_created_lists;
@@ -171,12 +169,11 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
 
     @Override
     public void onCardClick(int listID, int position) {
-        listId = listID;
-        presenter.showDetails();
+        presenter.showDetails(listID);
     }
 
     @Override
-    public void openListDetails() {
-        mActivity.replaceFragment(MoviesFragment_.builder().listID(listId).build());
+    public void openListDetails(int lisID) {
+        mActivity.replaceFragment(MoviesFragment_.builder().listID(lisID).build());
     }
 }

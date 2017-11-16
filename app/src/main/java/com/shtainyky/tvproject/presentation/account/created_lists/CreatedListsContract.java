@@ -21,14 +21,14 @@ public interface CreatedListsContract {
     interface CreatedListsView extends BaseView<CreatedListsContract.CreatedListsPresenter>, ContentView {
         void setLists(ArrayList<CreatedListsDH> createdListsDHs);
         void addLists(ArrayList<CreatedListsDH> createdListsDHs);
-        void openListDetails();
+        void openListDetails(int lisID);
         void deleteItem(int pos);
     }
 
     interface CreatedListsPresenter extends RefreshablePresenter {
         void getNextPage();
         void loadPage(int pageNumber);
-        void showDetails();
+        void showDetails(int lisID);
         void removeList(CreatedListsDH item, int pos);
     }
 

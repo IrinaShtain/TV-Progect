@@ -94,8 +94,8 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
     }
 
     @Override
-    public void showDetails() {
-        view.openListDetails();
+    public void showDetails(int lisID) {
+        view.openListDetails(lisID);
     }
 
     @Override
