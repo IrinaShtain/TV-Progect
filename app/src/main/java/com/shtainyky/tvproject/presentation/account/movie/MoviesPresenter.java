@@ -5,6 +5,7 @@ import android.util.Log;
 import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.presentation.account.movie.adapter.MovieDH;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
 
     @Override
     public void subscribe() {
+        mView.showProgressMain();
         compositeDisposable.add(model.getGenres()
                 .subscribe(genresList -> {
                     Log.e("myLog", "genresList.size() = " + genresList.genres.size());
@@ -56,6 +58,11 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
                     Log.e("myLog", "throwable genresList put" + throwable.getMessage());
                 }));
 
+    }
+
+    @Override
+    public void onRefresh() {
+        loadMovies();
     }
 
     private ArrayList<MovieDH> prepareList(ArrayList<MovieItem> items, boolean hasGenres) {
@@ -82,14 +89,15 @@ public class MoviesPresenter implements MoviesContract.MoviePresenter {
     public void loadMovies() {
         compositeDisposable.add(model.getMovies(listID)
                 .subscribe(moviesList -> {
-                    Log.e("myLog", "getMovies ");
+                    mView.hideProgress();
+                    Log.e("myLog", "getMovies " + listID);
                     if (moviesList.movies.size() > 0)
                         mView.setLists(prepareList(moviesList.movies, hasGenres));
                     else
-                        mView.setEmptyMessage();
-                    mView.dismissRefreshing();
+                        mView.showPlaceholder(Constants.PlaceholderType.EMPTY);
                 }, throwable -> {
-                    mView.setEmptyMessage();
+                    mView.hideProgress();
+                    mView.showPlaceholder(Constants.PlaceholderType.UNKNOWN);
                     Log.e("myLog", "throwable " + throwable.getMessage());
                 }));
     }

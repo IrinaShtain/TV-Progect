@@ -5,7 +5,7 @@ package com.shtainyky.tvproject.presentation.listeners;
  */
 
 public interface OnCardClickListener {
-    void onCardClick(int listID, int position);
+    void onCardClick(int itemID, int position);
 
 }
 

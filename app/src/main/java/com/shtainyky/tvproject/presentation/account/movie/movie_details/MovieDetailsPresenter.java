@@ -42,6 +42,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
     public void addOnlineClicked(int listID, int movieID) {
         compositeDisposable.add(mModel.addMovie(listID, movieID, mUserManager.getSessionId())
                 .subscribe(response -> {
+                    Log.e("myLog", "movieID " + movieID);
                     mView.showMessage("Movie is successfully added");
                 }, throwable -> {
                     mView.showMessage("Error.  Something went wrong");

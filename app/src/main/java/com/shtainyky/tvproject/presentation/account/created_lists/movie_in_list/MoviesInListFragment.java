@@ -1,24 +1,27 @@
-package com.shtainyky.tvproject.presentation.account.movie;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list;
 
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.movie.adapter.MovieDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.presentation.account.movie.adapter.MoviesAdapter;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
-import com.shtainyky.tvproject.utils.SignedUserManager;
+import com.shtainyky.tvproject.utils.Constants;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -30,38 +33,61 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 /**
- * Created by Bell on 29.05.2017.
+ * Created by Irina Shtain on 17.11.2017.
  */
 @EFragment
-public class MoviesFragment extends RefreshableFragment implements MoviesContract.MovieView, OnCardClickListener {
+public class MoviesInListFragment extends RefreshableFragment implements MoviesInListContract.MoviesInListView, OnCardClickListener {
 
     @ViewById
     RecyclerView rvLists;
-
 
     @FragmentArg
     protected int listID;
 
     @Bean
-    protected MoviesAdapter listAdapter;
+    protected MovieItemAdapter adapter;
     @Bean
     protected MovieRepository repository;
-    @Bean
-    protected SignedUserManager userManager;
+    private MoviesInListContract.MoviesInListPresenter presenter;
+    private int mPos;
 
-    private MoviesContract.MoviePresenter presenter;
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_recycler_view;
+    }
+
+    @AfterInject
+    @Override
+    public void initPresenter() {
+        new MoviesInListPresenter(this, repository, listID);
+    }
+
+    @Override
+    public void setPresenter(MoviesInListContract.MoviesInListPresenter presenter) {
+        this.presenter = presenter;
+    }
 
     @AfterViews
-    protected void initUI() {
-        presenter.subscribe();
+    public void init(){
         setHasOptionsMenu(true);
         setupRecyclerView();
+        setupFAB();
+        presenter.subscribe();
+    }
+
+    private void setupFAB(){
         fabAdd_VC.setVisibility(View.VISIBLE);
         fabAdd_VC.setOnClickListener(v -> {
             Log.e("myLog", "onClick FAB ");
             mActivity.replaceFragment(SearchMovieFragment_.builder().listID(listID).build());
         });
+    }
 
+    private void setupRecyclerView() {
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
+        rvLists.setLayoutManager(layoutManager);
+        rvLists.setAdapter(adapter);
+        adapter.setListener(this);
     }
 
     @Override
@@ -70,55 +96,23 @@ public class MoviesFragment extends RefreshableFragment implements MoviesContrac
     }
 
     @Override
-    protected int getLayoutRes() {
-        return R.layout.fragment_recycler_view;
-    }
-
-    private void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvLists.setLayoutManager(layoutManager);
-        listAdapter.setListener(this);
-        rvLists.setAdapter(listAdapter);
-    }
-
-    @AfterInject
-    @Override
-    public void initPresenter() {
-        new MoviesPresenter(this, listID, repository, userManager);
-    }
-
-    @Override
-    public void setPresenter(MoviesContract.MoviePresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public void setLists(ArrayList<MovieDH> movieDHs) {
-        listAdapter.setListDH(movieDHs);
-    }
-
-
-    @Override
     public void onCardClick(int itemID, int position) {
-        presenter.onItemClick(itemID, position);
+        Toast.makeText(this.getContext(), "itemID" + itemID, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void notifyAdapter(int itemPosition) {
-        listAdapter.deleteItem(itemPosition);
+    public void setLists(ArrayList<MovieItemDH> itemDHS) {
+        adapter.setListDH(itemDHS);
     }
 
     @Override
-    public void showDialogWithExplanation(int itemID) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.question_about_deleting);
-        builder.setPositiveButton(R.string.answer_yes, (dialog, which) -> {
-            dialog.cancel();
-            presenter.deleteItem();
-        });
-        builder.setNegativeButton(R.string.answer_cancel, null);
+    public void openMovieDetails(int lisID) {
 
-        builder.show();
+    }
+
+    @Override
+    public void closeFragment() {
+        mActivity.onBackPressed();
     }
 
     @Override
@@ -144,13 +138,11 @@ public class MoviesFragment extends RefreshableFragment implements MoviesContrac
     }
 
     @Override
-    public void close() {
-        mActivity.onBackPressed();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.unsubscribe();
+    public void showPlaceholder(Constants.PlaceholderType placeholderType) {
+        super.showPlaceholder(placeholderType);
+        if (placeholderType == Constants.PlaceholderType.EMPTY) {
+            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
+            tvPlaceholderMessage_VC.setText(R.string.no_movies);
+        }
     }
 }

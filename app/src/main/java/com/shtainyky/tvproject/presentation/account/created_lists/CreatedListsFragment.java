@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +22,7 @@ import com.shtainyky.tvproject.presentation.account.created_lists.adapter.Create
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog;
 
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListFragment_;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
@@ -61,7 +61,7 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.fragment_created_lists;
+        return R.layout.fragment_recycler_view;
     }
 
     @Override
@@ -178,13 +178,13 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     }
 
     @Override
-    public void onCardClick(int listID, int position) {
-        presenter.showDetails(listID);
+    public void onCardClick(int itemID, int position) {
+        presenter.showDetails(itemID);
     }
 
     @Override
     public void openListDetails(int lisID) {
-        mActivity.replaceFragment(MoviesFragment_.builder().listID(lisID).build());
+        mActivity.replaceFragment(MoviesInListFragment_.builder().listID(lisID).build());
     }
 
     @Override
@@ -201,7 +201,13 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
                                        @OnActivityResult.Extra(value = Constants.KEY_DESCRIPTION) String description,
                                        @OnActivityResult.Extra(value = Constants.KEY_ERROR_CODE) int errorCode) {
         if (resultCode == Activity.RESULT_OK) {
-           presenter.showResult(errorCode, title, description);
+            presenter.showResult(errorCode, title, description);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (newListDialog != null && newListDialog.isVisible()) newListDialog.dismiss();
     }
 }

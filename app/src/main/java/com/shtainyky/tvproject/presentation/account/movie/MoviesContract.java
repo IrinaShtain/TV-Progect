@@ -6,6 +6,9 @@ import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.account.movie.adapter.MovieDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
+import com.shtainyky.tvproject.presentation.base.content.ContentView;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
+import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
 
@@ -17,16 +20,14 @@ import io.reactivex.Observable;
  */
 
 public class MoviesContract {
-    interface MovieView extends BaseView<MoviesContract.MoviePresenter> {
+    interface MovieView extends BaseView<MoviesContract.MoviePresenter>, ContentView {
         void setLists(ArrayList<MovieDH> movieDHs);
         void showDialogWithExplanation(int itemID);
         void notifyAdapter(int itemPosition);
-        void dismissRefreshing();
-        void setEmptyMessage();
         void close();
     }
 
-    interface MoviePresenter extends BasePresenter {
+    interface MoviePresenter extends RefreshablePresenter {
         void deleteItem();
         void loadMovies();
         void onItemClick(int listID, int position);
@@ -38,6 +39,7 @@ public class MoviesContract {
         Observable<MoviesResponse> getMovies(int listID);
         Observable<ResponseMessage> deleteMovie(int listID, int movieID, String sesionID);
         Observable<ResponseMessage> deleteList(int listID, String sessionID);
+        SignedUserManager getSignedUserManager();
 
     }
 }

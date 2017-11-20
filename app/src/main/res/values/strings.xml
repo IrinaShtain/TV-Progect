@@ -44,6 +44,7 @@
     <string name="err_msg_connection_problem">Connection lost</string>
     <string name="err_msg_user_not_registered">Bad credentials</string>
     <string name="err_msg_something_goes_wrong">Something went wrong</string>
+    <string name="err_msg_list_was_deleted">List was successfully deleted</string>
     <string name="msg_new_list_created_successfully">New list is successfully created</string>
     <string name="err_msg_no_data">No data</string>
     <string name="tos_pp">If you have no account,\nplease <a href="https://www.themoviedb.org/account/signup"><b>Sign Up</b></a> </string>

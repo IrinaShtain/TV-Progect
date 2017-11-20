@@ -7,10 +7,12 @@ import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.MovieService;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListContract;
 import com.shtainyky.tvproject.presentation.account.movie.MoviesContract;
 import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsContract;
 import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
+import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
@@ -24,10 +26,13 @@ import io.reactivex.Observable;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class MovieRepository extends NetworkRepository implements MoviesContract.MovieModel,
-        SearchMovieContract.SearchMovieModel, MovieDetailsContract.MovieDetailsModel{
+        SearchMovieContract.SearchMovieModel, MovieDetailsContract.MovieDetailsModel,
+        MoviesInListContract.MoviesInListModel{
 
     @Bean
     protected Rest rest;
+    @Bean
+    protected SignedUserManager userManager;
 
     private MovieService mMovieService;
 
@@ -66,4 +71,8 @@ public class MovieRepository extends NetworkRepository implements MoviesContract
         return getNetworkObservable(mMovieService.deleteList(listID, sessionID));
     }
 
+    @Override
+    public SignedUserManager getSignedUserManager() {
+        return userManager;
+    }
 }
