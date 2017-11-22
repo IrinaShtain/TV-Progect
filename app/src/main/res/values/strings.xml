@@ -12,7 +12,7 @@
     <string name="username">Username: %s</string>
     <string name="name">Name: %s</string>
     <string name="include_adult">Include adult: %s</string>
-    <string name="my_lists">My lists</string>
+
     <string name="description">Description: %s</string>
     <string name="type">Type: %s</string>
     <string name="title">Title: %s</string>
@@ -49,4 +49,9 @@
     <string name="err_msg_no_data">No data</string>
     <string name="tos_pp">If you have no account,\nplease <a href="https://www.themoviedb.org/account/signup"><b>Sign Up</b></a> </string>
     <string name="no_lists">You have no created lists</string>
+
+    /* Titles */
+    <string name="title_my_lists">My lists</string>
+    <string name="title_read_about_star">Read about star</string>
+    <string name="title_find_movie">Find movie</string>
 </resources>

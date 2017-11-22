@@ -44,9 +44,11 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin_default"
         android:clickable="true"
+        app:elevation="12dp"
         android:src="@drawable/ic_action_add"
         android:visibility="gone"
         app:fabSize="normal"
-        tools:visibility="visible"/>
+        tools:visibility="visible"
+        android:focusable="true"/>
 
 </FrameLayout>

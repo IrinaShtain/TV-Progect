@@ -70,6 +70,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
 
     @AfterViews
     protected void initUI() {
+        mActivity.getToolbarManager().setTitle(R.string.title_find_movie);
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> mPresenter.onSearchClick());

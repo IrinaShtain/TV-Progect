@@ -23,7 +23,6 @@ import com.shtainyky.tvproject.presentation.account.created_lists.create_list.Cr
 
 import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog_;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListFragment_;
-import com.shtainyky.tvproject.presentation.account.movie.MoviesFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
@@ -82,10 +81,15 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
 
     @AfterViews
     protected void initUI() {
-        presenter.subscribe();
+        mActivity.getToolbarManager().setTitle(R.string.title_my_lists);
         setupRecyclerView();
         setupSwipeToRemove();
+        setupFab();
 
+        presenter.subscribe();
+    }
+
+    private void setupFab(){
         fabAdd_VC.setVisibility(View.VISIBLE);
         fabAdd_VC.setOnClickListener(v -> {
             Log.e("myLog", "onClick FAB ");
@@ -94,6 +98,7 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
             newListDialog.setTargetFragment(this, Constants.REQUEST_CODE_CREATE_NEW_LIST);
             newListDialog.show(mActivity.getSupportFragmentManager(), "create_list");
         });
+
     }
 
     private void setupRecyclerView() {
@@ -179,12 +184,15 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
 
     @Override
     public void onCardClick(int itemID, int position) {
-        presenter.showDetails(itemID);
+        presenter.showDetails(itemID, listAdapter.getItem(position));
     }
 
     @Override
-    public void openListDetails(int lisID) {
-        mActivity.replaceFragment(MoviesInListFragment_.builder().listID(lisID).build());
+    public void openListDetails(int lisID, String listsName) {
+        mActivity.replaceFragment(MoviesInListFragment_.builder()
+                .listID(lisID)
+                .listTitle(listsName)
+                .build());
     }
 
     @Override

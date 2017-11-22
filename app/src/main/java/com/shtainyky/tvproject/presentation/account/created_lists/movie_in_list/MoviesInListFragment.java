@@ -43,13 +43,14 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
 
     @FragmentArg
     protected int listID;
+    @FragmentArg
+    protected String listTitle;
 
     @Bean
     protected MovieItemAdapter adapter;
     @Bean
     protected MovieRepository repository;
     private MoviesInListContract.MoviesInListPresenter presenter;
-    private int mPos;
 
     @Override
     protected int getLayoutRes() {
@@ -69,6 +70,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
 
     @AfterViews
     public void init(){
+        mActivity.getToolbarManager().setTitle(listTitle);
         setHasOptionsMenu(true);
         setupRecyclerView();
         setupFAB();

@@ -28,6 +28,7 @@ public class MovieItemVH extends RecyclerView.ViewHolder {
         Picasso.with(itemView.getContext())
                 .load(listsDH.getPosterPath())
                 .error(R.drawable.placeholder)
+                .placeholder(R.drawable.placeholder)
                 .into(ivImageMovie);
         tvTitle.setText(listsDH.getMovieTitle());
         Log.e("myLog", "listsDH.getPosterPath() " + listsDH.getPosterPath());

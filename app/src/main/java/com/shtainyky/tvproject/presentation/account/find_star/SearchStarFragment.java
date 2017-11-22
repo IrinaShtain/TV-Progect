@@ -71,6 +71,7 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
 
     @AfterViews
     protected void initUI() {
+        mActivity.getToolbarManager().setTitle(R.string.title_read_about_star);
         tvSearch.setHint("Input star's name");
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)

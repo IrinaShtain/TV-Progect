@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -109,5 +110,10 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
     @Override
     protected int getContainerId() {
         return 0;
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        return null;
     }
 }

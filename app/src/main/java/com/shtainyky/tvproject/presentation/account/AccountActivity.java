@@ -8,6 +8,8 @@ package com.shtainyky.tvproject.presentation.account;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -15,10 +17,7 @@ import com.mikepenz.materialdrawer.holder.DimenHolder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.shtainyky.tvproject.R;
-
-
 import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsFragment_;
-import com.shtainyky.tvproject.presentation.account.details_account.DetailsFragment;
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsFragment_;
 import com.shtainyky.tvproject.presentation.account.find_star.SearchStarFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseActivity;
@@ -39,13 +38,24 @@ public class AccountActivity extends BaseActivity {
 
     @AfterViews
     protected void initUI() {
+        setupToolbar();
+        setupNavigationDrawerMenu();
+        replaceFragment(DetailsFragment_.builder().build());
+
+        getSupportFragmentManager().addOnBackStackChangedListener(() ->
+                enableViews(getSupportFragmentManager().getBackStackEntryCount() > 1));
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    private void setupToolbar() {
         setSupportActionBar(toolbar);
         toolbar.setTitle("My Account");
         toolbar.setTitleTextColor(Color.WHITE);
-        setupNavigationDrawerMenu();
-        replaceFragment(DetailsFragment_.builder().build());
     }
-
 
     private void setupNavigationDrawerMenu() {
         result = new DrawerBuilder()
@@ -63,7 +73,7 @@ public class AccountActivity extends BaseActivity {
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName(R.string.my_lists)
+                        new PrimaryDrawerItem().withName(R.string.title_my_lists)
                                 .withIcon(R.drawable.ic_lists)
                                 .withIdentifier(1)
                                 .withSelectedColor(Color.WHITE)
@@ -84,34 +94,59 @@ public class AccountActivity extends BaseActivity {
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)))
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
-                    // do something with the clicked item :D
                     switch ((int) drawerItem.getIdentifier()) {
                         case 0:
-                            replaceFragment(DetailsFragment_.builder().build());
+                            replaceFragmentClearBackStack(DetailsFragment_.builder().build());
                             break;
                         case 1:
-                            replaceFragment(CreatedListsFragment_.builder().build());
+                            replaceFragmentClearBackStack(CreatedListsFragment_.builder().build());
                             break;
                         case 2:
-                            replaceFragment(SearchStarFragment_.builder().build());
+                            replaceFragmentClearBackStack(SearchStarFragment_.builder().build());
                             break;
                         case 3:
-                            replaceFragment(SearchStarFragment_.builder().build());
+                            replaceFragmentClearBackStack(SearchStarFragment_.builder().build());
                             break;
                     }
                     return false;
                 })
+                .withOnDrawerNavigationListener(view -> {
+                    if (!result.getActionBarDrawerToggle().isDrawerIndicatorEnabled()) {
+                        onBackPressed();
+                        return true;
+                    } else
+                        return false;
+                }
+                )
                 .build();
+    }
+
+    private void enableViews(boolean enable) {
+        // To keep states of ActionBar and ActionBarDrawerToggle synchronized,
+        // when you enable on one, you disable on the other.
+        // And as you may notice, the order for this operation is disable first, then enable - VERY VERY IMPORTANT.
+        if (enable) {
+            // Remove hamburger
+            result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+            // Show updateStatus button
+            toolbarManager.showHomeAsUp(true);
+        } else {
+            // Remove updateStatus button
+            toolbarManager.showHomeAsUp(false);
+            // Show hamburger
+            result.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+        }
     }
 
     @Override
     public void onBackPressed() {
-        // Закрываем Navigation Drawer по нажатию системной кнопки "Назад" если он открыт
         if (result.isDrawerOpen()) {
             result.closeDrawer();
-        } else {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStackImmediate();
+        } else
             super.onBackPressed();
-        }
+
     }
 
 

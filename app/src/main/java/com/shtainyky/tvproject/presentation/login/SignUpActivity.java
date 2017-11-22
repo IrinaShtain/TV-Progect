@@ -1,5 +1,7 @@
 package com.shtainyky.tvproject.presentation.login;
 
+import android.support.v7.widget.Toolbar;
+
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.base.BaseActivity;
 
@@ -23,5 +25,10 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected int getContainerId() {
         return R.id.container;
+    }
+
+    @Override
+    protected Toolbar getToolbar() {
+        return null;
     }
 }

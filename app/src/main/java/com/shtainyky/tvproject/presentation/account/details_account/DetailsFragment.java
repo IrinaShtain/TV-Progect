@@ -65,6 +65,7 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
 
     @AfterViews
     protected void initUI() {
+        mActivity.getToolbarManager().setTitle(R.string.app_name);
         presenter.subscribe();
     }
 
