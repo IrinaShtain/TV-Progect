@@ -30,6 +30,11 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemVH> {
         notifyDataSetChanged();
     }
 
+    public void addListDH(List<MovieItemDH> listsDHs) {
+        items.addAll(listsDHs);
+        notifyDataSetChanged();
+    }
+
     public void deleteItem(int position){
         items.remove(position);
         notifyItemChanged(position);

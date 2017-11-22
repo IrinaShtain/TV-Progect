@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
-import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
@@ -119,8 +119,8 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 //                }));
     }
 
-    private ArrayList<SearchMovieDH> prepareList(ArrayList<MovieItem> items) {
-        ArrayList<SearchMovieDH> list = new ArrayList<>();
+    private ArrayList<MovieItemDH> prepareList(ArrayList<MovieItem> items) {
+        ArrayList<MovieItemDH> list = new ArrayList<>();
         for (MovieItem item : items) {
             String genreMovie = "";
             if (hasGenres)
@@ -133,7 +133,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
             else
                 genreMovie = "Unknown genres";
             item.setGenres(genreMovie);
-            list.add(new SearchMovieDH(item));
+            list.add(new MovieItemDH(item));
         }
         return list;
     }

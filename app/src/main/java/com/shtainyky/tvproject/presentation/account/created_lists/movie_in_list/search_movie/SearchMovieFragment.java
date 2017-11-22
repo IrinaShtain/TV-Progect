@@ -1,6 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
@@ -9,15 +9,14 @@ import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
-import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieAdapter;
-import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
-import com.shtainyky.tvproject.presentation.listeners.MovieListener;
+import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -35,7 +34,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Bell on 30.05.2017.
  */
 @EFragment()
-public class SearchMovieFragment extends ContentFragment implements SearchMovieContract.SearchMovieView, MovieListener {
+public class SearchMovieFragment extends ContentFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -56,7 +55,7 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
 
     private SearchMovieContract.SearchMoviePresenter presenter;
     @Bean
-    protected SearchMovieAdapter listAdapter;
+    protected MovieItemAdapter listAdapter;
 
     @AfterInject
     @Override
@@ -89,7 +88,7 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
     }
 
     private void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
         rvLists.setLayoutManager(layoutManager);
         listAdapter.setListener(this);
         rvLists.setAdapter(listAdapter);
@@ -102,22 +101,19 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
 
 
     @Override
-    public void setList(ArrayList<SearchMovieDH> movieDHs) {
+    public void setList(ArrayList<MovieItemDH> movieDHs) {
         hideKeyboard();
         listAdapter.setListDH(movieDHs);
     }
 
     @Override
-    public void addList(ArrayList<SearchMovieDH> movieDHs) {
+    public void addList(ArrayList<MovieItemDH> movieDHs) {
         listAdapter.addListDH(movieDHs);
     }
 
     @Override
-    public void onMovieClick(MovieItem movieItem) {
-        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(movieItem.id).listID(listID).build());
-        Log.e("myLog", "movieItem.genres = " + movieItem.genres);
-        Log.e("myLog", "movieItem.title = " + movieItem.title);
-        Log.e("myLog", "movieItem.overview = " + movieItem.overview);
+    public void onCardClick(int itemID, int position) {
+        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(itemID).listID(listID).build());
     }
 
     @Override
