@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie.movie_details;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details;
 
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;

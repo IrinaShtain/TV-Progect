@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +11,11 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsFragment_;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieAdapter;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
-import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieAdapter;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.base.BasePresenter;
+import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.MovieListener;
 import com.shtainyky.tvproject.utils.Constants;
@@ -33,8 +34,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Bell on 30.05.2017.
  */
-@EFragment(R.layout.fragment_search)
-public class SearchMovieFragment extends BaseFragment implements SearchMovieContract.SearchMovieView, MovieListener {
+@EFragment()
+public class SearchMovieFragment extends ContentFragment implements SearchMovieContract.SearchMovieView, MovieListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -48,24 +49,34 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
     protected int listID;
 
     @Bean
-    protected MovieRepository mMovieRepository;
+    protected MovieRepository repository;
 
     @Bean
     protected SignedUserManager userManager;
 
-    private SearchMovieContract.SearchMoviePresenter mPresenter;
+    private SearchMovieContract.SearchMoviePresenter presenter;
     @Bean
     protected SearchMovieAdapter listAdapter;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new SearchMoviePresenter(this, mMovieRepository, userManager);
+        new SearchMoviePresenter(this, repository, userManager);
     }
 
     @Override
     public void setPresenter(SearchMovieContract.SearchMoviePresenter presenter) {
-        mPresenter = presenter;
+        this.presenter = presenter;
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_search;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return presenter;
     }
 
     @AfterViews
@@ -73,7 +84,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
         mActivity.getToolbarManager().setTitle(R.string.title_find_movie);
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onSearchClick());
+                .subscribe(aVoid -> presenter.onSearchClick());
         setupRecyclerView();
     }
 
@@ -83,7 +94,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
         listAdapter.setListener(this);
         rvLists.setAdapter(listAdapter);
         rvLists.addOnScrollListener(new EndlessScrollListener(layoutManager, () -> {
-            mPresenter.getNextPage();
+            presenter.getNextPage();
             Log.e("myLog", "initUI getNextPage ");
             return true;
         }));
@@ -103,7 +114,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
 
     @Override
     public void onMovieClick(MovieItem movieItem) {
-        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieItem(movieItem).listID(listID).build());
+        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(movieItem.id).listID(listID).build());
         Log.e("myLog", "movieItem.genres = " + movieItem.genres);
         Log.e("myLog", "movieItem.title = " + movieItem.title);
         Log.e("myLog", "movieItem.overview = " + movieItem.overview);
@@ -117,7 +128,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenter.unsubscribe();
+        presenter.unsubscribe();
     }
 
     @Override
@@ -126,7 +137,7 @@ public class SearchMovieFragment extends BaseFragment implements SearchMovieCont
         if (title.isEmpty())
             Toast.makeText(getContext(), "Empty title", Toast.LENGTH_LONG).show();
         else
-            mPresenter.makeSearch(title);
+            presenter.makeSearch(title);
 
     }
 

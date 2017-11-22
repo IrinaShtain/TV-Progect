@@ -86,8 +86,8 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     }
 
     @Override
-    public void showDetails(int lisID) {
-
+    public void showDetails(int moviesID) {
+        view.openMovieDetails(moviesID);
     }
 
     @Override

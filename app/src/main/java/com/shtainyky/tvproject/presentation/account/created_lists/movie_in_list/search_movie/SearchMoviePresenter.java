@@ -1,10 +1,10 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie;
 
 import android.util.Log;
 
 import com.shtainyky.tvproject.data.models.movie.GenreItem;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;

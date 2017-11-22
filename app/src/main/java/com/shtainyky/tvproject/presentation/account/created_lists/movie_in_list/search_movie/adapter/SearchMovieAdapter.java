@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieVH;
 import com.shtainyky.tvproject.presentation.listeners.MovieListener;
 
 import org.androidannotations.annotations.EBean;

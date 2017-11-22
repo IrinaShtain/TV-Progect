@@ -1,4 +1,4 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
 import com.squareup.picasso.Picasso;
 
 /**

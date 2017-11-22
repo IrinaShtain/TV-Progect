@@ -1,5 +1,6 @@
-package com.shtainyky.tvproject.presentation.account.movie.movie_details;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details;
 
+import android.annotation.SuppressLint;
 import android.support.design.widget.Snackbar;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +11,8 @@ import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.base.BasePresenter;
+import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 import com.squareup.picasso.Picasso;
@@ -26,8 +29,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Bell on 21.06.2017.
  */
-@EFragment(R.layout.fragment_movie_details)
-public class MovieDetailsFragment extends BaseFragment implements MovieDetailsContract.MovieDetailsView {
+@EFragment
+public class MovieDetailsFragment extends ContentFragment implements MovieDetailsContract.MovieDetailsView {
 
     @ViewById
     TextView tv_description;
@@ -49,7 +52,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsCo
     Button bt_add_offline;
 
     @FragmentArg
-    protected MovieItem movieItem;
+    protected int movieID;
     @FragmentArg
     protected int listID;
     private MovieDetailsContract.MovieDetailsPresenter mPresenter;
@@ -70,23 +73,33 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsCo
         mPresenter = presenter;
     }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_movie_details;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
     @AfterViews
     protected void initUI() {
         mPresenter.subscribe();
         RxView.clicks(bt_add_online)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.addOnlineClicked(listID, movieItem.id));
+                .subscribe(aVoid -> mPresenter.addOnlineClicked(listID, movieID));
         RxView.clicks(bt_close)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> mPresenter.closeClicked());
         RxView.clicks(bt_add_offline)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> mPresenter.addOfflineClicked());
-        setupUI();
+        tv_description.setText(getResources().getString(R.string.description, String.valueOf(movieID)));
 
     }
 
-    private void setupUI() {
+    private void setupUI(MovieItem movieItem) {
         tv_description.setText(getResources().getString(R.string.description, movieItem.overview));
         tvTitle.setText(getResources().getString(R.string.title, movieItem.title));
         tv_genre.setText(getResources().getString(R.string.genre, movieItem.genres));

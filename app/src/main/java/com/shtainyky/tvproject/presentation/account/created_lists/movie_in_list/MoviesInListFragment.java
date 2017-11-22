@@ -12,12 +12,10 @@ import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.MovieRepository;
-import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
-import com.shtainyky.tvproject.presentation.account.created_lists.create_list.CreateNewListDialog_;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
-import com.shtainyky.tvproject.presentation.account.movie.adapter.MoviesAdapter;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.SearchMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
@@ -100,6 +98,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     @Override
     public void onCardClick(int itemID, int position) {
         Toast.makeText(this.getContext(), "itemID" + itemID, Toast.LENGTH_LONG).show();
+        presenter.showDetails(itemID);
     }
 
     @Override
@@ -108,8 +107,8 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @Override
-    public void openMovieDetails(int lisID) {
-
+    public void openMovieDetails(int moviesID) {
+        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(moviesID).listID(listID).build());
     }
 
     @Override

@@ -1,8 +1,8 @@
-package com.shtainyky.tvproject.presentation.account.movie.search_movie;
+package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie;
 
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.adapter.SearchMovieDH;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.adapter.SearchMovieDH;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
 

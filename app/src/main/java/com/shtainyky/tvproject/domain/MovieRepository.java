@@ -8,9 +8,8 @@ import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListContract;
-import com.shtainyky.tvproject.presentation.account.movie.MoviesContract;
-import com.shtainyky.tvproject.presentation.account.movie.movie_details.MovieDetailsContract;
-import com.shtainyky.tvproject.presentation.account.movie.search_movie.SearchMovieContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -25,7 +24,7 @@ import io.reactivex.Observable;
  * Created by Bell on 29.05.2017.
  */
 @EBean(scope = EBean.Scope.Singleton)
-public class MovieRepository extends NetworkRepository implements MoviesContract.MovieModel,
+public class MovieRepository extends NetworkRepository implements
         SearchMovieContract.SearchMovieModel, MovieDetailsContract.MovieDetailsModel,
         MoviesInListContract.MoviesInListModel{
 
@@ -51,7 +50,7 @@ public class MovieRepository extends NetworkRepository implements MoviesContract
         return getNetworkObservable(mMovieService.getMovies(listID));
     }
 
-    @Override
+
     public Observable<ResponseMessage> deleteMovie(int listID, int movieID, String sessionID) {
         return getNetworkObservable(mMovieService.deleteMovie(listID, sessionID, new ActionRequest(movieID)));
     }
