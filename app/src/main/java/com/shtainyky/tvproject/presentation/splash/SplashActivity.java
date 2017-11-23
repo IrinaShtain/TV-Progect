@@ -36,8 +36,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
 
     @ViewById
     protected ImageView iv_logo;
-    @ViewById
-    protected TextView tv_logo;
 
     private SplashContract.SplashPresenter mPresenter;
 
@@ -61,13 +59,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
     @Override
     public void runSplashAnimation() {
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(AnimFactory.transY(tv_logo)
-                .setValues(50f, 0f, 0f)
-                .get())
-                .with(AnimFactory.alpha(tv_logo)
-                        .setValues(0f, 0.3f, 0.7f, 1f)
-                        .get())
-                .with(AnimFactory.alpha(iv_logo)
+        animatorSet.play(AnimFactory.alpha(iv_logo)
                         .setValues(0f, 0.2f, 0.4f, 0.6f, 1f)
                         .get())
                 .with(AnimFactory.scaleX(iv_logo)
@@ -96,7 +88,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
                 .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
         finish();
-}
+    }
 
     @Override
     public void startLoginScreen() {
@@ -104,7 +96,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.Splas
                 .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
                 .start();
         finish();
-//nothing
     }
 
     @Override

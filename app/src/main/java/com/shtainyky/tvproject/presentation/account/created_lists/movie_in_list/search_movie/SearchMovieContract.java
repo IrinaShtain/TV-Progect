@@ -3,9 +3,9 @@ package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
-
-import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
+import com.shtainyky.tvproject.presentation.base.content.ContentView;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 
 import java.util.ArrayList;
 
@@ -17,18 +17,15 @@ import io.reactivex.Observable;
  */
 
 public class SearchMovieContract {
-    interface SearchMovieView extends BaseView<SearchMovieContract.SearchMoviePresenter> {
-        void getInputText();
+    interface SearchMovieView extends BaseView<SearchMovieContract.SearchMoviePresenter>, ContentView {
         void setList(ArrayList<MovieItemDH> movieDHs);
         void addList(ArrayList<MovieItemDH> movieDHs);
         void showMessage(String message);
     }
 
-    interface SearchMoviePresenter extends BasePresenter {
-        void onSearchClick();
-        void makeSearch(String movieTitle);
+    interface SearchMoviePresenter extends RefreshablePresenter {
+        void onSearchClick(String movieTitle);
         void getNextPage();
-        void addMovie(int movieID, int listID);
     }
 
     public interface SearchMovieModel {

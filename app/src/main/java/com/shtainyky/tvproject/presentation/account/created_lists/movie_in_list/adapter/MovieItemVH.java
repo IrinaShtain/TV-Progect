@@ -31,8 +31,5 @@ public class MovieItemVH extends RecyclerView.ViewHolder {
                 .placeholder(R.drawable.placeholder)
                 .into(ivImageMovie);
         tvTitle.setText(listsDH.getMovieTitle());
-        Log.e("myLog", "listsDH.getPosterPath() " + listsDH.getPosterPath());
-
-
-    }
+      }
 }

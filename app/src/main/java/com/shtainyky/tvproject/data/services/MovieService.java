@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.data.services;
 
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
@@ -37,6 +38,9 @@ public interface MovieService {
     @GET("/3/search/movie")
     Observable<SearchMovieResponse> searchMovie(@Query("query") String title,
                                                 @Query("page") int page);
+
+    @GET("/3/movie/{movie_id}")
+    Observable<MovieItem> getMovieDetails(@Path("movie_id") int movie_id);
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list/{list_id}/add_item")

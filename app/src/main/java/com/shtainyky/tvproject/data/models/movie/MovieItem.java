@@ -25,12 +25,12 @@ public class MovieItem implements Parcelable {
     public String poster_path;
     public String media_type;
     public ArrayList<Integer> genre_ids;
-
-    @JsonIgnore
-    public String genres;
+    public ArrayList<GenreItem> genres;
 
     @JsonIgnore
     public String avatarUrl;
+    @JsonIgnore
+    public String genresString;
 
     public MovieItem() {
     }
@@ -38,11 +38,12 @@ public class MovieItem implements Parcelable {
     @OnJsonParseComplete
     void onParseComplete() {
         avatarUrl = Constants.IMAGE_BASE + poster_path;
-    }
-
-
-    public void setGenres(String genres) {
-        this.genres = genres;
+        if (genres != null) {
+            for (GenreItem item : genres) {
+                genresString = new StringBuilder().append(genresString).append(item.name).append(" ").toString();
+            }
+            genresString = genresString.trim();
+        }
     }
 
     @Override
@@ -61,8 +62,9 @@ public class MovieItem implements Parcelable {
         dest.writeString(this.overview);
         dest.writeString(this.poster_path);
         dest.writeString(this.media_type);
+        dest.writeString(this.genresString);
         dest.writeList(this.genre_ids);
-        dest.writeString(this.genres);
+        dest.writeList(this.genres);
         dest.writeString(this.avatarUrl);
     }
 
@@ -75,10 +77,12 @@ public class MovieItem implements Parcelable {
         this.release_date = in.readString();
         this.overview = in.readString();
         this.poster_path = in.readString();
+        this.genresString = in.readString();
         this.media_type = in.readString();
-        this.genre_ids = new ArrayList<Integer>();
+        this.genre_ids = new ArrayList<>();
         in.readList(this.genre_ids, Integer.class.getClassLoader());
-        this.genres = in.readString();
+        this.genres = new ArrayList<>();
+        in.readList(this.genre_ids, GenreItem.class.getClassLoader());
         this.avatarUrl = in.readString();
     }
 

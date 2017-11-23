@@ -1,57 +1,69 @@
 <resources>
     <string name="app_name">TV Project</string>
-    <string name="my_tv_project">My TV Project</string>
+
+    /*Authorization*/
     <string name="authorize_please">Authorize please</string>
     <string name="email">User name</string>
     <string name="password">Password</string>
-    <string name="sign_in">Sign in</string>
-    <string name="error_empty_user_name">Input user name!</string>
-    <string name="error_empty_password">Input password!</string>
-    <string name="error_not_valid_password">Not a valid password!</string>
-    <string name="sign_up">Sign up</string>
+
+    /*Account details*/
     <string name="username">Username: %s</string>
     <string name="name">Name: %s</string>
     <string name="include_adult">Include adult: %s</string>
 
+    /*Movie details*/
     <string name="description">Description: %s</string>
     <string name="type">Type: %s</string>
     <string name="title">Title: %s</string>
     <string name="genre">Genre: %s</string>
     <string name="releaseDate">Release Date: %s</string>
     <string name="popularity">Rate: %s</string>
-    <string name="question_about_deleting">Do you want to delete movie</string>
+
+    /*Star details*/
+    <string name="famous_for">Famous for</string>
+
+    /* Toolbar's titles */
+    <string name="title_my_lists">My lists</string>
+    <string name="title_read_about_star">Read about star</string>
+    <string name="title_find_movie">Find movie</string>
+    <string name="read_about_star">Read about star</string>
+
+    /*Buttons titles*/
+    <string name="btn_search">Search</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_add_to_list">Add to list</string>
+    <string name="btn_add_list">Add list</string>
+    <string name="btn_delete_from_list">Delete from list</string>
     <string name="answer_cancel">Cancel</string>
     <string name="answer_yes">Yes</string>
-    <string name="question_about_goal">Do you want delete this list?</string>
     <string name="answer_no">No</string>
-    <string name="add_list">Add list</string>
-    <string name="enter_name">Enter title and desccription for new list</string>
-    <string name="text_title">Title</string>
-    <string name="text_description">Description</string>
-    <string name="error_empty_title">Input list\'s title</string>
-    <string name="no_movies">No movies in this list</string>
-    <string name="btn_search">Search</string>
-    <string name="input_title">Input movie\'s title</string>
+    <string name="btn_sign_in">Sign in</string>
+
+    /*Messages/
+    <string name="msg_new_list_created_successfully">New list is successfully created</string>
+    <string name="msg_new_movie_added_successfully">The movie is successfully added</string>
+    <string name="msg_new_movie_removed_successfully">The movie is successfully removed</string>
+    <string name="question_about_deleting">Do you want to delete movie</string>
+    <string name="question_about_goal">Do you want delete this list?</string>
+    <string name="tos_pp">If you have no account,\nplease <a href="https://www.themoviedb.org/account/signup"><b>Sign Up</b></a> </string>
     <string name="question_about_adding">Do you want add this movie in the list?</string>
-    <string name="delete_list">Delete list</string>
-    <string name="open_list">Open list</string>
-    <string name="read_about_star">Read about star</string>
-    <string name="famous_for">Famous for</string>
-    <string name="add_to_offline_list">Add to offline list</string>
-    <string name="close">Close</string>
-    <string name="add_to_online_list">Add to online list</string>
-    <string name="button_retry">Retry</string>
+    <string name="enter_name">Enter title and description for new list</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_description">Description</string>
+    <string name="input_title">Input movie\'s title</string>
+
+    /*Error messages/
+    <string name="err_msg_no_data">No data</string>
+    <string name="error_msg_input_movie_title">Input movie title</string>
     <string name="err_msg_connection_problem">Connection lost</string>
     <string name="err_msg_user_not_registered">Bad credentials</string>
     <string name="err_msg_something_goes_wrong">Something went wrong</string>
     <string name="err_msg_list_was_deleted">List was successfully deleted</string>
-    <string name="msg_new_list_created_successfully">New list is successfully created</string>
-    <string name="err_msg_no_data">No data</string>
-    <string name="tos_pp">If you have no account,\nplease <a href="https://www.themoviedb.org/account/signup"><b>Sign Up</b></a> </string>
-    <string name="no_lists">You have no created lists</string>
-
-    /* Titles */
-    <string name="title_my_lists">My lists</string>
-    <string name="title_read_about_star">Read about star</string>
-    <string name="title_find_movie">Find movie</string>
+    <string name="error_empty_user_name">Input user name!</string>
+    <string name="error_empty_password">Input password!</string>
+    <string name="error_not_valid_password">Not a valid password!</string>
+    <string name="error_empty_title">Input list\'s title</string>
+    <string name="err_msg_no_lists">You have no created lists</string>
+    <string name="error_msg_no_movies">No movies in this list</string>
+    <string name="error_msg_no_movies_with_such_title">No movies with such title</string>
 </resources>

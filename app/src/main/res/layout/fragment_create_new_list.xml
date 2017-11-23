@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/padding_default"
                 android:drawableStart="@drawable/ic_new_list"
-                android:hint="@string/text_title"
+                android:hint="@string/hint_title"
                 android:inputType="text"
                 android:textColorHighlight="@color/colorPrimary"/>
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/padding_default"
                 android:drawableStart="@drawable/ic_password"
-                android:hint="@string/text_description"
+                android:hint="@string/hint_description"
                 android:inputType="text"
                 android:textColorHint="@color/colorPrimary"
                 />
@@ -84,7 +84,7 @@
             android:layout_marginTop="@dimen/margin_double"
             android:layout_marginBottom="@dimen/margin_double"
             android:background="@color/colorPrimary"
-            android:text="@string/add_list"
+            android:text="@string/btn_add_list"
             android:textColor="@android:color/white"/>
 
 

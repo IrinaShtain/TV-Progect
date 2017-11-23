@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
@@ -79,7 +80,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
         fabAdd_VC.setVisibility(View.VISIBLE);
         fabAdd_VC.setOnClickListener(v -> {
             Log.e("myLog", "onClick FAB ");
-            mActivity.replaceFragment(SearchMovieFragment_.builder().listID(listID).build());
+            presenter.onFABClick();
         });
     }
 
@@ -107,8 +108,20 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @Override
-    public void openMovieDetails(int moviesID) {
-        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(moviesID).listID(listID).build());
+    public void openMovieDetails(int movieID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(MovieDetailsFragment_.builder()
+                .movieID(movieID)
+                .listID(listID)
+                .moviesInList(movieItems)
+                .build());
+    }
+
+    @Override
+    public void openSearchScreen(int listID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(SearchMovieFragment_.builder()
+                .listID(listID)
+                .moviesInList(movieItems)
+                .build());
     }
 
     @Override
@@ -143,7 +156,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
         super.showPlaceholder(placeholderType);
         if (placeholderType == Constants.PlaceholderType.EMPTY) {
             ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
-            tvPlaceholderMessage_VC.setText(R.string.no_movies);
+            tvPlaceholderMessage_VC.setText(R.string.error_msg_no_movies);
         }
     }
 }

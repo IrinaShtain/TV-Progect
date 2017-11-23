@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list;
 
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
@@ -19,7 +20,8 @@ import io.reactivex.Observable;
 public interface MoviesInListContract {
     interface MoviesInListView extends BaseView<MoviesInListContract.MoviesInListPresenter>, ContentView {
         void setLists(ArrayList<MovieItemDH> itemDHS);
-        void openMovieDetails(int lisID);
+        void openMovieDetails(int listID, ArrayList<MovieItem> movieItems);
+        void openSearchScreen(int listID, ArrayList<MovieItem> movieItems);
         void closeFragment();
     }
 
@@ -27,6 +29,7 @@ public interface MoviesInListContract {
         void showDetails(int lisID);
         void showResult(int resultID, String title, String description);
         void deleteList(int listID);
+        void onFABClick();
     }
 
     interface MoviesInListModel {

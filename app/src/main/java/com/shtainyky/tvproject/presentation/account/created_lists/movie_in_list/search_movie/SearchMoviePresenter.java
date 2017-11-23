@@ -2,14 +2,12 @@ package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list
 
 import android.util.Log;
 
-import com.shtainyky.tvproject.data.models.movie.GenreItem;
+import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
-import com.shtainyky.tvproject.utils.SignedUserManager;
+import com.shtainyky.tvproject.utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -23,21 +21,15 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     private CompositeDisposable compositeDisposable;
     private SearchMovieContract.SearchMovieModel model;
     private int current_page;
-    private int total_pages;
+    private int total_pages = Integer.MAX_VALUE;
     private String movieTitle;
-    protected SignedUserManager userManager;
-    private Map<Integer, String> genreMap;
-    private boolean hasGenres;
 
     public SearchMoviePresenter(SearchMovieContract.SearchMovieView view,
-                                SearchMovieContract.SearchMovieModel model,
-                                SignedUserManager userManager) {
+                                SearchMovieContract.SearchMovieModel model) {
         this.view = view;
         this.model = model;
-        this.userManager = userManager;
         view.setPresenter(this);
         compositeDisposable = new CompositeDisposable();
-        genreMap = new HashMap<>();
     }
 
     @Override
@@ -47,33 +39,24 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 
     @Override
     public void unsubscribe() {
-       compositeDisposable.clear();
+        compositeDisposable.clear();
     }
 
     @Override
-    public void onSearchClick() {
-        view.getInputText();
+    public void onSearchClick(String title) {
+        if (!title.isEmpty()){
+            this.movieTitle = title;
+            view.showProgressMain();
+            loadMovies();
+        }
+        else
+            view.showMessage(Constants.MessageType.INPUT_MOVIE_TITLE);
     }
 
+
     @Override
-    public void makeSearch(String movieTitle) {
-        Log.e("myLog", "makeSearch " + movieTitle);
-        this.movieTitle = movieTitle;
-
-        compositeDisposable.add(model.getGenres()
-                .subscribe(genresList -> {
-                    Log.e("myLog", "genresList.size() = " + genresList.genres.size());
-                    for (int i = 0; i < genresList.genres.size(); i++) {
-                        GenreItem item = genresList.genres.get(i);
-                        genreMap.put(item.id, item.name);
-                    }
-                    hasGenres = true;
-                    loadMovies();
-                }, throwable -> {
-                    loadMovies();
-                    Log.e("myLog", "throwable genresList put" + throwable.getMessage());
-                }));
-
+    public void onRefresh() {
+        loadMovies();
     }
 
     private void loadMovies() {
@@ -84,6 +67,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     @Override
     public void getNextPage() {
         Log.e("myLog", "current_page" + current_page);
+        view.showProgressPagination();
         if (current_page < total_pages)
             loadPage(current_page + 1);
     }
@@ -91,48 +75,36 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     private void loadPage(int pageNumber) {
         compositeDisposable.add(model.getMovies(movieTitle, pageNumber)
                 .subscribe(response -> {
-                    Log.e("myLog", "response.movies.size() makeSearch " + response.movies.size());
-                    Log.e("myLog", "response.movies.size() page " + response.page);
-                    Log.e("myLog", "response.movies.size() total_pages " + response.total_pages);
-                    Log.e("myLog", "response.movies.size() total_results " + response.total_results);
-                    Log.e("myLog", "response.movies.size() total_results " + current_page);
+                    view.hideProgress();
                     current_page = pageNumber;
                     total_pages = response.total_pages;
                     if (current_page == 1)
-                        view.setList(prepareList(response.movies));
+                        if (!response.movies.isEmpty())
+                            view.setList(prepareList(response.movies));
+                        else
+                            view.showPlaceholder(Constants.PlaceholderType.EMPTY);
                     else
                         view.addList(prepareList(response.movies));
 
                 }, throwable -> {
-                    Log.e("myLog", "throwable makeSearch" + throwable.getMessage());
+                    view.hideProgress();
+                    if (total_pages == Integer.MAX_VALUE)
+                        if (throwable instanceof ConnectionException) {
+                            view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                        } else {
+                            view.showMessage(Constants.MessageType.UNKNOWN);
+                        }
+                    else if (throwable instanceof ConnectionException) {
+                        view.showPlaceholder(Constants.PlaceholderType.NETWORK);
+                    } else {
+                        view.showPlaceholder(Constants.PlaceholderType.UNKNOWN);
+                    }
                 }));
-    }
-
-    @Override
-    public void addMovie(int movieID, int listID) {
-//        compositeSubscription.add(model.addMovie(listID, movieID, userManager.getSessionId())
-//                .subscribe(response -> {
-//                   view.openListDetails("Movie is successfully added");
-//                }, throwable -> {
-//                    view.openListDetails("Error.  Something went wrong");
-//                    Log.e("myLog", "throwable " + throwable.getMessage());
-//                }));
     }
 
     private ArrayList<MovieItemDH> prepareList(ArrayList<MovieItem> items) {
         ArrayList<MovieItemDH> list = new ArrayList<>();
         for (MovieItem item : items) {
-            String genreMovie = "";
-            if (hasGenres)
-                for (int i = 0; i < item.genre_ids.size(); i++) {
-                    genreMovie = genreMovie + genreMap.get(item.genre_ids.get(i));
-                    if (i != item.genre_ids.size() - 1) {
-                        genreMovie = genreMovie + ", ";
-                    }
-                }
-            else
-                genreMovie = "Unknown genres";
-            item.setGenres(genreMovie);
             list.add(new MovieItemDH(item));
         }
         return list;

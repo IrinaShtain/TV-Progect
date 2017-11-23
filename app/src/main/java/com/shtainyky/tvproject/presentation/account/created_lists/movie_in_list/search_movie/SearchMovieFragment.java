@@ -9,12 +9,15 @@ import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
@@ -34,7 +37,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Bell on 30.05.2017.
  */
 @EFragment()
-public class SearchMovieFragment extends ContentFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
+public class SearchMovieFragment extends RefreshableFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
     @ViewById
     RecyclerView rvLists;
 
@@ -46,12 +49,11 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
 
     @FragmentArg
     protected int listID;
+    @FragmentArg
+    protected ArrayList<MovieItem> moviesInList;
 
     @Bean
     protected MovieRepository repository;
-
-    @Bean
-    protected SignedUserManager userManager;
 
     private SearchMovieContract.SearchMoviePresenter presenter;
     @Bean
@@ -60,7 +62,7 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
     @AfterInject
     @Override
     public void initPresenter() {
-        new SearchMoviePresenter(this, repository, userManager);
+        new SearchMoviePresenter(this, repository);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
     }
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected RefreshablePresenter getPresenter() {
         return presenter;
     }
 
@@ -83,7 +85,10 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
         mActivity.getToolbarManager().setTitle(R.string.title_find_movie);
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> presenter.onSearchClick());
+                .subscribe(aVoid -> {
+                    hideKeyboard();
+                    presenter.onSearchClick(tvSearch.getText().toString());
+                });
         setupRecyclerView();
     }
 
@@ -113,7 +118,11 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
 
     @Override
     public void onCardClick(int itemID, int position) {
-        mActivity.replaceFragment(MovieDetailsFragment_.builder().movieID(itemID).listID(listID).build());
+        mActivity.replaceFragment(MovieDetailsFragment_.builder()
+                .movieID(itemID)
+                .moviesInList(moviesInList)
+                .listID(listID)
+                .build());
     }
 
     @Override
@@ -122,20 +131,17 @@ public class SearchMovieFragment extends ContentFragment implements SearchMovieC
     }
 
     @Override
+    public void showPlaceholder(Constants.PlaceholderType placeholderType) {
+        super.showPlaceholder(placeholderType);
+        if (placeholderType == Constants.PlaceholderType.EMPTY) {
+            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
+            tvPlaceholderMessage_VC.setText(R.string.error_msg_no_movies_with_such_title);
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         presenter.unsubscribe();
     }
-
-    @Override
-    public void getInputText() {
-        String title = tvSearch.getText().toString();
-        if (title.isEmpty())
-            Toast.makeText(getContext(), "Empty title", Toast.LENGTH_LONG).show();
-        else
-            presenter.makeSearch(title);
-
-    }
-
-
 }

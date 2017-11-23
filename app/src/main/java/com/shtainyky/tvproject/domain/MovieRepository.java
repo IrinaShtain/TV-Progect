@@ -2,6 +2,7 @@ package com.shtainyky.tvproject.domain;
 
 import com.shtainyky.tvproject.data.Rest;
 import com.shtainyky.tvproject.data.models.movie.GenresResponse;
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
@@ -50,9 +51,13 @@ public class MovieRepository extends NetworkRepository implements
         return getNetworkObservable(mMovieService.getMovies(listID));
     }
 
+    @Override
+    public Observable<MovieItem> getMovieDetails(int movieID) {
+        return getNetworkObservable(mMovieService.getMovieDetails(movieID));
+    }
 
-    public Observable<ResponseMessage> deleteMovie(int listID, int movieID, String sessionID) {
-        return getNetworkObservable(mMovieService.deleteMovie(listID, sessionID, new ActionRequest(movieID)));
+    public Observable<ResponseMessage> deleteMovie(int listID, int movieID) {
+        return getNetworkObservable(mMovieService.deleteMovie(listID, userManager.getSessionId(), new ActionRequest(movieID)));
     }
 
     @Override
@@ -61,8 +66,8 @@ public class MovieRepository extends NetworkRepository implements
     }
 
     @Override
-    public Observable<ResponseMessage> addMovie(int listID, int movieID, String sessionID) {
-        return getNetworkObservable(mMovieService.addMovie(listID, sessionID, new ActionRequest(movieID)));
+    public Observable<ResponseMessage> addMovie(int listID, int movieID) {
+        return getNetworkObservable(mMovieService.addMovie(listID, userManager.getSessionId(), new ActionRequest(movieID)));
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details;
 
+import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
+import com.shtainyky.tvproject.presentation.base.content.ContentView;
+import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import io.reactivex.Observable;
 
@@ -12,19 +15,18 @@ import io.reactivex.Observable;
  */
 
 public class MovieDetailsContract {
-    interface MovieDetailsView extends BaseView<MovieDetailsContract.MovieDetailsPresenter> {
-        void close();
-        void showMessage(String message);
+    interface MovieDetailsView extends BaseView<MovieDetailsContract.MovieDetailsPresenter>, ContentView {
+        void setupButton(boolean isMovieAdded);
+        void setupUI(MovieItem movieItem);
     }
 
     interface MovieDetailsPresenter extends BasePresenter {
-        void addOnlineClicked(int listID, int movieID);
-        void closeClicked();
-        void addOfflineClicked();
+        void buttonClicked(int listID);
     }
 
     public interface MovieDetailsModel {
-        Observable<ResponseMessage> addMovie(int listID, int movieID, String sessionID);
-
+        Observable<ResponseMessage> addMovie(int listID, int movieID);
+        Observable<ResponseMessage> deleteMovie(int listID, int movieID);
+        Observable<MovieItem> getMovieDetails(int movieID);
     }
 }

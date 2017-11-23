@@ -21,7 +21,7 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     private MoviesInListContract.MoviesInListView view;
     private MoviesInListContract.MoviesInListModel model;
     private int listID;
-    private ArrayList<MovieItemDH> dhs;
+    private ArrayList<MovieItem> movieItems;
 
     public MoviesInListPresenter(MoviesInListContract.MoviesInListView view,
                                  MoviesInListContract.MoviesInListModel model,
@@ -46,13 +46,14 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
                 .subscribe(moviesList -> {
                     Log.e("myLog", "getMovies " + listID);
                     view.hideProgress();
-                    if (!moviesList.movies.isEmpty())
-                        view.setLists(prepareList(moviesList.movies));
+                    movieItems = moviesList.movies;
+                    if (!movieItems.isEmpty())
+                        view.setLists(prepareList(movieItems));
                     else
                         view.showPlaceholder(Constants.PlaceholderType.EMPTY);
                 }, throwable -> {
                     view.hideProgress();
-                    if (dhs != null)
+                    if (movieItems != null)
                         if (throwable instanceof ConnectionException) {
                             view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
                         } else {
@@ -68,7 +69,7 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     }
 
     private ArrayList<MovieItemDH> prepareList(ArrayList<MovieItem> items) {
-        dhs = new ArrayList<>();
+        ArrayList<MovieItemDH> dhs = new ArrayList<>();
         for (MovieItem item : items) {
             dhs.add(new MovieItemDH(item));
         }
@@ -87,7 +88,12 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
 
     @Override
     public void showDetails(int moviesID) {
-        view.openMovieDetails(moviesID);
+        view.openMovieDetails(moviesID, movieItems);
+    }
+
+    @Override
+    public void onFABClick() {
+        view.openSearchScreen(listID, movieItems);
     }
 
     @Override

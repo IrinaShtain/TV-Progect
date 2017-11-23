@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
             android:background="@color/colorPrimary"
-            android:text="@string/sign_in"
+            android:text="@string/btn_sign_in"
             android:textColor="@android:color/white"/>
 
         <TextView
