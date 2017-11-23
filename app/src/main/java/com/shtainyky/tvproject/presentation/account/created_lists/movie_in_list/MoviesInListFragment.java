@@ -98,7 +98,6 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
 
     @Override
     public void onCardClick(int itemID, int position) {
-        Toast.makeText(this.getContext(), "itemID" + itemID, Toast.LENGTH_LONG).show();
         presenter.showDetails(itemID);
     }
 

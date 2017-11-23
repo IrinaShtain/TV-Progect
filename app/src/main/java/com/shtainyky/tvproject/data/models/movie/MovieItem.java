@@ -39,10 +39,11 @@ public class MovieItem implements Parcelable {
     void onParseComplete() {
         avatarUrl = Constants.IMAGE_BASE + poster_path;
         if (genres != null) {
+            StringBuilder stringBuilder = new StringBuilder();
             for (GenreItem item : genres) {
-                genresString = new StringBuilder().append(genresString).append(item.name).append(" ").toString();
+                stringBuilder.append(item.name).append(" ");
             }
-            genresString = genresString.trim();
+            genresString = stringBuilder.toString().trim();
         }
     }
 
