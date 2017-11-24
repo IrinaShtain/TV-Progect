@@ -3,8 +3,12 @@ package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
@@ -40,12 +44,16 @@ import java.util.concurrent.TimeUnit;
 public class SearchMovieFragment extends RefreshableFragment implements SearchMovieContract.SearchMovieView, OnCardClickListener {
     @ViewById
     RecyclerView rvLists;
-
     @ViewById
     EditText tvSearch;
-
     @ViewById
     Button bt_search;
+    @ViewById
+    ImageView ivPlaceholderImage;
+    @ViewById
+    TextView tvPlaceholderMessage;
+    @ViewById
+    RelativeLayout rlPlaceholder;
 
     @FragmentArg
     protected int listID;
@@ -87,6 +95,7 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> {
                     hideKeyboard();
+                    rlPlaceholder.setVisibility(View.GONE);
                     presenter.onSearchClick(tvSearch.getText().toString());
                 });
         setupRecyclerView();
@@ -108,6 +117,7 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
     @Override
     public void setList(ArrayList<MovieItemDH> movieDHs) {
         hideKeyboard();
+        rvLists.setVisibility(View.VISIBLE);
         listAdapter.setListDH(movieDHs);
     }
 
@@ -132,10 +142,23 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
 
     @Override
     public void showPlaceholder(Constants.PlaceholderType placeholderType) {
-        super.showPlaceholder(placeholderType);
-        if (placeholderType == Constants.PlaceholderType.EMPTY) {
-            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
-            tvPlaceholderMessage_VC.setText(R.string.error_msg_no_movies_with_such_title);
+        rlPlaceholder.setVisibility(View.VISIBLE);
+        rvLists.setVisibility(View.GONE);
+        switch (placeholderType) {
+            case EMPTY:
+                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty_lists);
+                tvPlaceholderMessage.setText(R.string.error_msg_no_movies_with_such_title);
+                break;
+            case NETWORK:
+                ivPlaceholderImage.setImageResource(R.drawable.ic_cloud_off);
+                tvPlaceholderMessage.setText(R.string.err_msg_connection_problem);
+                break;
+            case UNKNOWN:
+                ivPlaceholderImage.setImageResource(R.drawable.ic_sentiment_dissatisfied);
+                tvPlaceholderMessage.setText(R.string.err_msg_something_goes_wrong);
+                break;
+            default:
+                super.showPlaceholder(placeholderType);
         }
     }
 
