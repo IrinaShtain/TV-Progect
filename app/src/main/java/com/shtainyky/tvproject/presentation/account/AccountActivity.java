@@ -104,12 +104,12 @@ public class AccountActivity extends BaseActivity {
                     return false;
                 })
                 .withOnDrawerNavigationListener(view -> {
-                    if (!result.getActionBarDrawerToggle().isDrawerIndicatorEnabled()) {
-                        onBackPressed();
-                        return true;
-                    } else
-                        return false;
-                }
+                            if (!result.getActionBarDrawerToggle().isDrawerIndicatorEnabled()) {
+                                onBackPressed();
+                                return true;
+                            } else
+                                return false;
+                        }
                 )
                 .build();
     }
@@ -137,7 +137,9 @@ public class AccountActivity extends BaseActivity {
             result.closeDrawer();
         } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStackImmediate();
-        } else
+        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+            finish();
+        else
             super.onBackPressed();
 
     }

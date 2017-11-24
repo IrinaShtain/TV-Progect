@@ -162,9 +162,4 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.unsubscribe();
-    }
 }

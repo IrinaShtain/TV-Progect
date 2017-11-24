@@ -2,8 +2,10 @@ package com.shtainyky.tvproject.presentation.account.find_star;
 
 import android.util.Log;
 
+import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.star.StarItem;
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
@@ -20,13 +22,13 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
     private CompositeDisposable сompositeDisposable;
     private SearchStarContract.SearchStarModel model;
     private int current_page;
-    private int total_pages;
+    private int total_pages = Integer.MAX_VALUE;
     private String name;
     protected SignedUserManager userManager;
 
     public SearchStarPresenter(SearchStarContract.SearchStarView view,
                                SearchStarContract.SearchStarModel model,
-                                SignedUserManager userManager) {
+                               SignedUserManager userManager) {
         this.view = view;
         this.model = model;
         this.userManager = userManager;
@@ -35,29 +37,31 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
     }
 
 
-
     @Override
     public void subscribe() {
 
     }
 
     @Override
-    public void unsubscribe() {
-       сompositeDisposable.clear();
-    }
-
-
-    @Override
-    public void onSearchClick() {
-        view.getInputText();
-    }
-
-    @Override
-    public void makeSearch(String movieTitle) {
-        Log.e("myLog", "makeSearch " + movieTitle);
-        this.name = movieTitle;
+    public void onRefresh() {
         current_page = 1;
         loadPage(current_page);
+    }
+
+    @Override
+    public void unsubscribe() {
+        сompositeDisposable.clear();
+    }
+
+
+    @Override
+    public void onSearchClick(String starName) {
+        if (!starName.isEmpty()) {
+            this.name = starName;
+            current_page = 1;
+            view.showProgressMain();
+            loadPage(current_page);
+        } else view.showMessage(Constants.MessageType.INPUT_STAR_NAME);
     }
 
     private void loadPage(int pageNumber) {
@@ -65,13 +69,28 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
                 .subscribe(response -> {
                     current_page = pageNumber;
                     total_pages = response.total_pages;
+                    view.hideProgress();
                     if (current_page == 1)
-                        view.setList(prepareList(response.stars));
+                        if (!response.stars.isEmpty())
+                            view.setList(prepareList(response.stars));
+                        else
+                            view.showPlaceholder(Constants.PlaceholderType.EMPTY);
                     else
                         view.addList(prepareList(response.stars));
 
                 }, throwable -> {
-                    Log.e("myLog", "throwable makeSearch" + throwable.getMessage());
+                    view.hideProgress();
+                    if (total_pages == Integer.MAX_VALUE)
+                        if (throwable instanceof ConnectionException) {
+                            view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                        } else {
+                            view.showMessage(Constants.MessageType.UNKNOWN);
+                        }
+                    else if (throwable instanceof ConnectionException) {
+                        view.showPlaceholder(Constants.PlaceholderType.NETWORK);
+                    } else {
+                        view.showPlaceholder(Constants.PlaceholderType.UNKNOWN);
+                    }
                 }));
     }
 
@@ -88,8 +107,10 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
     @Override
     public void getNextPage() {
         Log.e("myLog", "current_page" + current_page);
-        if (current_page < total_pages)
+        if (current_page < total_pages) {
+            view.showProgressPagination();
             loadPage(current_page + 1);
+        }
     }
 
 

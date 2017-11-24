@@ -2,8 +2,9 @@ package com.shtainyky.tvproject.presentation.account.find_star;
 
 import com.shtainyky.tvproject.data.models.star.StarResponse;
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
-import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.BaseView;
+import com.shtainyky.tvproject.presentation.base.content.ContentView;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 
 import java.util.ArrayList;
 
@@ -15,16 +16,13 @@ import io.reactivex.Observable;
  */
 
 public class SearchStarContract {
-    interface SearchStarView extends BaseView<SearchStarContract.SearchStarPresenter> {
-        void getInputText();
+    interface SearchStarView extends BaseView<SearchStarContract.SearchStarPresenter>, ContentView {
         void setList(ArrayList<StarDH> starDHs);
         void addList(ArrayList<StarDH> starDHs);
-        void showMessage(String message);
     }
 
-    interface SearchStarPresenter extends BasePresenter {
-        void onSearchClick();
-        void makeSearch(String movieTitle);
+    interface SearchStarPresenter extends RefreshablePresenter {
+        void onSearchClick(String star);
         void getNextPage();
     }
 

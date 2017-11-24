@@ -12,6 +12,8 @@ import com.shtainyky.tvproject.data.models.star.StarItem;
 import com.shtainyky.tvproject.presentation.account.find_star.stars_details.adapter.FamousForAdapter;
 import com.shtainyky.tvproject.presentation.account.find_star.stars_details.adapter.FamousForDH;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.base.BasePresenter;
+import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterInject;
@@ -27,8 +29,8 @@ import java.util.List;
 /**
  * Created by Bell on 21.06.2017.
  */
-@EFragment(R.layout.fragment_star_details)
-public class StarsDetailsFragment extends BaseFragment implements StarsDetailsContract.StarsDetailsView {
+@EFragment
+public class StarsDetailsFragment extends ContentFragment implements StarsDetailsContract.StarsDetailsView {
 
     @ViewById
     TextView tvName;
@@ -43,38 +45,52 @@ public class StarsDetailsFragment extends BaseFragment implements StarsDetailsCo
     protected StarItem starItem;
     @Bean
     protected FamousForAdapter listAdapter;
+    private StarsDetailsContract.StarsDetailsPresenter presenter;
     @AfterInject
     @Override
     public void initPresenter() {
-
+        new StarsDetailsPresenter(this, starItem);
     }
 
     @Override
     public void setPresenter(StarsDetailsContract.StarsDetailsPresenter presenter) {
+        this.presenter = presenter;
+    }
 
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_star_details;
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return presenter;
     }
 
     @AfterViews
     protected void initUI() {
+        setupRecyclerView();
+        presenter.subscribe();
+    }
+
+    @Override
+    public void setStarDetail(StarItem starItem) {
         tvName.setText(getResources().getString(R.string.name, starItem.name));
         tv_popularity.setText(getResources().getString(R.string.popularity, String.valueOf(starItem.popularity)));
         Picasso.with(getContext())
                 .load(starItem.avatarUrl)
                 .error(R.drawable.ic_user)
                 .into(imageView);
-        Log.e("myLog", "starItem.known_for.size() " + starItem.known_for.size());
-        setupRecyclerView();
-
     }
+
+    @Override
+    public void setFamousForDH(List<FamousForDH> famousForDHs) {
+        listAdapter.setListDH(famousForDHs);
+    }
+
     private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvListFamousFor.setLayoutManager(layoutManager);
         rvListFamousFor.setAdapter(listAdapter);
-        List<FamousForItem> list = starItem.known_for;
-        List<FamousForDH> famousForDHs = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            famousForDHs.add(new FamousForDH(list.get(i)));
-        }
-        listAdapter.setListDH(famousForDHs);
     }
 }

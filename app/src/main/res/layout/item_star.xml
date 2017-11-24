@@ -19,7 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitStart"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_user"/>
 
         <LinearLayout
@@ -27,8 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_half"
-            android:layout_marginLeft="@dimen/margin_half"
-            android:layout_marginRight="@dimen/margin_half"
             android:layout_toEndOf="@+id/imageView"
             android:orientation="vertical">
 

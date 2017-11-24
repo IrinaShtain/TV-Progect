@@ -44,6 +44,7 @@ public class Constants {
         NEW_MOVIE_ADDED_SUCCESSFULLY(R.string.msg_new_movie_added_successfully, false),
         NEW_MOVIE_REMOVED_SUCCESSFULLY(R.string.msg_new_movie_removed_successfully, true),
         INPUT_MOVIE_TITLE(R.string.error_msg_input_movie_title, true),
+        INPUT_STAR_NAME(R.string.error_msg_star_name, true),
         UNKNOWN(R.string.err_msg_something_goes_wrong, true);
 
         @StringRes

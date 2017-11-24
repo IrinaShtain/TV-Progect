@@ -51,11 +51,13 @@
     <string name="enter_name">Enter title and description for new list</string>
     <string name="hint_title">Title</string>
     <string name="hint_description">Description</string>
+    <string name="hint_input_stars_name">"Input star's name"</string>
     <string name="input_title">Input movie\'s title</string>
 
     /*Error messages/
     <string name="err_msg_no_data">No data</string>
     <string name="error_msg_input_movie_title">Input movie title</string>
+    <string name="error_msg_star_name">Input star name</string>
     <string name="err_msg_connection_problem">Connection lost</string>
     <string name="err_msg_user_not_registered">Bad credentials</string>
     <string name="err_msg_something_goes_wrong">Something went wrong</string>
@@ -67,4 +69,5 @@
     <string name="err_msg_no_lists">You have no created lists</string>
     <string name="error_msg_no_movies">No movies in this list</string>
     <string name="error_msg_no_movies_with_such_title">No movies with such title</string>
+    <string name="error_msg_no_star_with_such_name">No star with such name</string>
 </resources>

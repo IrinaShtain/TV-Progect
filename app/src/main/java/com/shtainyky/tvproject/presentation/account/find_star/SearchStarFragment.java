@@ -3,8 +3,12 @@ package com.shtainyky.tvproject.presentation.account.find_star;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
@@ -15,6 +19,8 @@ import com.shtainyky.tvproject.presentation.account.find_star.adapters.SearchSta
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
 import com.shtainyky.tvproject.presentation.account.find_star.stars_details.StarsDetailsFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
+import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.StarListener;
 import com.shtainyky.tvproject.utils.Constants;
@@ -33,16 +39,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Bell on 02.06.2017.
  */
-@EFragment(R.layout.fragment_search)
-public class SearchStarFragment extends BaseFragment implements SearchStarContract.SearchStarView, StarListener {
+@EFragment
+public class SearchStarFragment extends RefreshableFragment implements SearchStarContract.SearchStarView, StarListener {
     @ViewById
     RecyclerView rvLists;
-
     @ViewById
     EditText tvSearch;
-
     @ViewById
     Button bt_search;
+    @ViewById
+    ImageView ivPlaceholderImage;
+    @ViewById
+    TextView tvPlaceholderMessage;
+    @ViewById
+    RelativeLayout rlPlaceholder;
 
     @FragmentArg
     protected int listID;
@@ -63,6 +73,15 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
         new SearchStarPresenter(this, mMovieRepository, userManager);
     }
 
+    @Override
+    protected RefreshablePresenter getPresenter() {
+        return mPresenter;
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_search;
+    }
 
     @Override
     public void setPresenter(SearchStarContract.SearchStarPresenter presenter) {
@@ -72,10 +91,13 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
     @AfterViews
     protected void initUI() {
         mActivity.getToolbarManager().setTitle(R.string.title_read_about_star);
-        tvSearch.setHint("Input star's name");
+        tvSearch.setHint(R.string.hint_input_stars_name);
         RxView.clicks(bt_search)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.onSearchClick());
+                .subscribe(aVoid -> {
+                    mPresenter.onSearchClick(tvSearch.getText().toString());
+                    hideKeyboard();
+                });
         setupRecyclerView();
     }
 
@@ -91,20 +113,9 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
         }));
     }
 
-
-    @Override
-    public void getInputText() {
-        String title = tvSearch.getText().toString();
-        if (title.isEmpty())
-            Toast.makeText(getContext(), "Empty name", Toast.LENGTH_LONG).show();
-        else {
-            mPresenter.makeSearch(title);
-            hideKeyboard();
-        }
-    }
-
     @Override
     public void setList(ArrayList<StarDH> starDHs) {
+        rvLists.setVisibility(View.VISIBLE);
         listAdapter.setListDH(starDHs);
     }
 
@@ -114,12 +125,29 @@ public class SearchStarFragment extends BaseFragment implements SearchStarContra
     }
 
     @Override
-    public void showMessage(String message) {
-
+    public void onStarClick(StarItem starItem) {
+        mActivity.replaceFragment(StarsDetailsFragment_.builder().starItem(starItem).build());
     }
 
     @Override
-    public void onStarClick(StarItem starItem) {
-        mActivity.replaceFragment(StarsDetailsFragment_.builder().starItem(starItem).build());
+    public void showPlaceholder(Constants.PlaceholderType placeholderType) {
+        rlPlaceholder.setVisibility(View.VISIBLE);
+        rvLists.setVisibility(View.GONE);
+        switch (placeholderType) {
+            case EMPTY:
+                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty_lists);
+                tvPlaceholderMessage.setText(R.string.error_msg_no_star_with_such_name);
+                break;
+            case NETWORK:
+                ivPlaceholderImage.setImageResource(R.drawable.ic_cloud_off);
+                tvPlaceholderMessage.setText(R.string.err_msg_connection_problem);
+                break;
+            case UNKNOWN:
+                ivPlaceholderImage.setImageResource(R.drawable.ic_sentiment_dissatisfied);
+                tvPlaceholderMessage.setText(R.string.err_msg_something_goes_wrong);
+                break;
+            default:
+                super.showPlaceholder(placeholderType);
+        }
     }
 }

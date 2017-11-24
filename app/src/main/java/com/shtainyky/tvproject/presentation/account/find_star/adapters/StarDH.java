@@ -24,11 +24,6 @@ public class StarDH {
         return model.name == null ? "No name" : model.name.trim();
     }
 
-    public int getModelID() {
-        return model.id;
-    }
-
-
     public String getInfo() {
         return "Popularity: " + model.popularity;
     }
@@ -36,10 +31,5 @@ public class StarDH {
     public String getPosterPath() {
         return model.avatarUrl;
     }
-
-    public ArrayList<FamousForItem> getFamousFor() {
-        return model.known_for;
-    }
-
 
 }
