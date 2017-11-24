@@ -65,10 +65,11 @@ public class AccountActivity extends BaseActivity {
                 .withSelectedItem(-1)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.title_my_account)
-                                .withIcon(R.drawable.ic_user)
+                                .withIcon(R.drawable.ic_user_color_primary)
                                 .withIdentifier(0)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                                .withSelectedIcon(R.drawable.ic_user_color_accent)
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.title_my_lists)
@@ -76,6 +77,7 @@ public class AccountActivity extends BaseActivity {
                                 .withIdentifier(1)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                                .withSelectedIcon(R.drawable.ic_list_movies_accent)
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.read_about_star)
@@ -83,6 +85,7 @@ public class AccountActivity extends BaseActivity {
                                 .withIdentifier(2)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+                                .withSelectedIcon(R.drawable.ic_find_new_star_accent)
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)))
                 .withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     switch ((int) drawerItem.getIdentifier()) {
