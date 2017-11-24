@@ -52,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_arrow_back"/>
+                app:titleTextColor="@android:color/white"
+                app:navigationIcon="@drawable/ic_arrow_back_white"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

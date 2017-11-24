@@ -1,5 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details;
 
+import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
@@ -116,10 +117,8 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
                     scrollRange = appBarLayout.getTotalScrollRange();
                     collapseOffset = appBarLayout.getHeight() / 3;
                 }
-
                 if (scrollRange + verticalOffset <= collapseOffset) {
                     toolbar.setBackgroundColor(toolbarColor);
-                    toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
                 } else {
                     toolbar.setBackgroundResource(R.drawable.bg_title_black_gradient);
                     toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
@@ -131,6 +130,7 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
     @Override
     public void setupUI(MovieItem movieItem) {
         collapsingToolbar.setTitle(movieItem.title);
+        collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
         tv_description.setText(getResources().getString(R.string.description, movieItem.overview));
         tvTitle.setText(movieItem.title);
         tv_genre.setText(getResources().getString(R.string.genre, movieItem.genresString));

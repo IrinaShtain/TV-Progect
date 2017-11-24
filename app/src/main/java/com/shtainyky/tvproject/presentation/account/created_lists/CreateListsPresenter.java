@@ -42,9 +42,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
 
     @Override
     public void subscribe() {
-        Log.e("myLog", "subscribe");
         user = userManager.getCurrentUser();
-        Log.e("myLog", "user.id" + user.id);
         Log.e("myLog", "userManager.getSessionId" + userManager.getSessionId());
         view.showProgressMain();
         loadPage(1);
@@ -100,7 +98,6 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
 
     @Override
     public void removeList(CreatedListsDH item, int pos) {
-        Log.e("myLog", "deleteItem listID = " + item.getListsID());
         view.showProgressPagination();
         compositeDisposable.add(model.deleteList(item.getListsID(), userManager.getSessionId())
                 .subscribe(responseMessage -> {

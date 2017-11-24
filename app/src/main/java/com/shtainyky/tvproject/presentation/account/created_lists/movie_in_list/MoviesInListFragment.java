@@ -141,7 +141,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage(R.string.question_about_goal);
                 builder.setPositiveButton(R.string.answer_yes,
-                        (dialog, which) -> presenter.deleteList(listID));
+                        (dialog, which) -> presenter.deleteList(listID)); 
                 builder.setNegativeButton(R.string.answer_no, null);
 
                 builder.show();
