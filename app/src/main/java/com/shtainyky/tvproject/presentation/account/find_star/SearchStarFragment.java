@@ -1,6 +1,6 @@
 package com.shtainyky.tvproject.presentation.account.find_star;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
@@ -18,7 +17,6 @@ import com.shtainyky.tvproject.domain.StarRepository;
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.SearchStarAdapter;
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
 import com.shtainyky.tvproject.presentation.account.find_star.stars_details.StarsDetailsFragment_;
-import com.shtainyky.tvproject.presentation.base.BaseFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
@@ -102,7 +100,7 @@ public class SearchStarFragment extends RefreshableFragment implements SearchSta
     }
 
     private void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 2);
         rvLists.setLayoutManager(layoutManager);
         listAdapter.setListener(this);
         rvLists.setAdapter(listAdapter);

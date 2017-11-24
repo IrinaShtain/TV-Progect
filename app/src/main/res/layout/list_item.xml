@@ -15,10 +15,10 @@
         app:cardUseCompatPadding="true">
 
         <ImageView
-            android:id="@+id/ivImageMovie"
+            android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/placeholder"/>
+            tools:src="@drawable/placeholder_movie"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:padding="@dimen/padding_half"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_big"

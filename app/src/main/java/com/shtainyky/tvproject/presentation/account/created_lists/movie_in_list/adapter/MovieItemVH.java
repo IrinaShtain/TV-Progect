@@ -15,21 +15,21 @@ import com.squareup.picasso.Picasso;
 
 public class MovieItemVH extends RecyclerView.ViewHolder {
     private final TextView tvTitle;
-    private final ImageView ivImageMovie;
+    private final ImageView ivImage;
 
 
     public MovieItemVH(View itemView) {
         super(itemView);
         tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        ivImageMovie = (ImageView) itemView.findViewById(R.id.ivImageMovie);
+        ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
     }
 
     public void bindData(MovieItemDH listsDH) {
         Picasso.with(itemView.getContext())
                 .load(listsDH.getPosterPath())
-                .error(R.drawable.placeholder)
-                .placeholder(R.drawable.placeholder)
-                .into(ivImageMovie);
+                .error(R.drawable.placeholder_movie)
+                .placeholder(R.drawable.placeholder_movie)
+                .into(ivImage);
         tvTitle.setText(listsDH.getMovieTitle());
       }
 }

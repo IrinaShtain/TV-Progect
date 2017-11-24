@@ -1,17 +1,11 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.adapter;
 
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
-import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsVH;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 
 import org.androidannotations.annotations.EBean;
@@ -64,7 +58,7 @@ public class CreatedListsAdapter extends RecyclerView.Adapter<CreatedListsVH> {
     @Override
     public CreatedListsVH onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_list, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_item_created_list, parent, false);
         return new CreatedListsVH(view);
 
     }

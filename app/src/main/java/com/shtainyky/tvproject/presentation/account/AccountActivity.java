@@ -8,8 +8,6 @@ package com.shtainyky.tvproject.presentation.account;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -67,7 +65,7 @@ public class AccountActivity extends BaseActivity {
                 .withSelectedItem(-1)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.title_my_account)
-                                .withIcon(R.drawable.ic_account)
+                                .withIcon(R.drawable.placehoder_star)
                                 .withIdentifier(0)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))

@@ -15,8 +15,7 @@ import com.squareup.picasso.Picasso;
 
 public class SearchStarVH extends RecyclerView.ViewHolder {
     private final TextView tvTitle;
-    private final TextView tv_info;
-    private final ImageView imageView;
+    private final ImageView ivImage;
 
 
 
@@ -26,18 +25,17 @@ public class SearchStarVH extends RecyclerView.ViewHolder {
         super(itemView);
         mContext = itemView.getContext();
         tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-        tv_info = (TextView) itemView.findViewById(R.id.tv_info);
-        imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
 
     }
 
     public void bindData(StarDH starDH) {
-        tvTitle.setText(mContext.getResources().getString(R.string.name, starDH.getName()));
-        tv_info.setText(starDH.getInfo());
+        tvTitle.setText(starDH.getName());
         Picasso.with(mContext)
                 .load(starDH.getPosterPath())
-                .error(R.drawable.ic_user)
-                .into(imageView);
+                .error(R.drawable.placehoder_star)
+                .placeholder(R.drawable.placehoder_star)
+                .into(ivImage);
 
 
 

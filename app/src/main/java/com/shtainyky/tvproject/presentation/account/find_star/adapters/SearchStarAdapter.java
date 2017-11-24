@@ -41,7 +41,7 @@ public class SearchStarAdapter extends RecyclerView.Adapter<SearchStarVH> {
     @Override
     public SearchStarVH onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_star, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_item, parent, false);
         return new SearchStarVH(view);
 
     }
