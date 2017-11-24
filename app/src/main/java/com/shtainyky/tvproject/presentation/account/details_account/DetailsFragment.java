@@ -40,7 +40,7 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
     TextView tvName;
 
     @ViewById
-    TextView tvIncludeAult;
+    TextView tvIncludeAdult;
 
     @Override
     protected int getLayoutRes() {
@@ -65,7 +65,7 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
 
     @AfterViews
     protected void initUI() {
-        mActivity.getToolbarManager().setTitle(R.string.app_name);
+        mActivity.getToolbarManager().setTitle(R.string.title_my_account);
         presenter.subscribe();
     }
 
@@ -83,7 +83,7 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
     @Override
     public void setAdultPermission(boolean hasPermission) {
         String perm = hasPermission ? "Yes" : "No";
-        tvIncludeAult.setText(getString(R.string.include_adult, perm));
+        tvIncludeAdult.setText(getString(R.string.include_adult, perm));
     }
 
     @Override

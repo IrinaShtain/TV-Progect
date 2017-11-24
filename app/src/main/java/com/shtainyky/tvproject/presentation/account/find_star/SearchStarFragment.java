@@ -133,7 +133,7 @@ public class SearchStarFragment extends RefreshableFragment implements SearchSta
         rvLists.setVisibility(View.GONE);
         switch (placeholderType) {
             case EMPTY:
-                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty_lists);
+                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty);
                 tvPlaceholderMessage.setText(R.string.error_msg_no_star_with_such_name);
                 break;
             case NETWORK:

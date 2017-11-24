@@ -51,7 +51,7 @@ public class AccountActivity extends BaseActivity {
 
     private void setupToolbar() {
         setSupportActionBar(toolbar);
-        toolbar.setTitle("My Account");
+        toolbar.setTitle(R.string.title_my_account);
         toolbar.setTitleTextColor(Color.WHITE);
     }
 
@@ -65,21 +65,21 @@ public class AccountActivity extends BaseActivity {
                 .withSelectedItem(-1)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.title_my_account)
-                                .withIcon(R.drawable.placehoder_star)
+                                .withIcon(R.drawable.ic_user)
                                 .withIdentifier(0)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.title_my_lists)
-                                .withIcon(R.drawable.ic_lists)
+                                .withIcon(R.drawable.ic_list_movies)
                                 .withIdentifier(1)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))
                                 .withTextColor(ContextCompat.getColor(this, R.color.primary_dark)),
                         new DividerDrawerItem(),
                         new PrimaryDrawerItem().withName(R.string.read_about_star)
-                                .withIcon(R.drawable.ic_find_star)
+                                .withIcon(R.drawable.ic_find_new_star)
                                 .withIdentifier(2)
                                 .withSelectedColor(Color.WHITE)
                                 .withSelectedTextColor(ContextCompat.getColor(this, R.color.colorAccent))

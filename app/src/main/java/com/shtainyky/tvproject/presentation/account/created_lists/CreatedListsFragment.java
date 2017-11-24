@@ -199,7 +199,7 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
     public void showPlaceholder(Constants.PlaceholderType placeholderType) {
         super.showPlaceholder(placeholderType);
         if (placeholderType == Constants.PlaceholderType.EMPTY) {
-            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
+            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty);
             tvPlaceholderMessage_VC.setText(R.string.err_msg_no_lists);
         }
     }

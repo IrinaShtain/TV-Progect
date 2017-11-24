@@ -18,14 +18,11 @@ import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
-import com.shtainyky.tvproject.presentation.base.BasePresenter;
-import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
 import com.shtainyky.tvproject.presentation.listeners.EndlessScrollListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
-import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
@@ -146,7 +143,7 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
         rvLists.setVisibility(View.GONE);
         switch (placeholderType) {
             case EMPTY:
-                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty_lists);
+                ivPlaceholderImage.setImageResource(R.drawable.placeholder_empty);
                 tvPlaceholderMessage.setText(R.string.error_msg_no_movies_with_such_title);
                 break;
             case NETWORK:

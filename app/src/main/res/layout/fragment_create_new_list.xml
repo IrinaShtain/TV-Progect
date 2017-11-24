@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/padding_default"
-                android:drawableStart="@drawable/ic_password"
+                android:drawableStart="@drawable/ic_password_new"
                 android:hint="@string/hint_description"
                 android:inputType="text"
                 android:textColorHint="@color/colorPrimary"

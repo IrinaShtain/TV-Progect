@@ -38,7 +38,7 @@
         />
 
     <TextView
-        android:id="@+id/tvIncludeAult"
+        android:id="@+id/tvIncludeAdult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_half"

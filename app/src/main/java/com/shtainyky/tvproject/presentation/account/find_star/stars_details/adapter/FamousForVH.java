@@ -36,7 +36,7 @@ public class FamousForVH extends RecyclerView.ViewHolder {
         release.setText(famousForDH.getReleaseDate());
         Picasso.with(mContext)
                 .load(famousForDH.getPosterPath())
-                .error(R.drawable.ic_user)
+                .error(R.drawable.placeholder_movie)
                 .into(icon);
 
 

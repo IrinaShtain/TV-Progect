@@ -138,7 +138,7 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
         tv_popularity.setText(getResources().getString(R.string.popularity, String.valueOf(movieItem.vote_count)));
         Picasso.with(getContext())
                 .load(movieItem.avatarUrl)
-                .error(R.drawable.ic_user)
+                .error(R.drawable.placeholder_movie)
                 .into(imageView);
 
     }

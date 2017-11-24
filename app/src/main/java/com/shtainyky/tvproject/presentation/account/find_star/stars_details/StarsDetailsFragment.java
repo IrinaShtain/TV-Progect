@@ -79,7 +79,7 @@ public class StarsDetailsFragment extends ContentFragment implements StarsDetail
         tv_popularity.setText(getResources().getString(R.string.popularity, String.valueOf(starItem.popularity)));
         Picasso.with(getContext())
                 .load(starItem.avatarUrl)
-                .error(R.drawable.ic_user)
+                .error(R.drawable.placehoder_star)
                 .into(imageView);
     }
 

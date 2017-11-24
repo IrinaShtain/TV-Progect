@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
@@ -154,7 +153,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     public void showPlaceholder(Constants.PlaceholderType placeholderType) {
         super.showPlaceholder(placeholderType);
         if (placeholderType == Constants.PlaceholderType.EMPTY) {
-            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty_lists);
+            ivPlaceholderImage_VC.setImageResource(R.drawable.placeholder_empty);
             tvPlaceholderMessage_VC.setText(R.string.error_msg_no_movies);
         }
     }
