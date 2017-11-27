@@ -136,11 +136,7 @@ public class AccountActivity extends BaseActivity {
     public void onBackPressed() {
         if (result.isDrawerOpen()) {
             result.closeDrawer();
-        } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            getSupportFragmentManager().popBackStackImmediate();
-        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
-            finish();
-        else
+        } else
             super.onBackPressed();
 
     }

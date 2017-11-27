@@ -27,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @IdRes
     protected abstract int getContainerId();
+
     @Bean
     protected ToolbarManager toolbarManager;
 
@@ -37,11 +38,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbarManager.init(this, getToolbar());
 
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-            if(getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
                 toolbarManager.showHomeButton(true);
             }
         });
     }
+
     public void replaceFragment(BaseFragment fragment) {
         replaceFragment(fragment, Collections.emptyList());
     }
@@ -68,5 +70,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public ToolbarManager getToolbarManager() {
         return toolbarManager;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStackImmediate();
+        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+            finish();
+        else
+            super.onBackPressed();
+
     }
 }

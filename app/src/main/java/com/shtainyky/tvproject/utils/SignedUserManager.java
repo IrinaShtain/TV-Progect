@@ -70,6 +70,12 @@ public class SignedUserManager {
                 .getAccessToken()
                 .remove()
                 .apply();
+
+        userStorePrefs
+                .edit()
+                .getSessionID()
+                .remove()
+                .apply();
     }
 
     public void saveAuthToken(String token) {

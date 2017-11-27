@@ -55,10 +55,6 @@ public abstract class RefreshableFragment extends ContentFragment {
         enableRefreshing(false);
     }
 
-    public boolean isRefreshingEnabled() {
-        return swipeContainer_VC.isEnabled();
-    }
-
     @Override
     public void showProgressMain() {
         super.showProgressMain();
@@ -69,7 +65,7 @@ public abstract class RefreshableFragment extends ContentFragment {
     public void hideProgress() {
         super.hideProgress();
         enableRefreshing(true);
-        if(swipeContainer_VC.isRefreshing()) swipeContainer_VC.setRefreshing(false);
+        if (swipeContainer_VC.isRefreshing()) swipeContainer_VC.setRefreshing(false);
     }
 
     @Override

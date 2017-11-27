@@ -17,9 +17,12 @@ public interface DetailsContract {
         void setUserNick(String name);
         void setUserName(String name);
         void setAdultPermission(boolean hasPermission);
+        void showAlertAboutLogout();
+        void openLogin();
     }
     interface DetailsPresenter extends BasePresenter {
-
+        void menuPressed();
+        void clearUser();
     }
     interface DetailsModel {
         Observable<User> getUserDetails(String sessionID);

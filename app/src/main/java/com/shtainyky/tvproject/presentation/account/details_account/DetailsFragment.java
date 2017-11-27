@@ -1,26 +1,38 @@
 package com.shtainyky.tvproject.presentation.account.details_account;
 
 
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.view.RxMenuItem;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.domain.AccountRepository;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
+import com.shtainyky.tvproject.presentation.login.SignUpActivity_;
+import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
  * Created by Bell on 25.05.2017.
  */
 @EFragment
+@OptionsMenu(R.menu.menu_logout)
 public class DetailsFragment extends ContentFragment implements DetailsContract.DetailsView {
 
 
@@ -32,15 +44,15 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
 
     @ViewById
     TextView tvUserName;
-
     @ViewById
     ImageView ivUserAvatar;
-
     @ViewById
     TextView tvName;
-
     @ViewById
     TextView tvIncludeAdult;
+
+    @OptionsMenuItem(R.id.logout)
+    protected MenuItem menulogout;
 
     @Override
     protected int getLayoutRes() {
@@ -87,9 +99,29 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.unsubscribe();
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        RxMenuItem.clicks(menulogout)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> presenter.menuPressed());
+    }
+
+    @Override
+    public void showAlertAboutLogout() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.question_about_logout);
+        builder.setPositiveButton(R.string.answer_yes,
+                (dialog, which) -> presenter.clearUser());
+        builder.setNegativeButton(R.string.answer_no, null);
+
+        builder.show();
+    }
+
+    @Override
+    public void openLogin() {
+        SignUpActivity_.intent(this)
+                .flags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                .start();
     }
 
 }

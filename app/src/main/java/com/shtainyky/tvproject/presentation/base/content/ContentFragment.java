@@ -3,7 +3,6 @@ package com.shtainyky.tvproject.presentation.base.content;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -49,7 +48,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
     @ViewById
     protected ImageView ivPlaceholderImage_VC;
     @ViewById
-    protected Button btnPlaceholdoerAction_VC;
+    protected Button btnPlaceholderAction_VC;
 
     private Snackbar snackbar;
 
@@ -86,7 +85,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
 
     @AfterViews
     protected void afterViews() {
-        RxView.clicks(btnPlaceholdoerAction_VC)
+        RxView.clicks(btnPlaceholderAction_VC)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
                 .subscribe(aVoid -> onPlaceholderAction());
     }
@@ -118,7 +117,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
         rlPlaceholder_VC.setVisibility(View.VISIBLE);
         ivPlaceholderImage_VC.setImageResource(placeholderType.getIconRes());
         tvPlaceholderMessage_VC.setText(placeholderType.getMessageRes());
-        btnPlaceholdoerAction_VC.setVisibility(placeholderType == Constants.PlaceholderType.EMPTY
+        btnPlaceholderAction_VC.setVisibility(placeholderType == Constants.PlaceholderType.EMPTY
                 ? View.GONE
                 : View.VISIBLE);
     }
@@ -153,10 +152,4 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
         rlPlaceholder_VC.setVisibility(View.GONE);
     }
 
-    public boolean isSnackbarShown() {
-        if (snackbar != null)
-            return snackbar.isShown();
-        else
-            return false;
-    }
 }

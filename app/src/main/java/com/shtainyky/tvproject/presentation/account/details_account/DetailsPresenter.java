@@ -37,6 +37,7 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
             view.showProgressMain();
             сompositeDisposable.addAll(model.getUserDetails(userManager.getSessionId()).subscribe(
                     user -> {
+                        view.hideProgress();
                         userManager.updateUser(user);
                         displayUserData(user);
                     }, throwableConsumer
@@ -51,6 +52,17 @@ public class DetailsPresenter implements DetailsContract.DetailsPresenter {
         view.setUserNick(user.username);
         view.setUserName(user.name);
         view.setAdultPermission(user.include_adult);
+    }
+
+    @Override
+    public void menuPressed() {
+        view.showAlertAboutLogout();
+    }
+
+    @Override
+    public void clearUser() {
+        userManager.clearUser();
+        view.openLogin();
     }
 
     @Override

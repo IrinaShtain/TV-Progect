@@ -54,6 +54,7 @@
     <string name="hint_description">Description</string>
     <string name="hint_input_stars_name">"Input star's name"</string>
     <string name="input_title">Input movie\'s title</string>
+    <string name="question_about_logout">Do you really want to logout?</string>
 
     /*Error messages/
     <string name="err_msg_no_data">No data</string>
@@ -74,4 +75,5 @@
 
     /*Menu*/
     <string name="menu_delete">Delete</string>
+    <string name="menu_logout">Logout</string>
 </resources>
