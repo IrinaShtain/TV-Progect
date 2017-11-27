@@ -27,11 +27,15 @@ public class StarsDetailsPresenter implements StarsDetailsContract.StarsDetailsP
     public void subscribe() {
         view.setStarDetail(starItem);
         List<FamousForItem> list = starItem.known_for;
-        List<FamousForDH> famousForDHs = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            famousForDHs.add(new FamousForDH(list.get(i)));
+        if (!list.isEmpty()) {
+            List<FamousForDH> famousForDHs = new ArrayList<>();
+            for (int i = 0; i < list.size(); i++) {
+                famousForDHs.add(new FamousForDH(list.get(i)));
+            }
+            view.setFamousForDH(famousForDHs);
+        }else {
+            view.showNoFamousForMovies();
         }
-        view.setFamousForDH(famousForDHs);
     }
 
     @Override

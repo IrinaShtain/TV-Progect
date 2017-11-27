@@ -16,6 +16,7 @@ public class StarsDetailsContract {
     interface StarsDetailsView extends BaseView<StarsDetailsContract.StarsDetailsPresenter>, ContentView{
         void setStarDetail(StarItem starItem);
         void setFamousForDH(List<FamousForDH> famousForDHs);
+        void showNoFamousForMovies();
     }
 
     interface StarsDetailsPresenter extends BasePresenter {

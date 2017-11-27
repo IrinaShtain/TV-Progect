@@ -31,16 +31,12 @@ public class FamousForVH extends RecyclerView.ViewHolder {
     }
 
     public void bindData(FamousForDH famousForDH) {
-        names.setText(mContext.getResources().getString(R.string.title, famousForDH.getTitle()));
+        names.setText(famousForDH.getTitle());
         info.setText(famousForDH.getDesc());
         release.setText(famousForDH.getReleaseDate());
         Picasso.with(mContext)
                 .load(famousForDH.getPosterPath())
                 .error(R.drawable.placeholder_movie)
                 .into(icon);
-
-
-
-
     }
 }

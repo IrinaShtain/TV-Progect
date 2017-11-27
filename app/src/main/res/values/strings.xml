@@ -17,7 +17,7 @@
     <string name="title">Title: %s</string>
     <string name="genre">Genre: %s</string>
     <string name="releaseDate">Release Date: %s</string>
-    <string name="popularity">Rate: %s</string>
+    <string name="popularity">Rating: %s</string>
 
     /*Star details*/
     <string name="famous_for">Famous for</string>
@@ -44,6 +44,7 @@
     <string name="msg_new_list_created_successfully">New list is successfully created</string>
     <string name="msg_new_movie_added_successfully">The movie is successfully added</string>
     <string name="msg_new_movie_removed_successfully">The movie is successfully removed</string>
+    <string name="msg_no_famous_for_movies">No information about famous movies</string>
     <string name="question_about_deleting">Do you want to delete movie</string>
     <string name="question_about_goal">Do you want delete this list?</string>
     <string name="tos_pp">If you have no account,\nplease <a href="https://www.themoviedb.org/account/signup"><b>Sign Up</b></a> </string>

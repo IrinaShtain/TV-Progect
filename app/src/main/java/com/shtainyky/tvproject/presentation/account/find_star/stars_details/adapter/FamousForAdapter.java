@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shtainyky.tvproject.R;
-import com.shtainyky.tvproject.presentation.listeners.StarListener;
 
 import org.androidannotations.annotations.EBean;
 
@@ -19,7 +18,6 @@ import java.util.List;
 @EBean
 public class FamousForAdapter extends RecyclerView.Adapter<FamousForVH> {
     private List<FamousForDH> items;
-    private StarListener mListener;
 
     public FamousForAdapter() {
         items = new ArrayList<>();
@@ -34,7 +32,7 @@ public class FamousForAdapter extends RecyclerView.Adapter<FamousForVH> {
     @Override
     public FamousForVH onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_famous_for, parent, false);
+        View view = layoutInflater.inflate(R.layout.list_item_famous_for, parent, false);
         return new FamousForVH(view);
 
     }
