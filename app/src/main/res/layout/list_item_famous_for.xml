@@ -19,7 +19,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:background="@color/colorBackgroundGrey"
             >
 
@@ -70,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
             android:layout_marginTop="@dimen/margin_half"
             android:layout_marginBottom="@dimen/margin_half"
             android:textColor="@color/colorPrimary"

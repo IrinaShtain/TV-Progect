@@ -137,7 +137,7 @@
                 android:id="@+id/bt_add_online"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_releaseDate"
+                android:layout_below="@id/tv_popularity"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="@dimen/margin_half"
                 android:layout_marginStart="@dimen/margin_half"

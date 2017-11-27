@@ -16,6 +16,7 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EBean;
 
 import java.net.SocketTimeoutException;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
@@ -55,6 +56,7 @@ public class Rest {
                             Request request = chain.request();
                             HttpUrl url = request.url().newBuilder()
                                     .addQueryParameter("api_key", BuildConfig.API_KEY)
+                                    .addQueryParameter("language", Locale.getDefault().toString())
                                     .build();
                             request = request.newBuilder().url(url).build();
                             return chain.proceed(request);
@@ -64,7 +66,7 @@ public class Rest {
                     }
                 });
 
-        Log.e("myLog","Rest called ");
+        Log.e("myLog","Rest called " + Locale.getDefault().toString());
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(LoganSquareConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
