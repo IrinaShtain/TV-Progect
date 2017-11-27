@@ -97,8 +97,8 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     }
 
     @Override
-    public void showResult(int resultID, String title, String description) {
-
+    public void menuPressed() {
+        view.showAlert();
     }
 
     @Override

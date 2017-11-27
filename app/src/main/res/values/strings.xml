@@ -71,4 +71,7 @@
     <string name="error_msg_no_movies">No movies in this list</string>
     <string name="error_msg_no_movies_with_such_title">No movies with such title</string>
     <string name="error_msg_no_star_with_such_name">No star with such name</string>
+
+    /*Menu*/
+    <string name="menu_delete">Delete</string>
 </resources>

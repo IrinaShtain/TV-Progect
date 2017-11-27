@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.jakewharton.rxbinding2.view.RxMenuItem;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
@@ -26,14 +27,18 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Irina Shtain on 17.11.2017.
  */
 @EFragment
+@OptionsMenu(R.menu.menu_delete)
 public class MoviesInListFragment extends RefreshableFragment implements MoviesInListContract.MoviesInListView, OnCardClickListener {
 
     @ViewById
@@ -49,6 +54,9 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     @Bean
     protected MovieRepository repository;
     private MoviesInListContract.MoviesInListPresenter presenter;
+
+    @OptionsMenuItem(R.id.delete)
+    protected MenuItem menuDelete;
 
     @Override
     protected int getLayoutRes() {
@@ -128,25 +136,22 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_delete, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        RxMenuItem.clicks(menuDelete)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(o -> presenter.menuPressed());
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage(R.string.question_about_goal);
-                builder.setPositiveButton(R.string.answer_yes,
-                        (dialog, which) -> presenter.deleteList(listID)); 
-                builder.setNegativeButton(R.string.answer_no, null);
+    public void showAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.question_about_goal);
+        builder.setPositiveButton(R.string.answer_yes,
+                (dialog, which) -> presenter.deleteList(listID));
+        builder.setNegativeButton(R.string.answer_no, null);
 
-                builder.show();
-                break;
-        }
-        return true;
+        builder.show();
     }
 
     @Override
