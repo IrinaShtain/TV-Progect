@@ -44,12 +44,11 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 
     @Override
     public void onSearchClick(String title) {
-        if (!title.isEmpty()){
+        if (!title.isEmpty()) {
             this.movieTitle = title;
             view.showProgressMain();
             loadMovies();
-        }
-        else
+        } else
             view.showMessage(Constants.MessageType.INPUT_MOVIE_TITLE);
     }
 
@@ -67,9 +66,10 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
     @Override
     public void getNextPage() {
         Log.e("myLog", "current_page" + current_page);
-        view.showProgressPagination();
-        if (current_page < total_pages)
-            loadPage(current_page + 1);
+        if (current_page < total_pages) {
+            view.showProgressPagination();
+            loadPage(++current_page);
+        }
     }
 
     private void loadPage(int pageNumber) {

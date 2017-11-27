@@ -61,6 +61,7 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
     protected MovieRepository repository;
 
     private SearchMovieContract.SearchMoviePresenter presenter;
+    protected EndlessScrollListener scrollListener;
     @Bean
     protected MovieItemAdapter listAdapter;
 
@@ -103,17 +104,19 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
         rvLists.setLayoutManager(layoutManager);
         listAdapter.setListener(this);
         rvLists.setAdapter(listAdapter);
-        rvLists.addOnScrollListener(new EndlessScrollListener(layoutManager, () -> {
+        scrollListener = new EndlessScrollListener(layoutManager, () -> {
             presenter.getNextPage();
             Log.e("myLog", "initUI getNextPage ");
             return true;
-        }));
+        });
+        rvLists.addOnScrollListener(scrollListener);
     }
 
 
     @Override
     public void setList(ArrayList<MovieItemDH> movieDHs) {
         hideKeyboard();
+        scrollListener.reset();
         rvLists.setVisibility(View.VISIBLE);
         listAdapter.setListDH(movieDHs);
     }
