@@ -120,7 +120,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
                 }));
     }
 
-    private void checkEmptyList(){
+    private void checkEmptyList() {
         if (totalResults == 0)
             view.showPlaceholder(Constants.PlaceholderType.EMPTY);
     }
@@ -129,10 +129,10 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
     public void showResult(int resultID, String title, String description) {
         switch (resultID) {
             case Constants.ERROR_CODE_CONNECTION_LOST:
-                view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                showConnectionError();
                 break;
             case Constants.ERROR_CODE_UNKNOWN:
-                view.showMessage(Constants.MessageType.UNKNOWN);
+                showUnknownError();
                 break;
             default:
                 view.showMessage(Constants.MessageType.NEW_LIST_CREATED_SUCCESSFULLY);
@@ -145,6 +145,20 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         }
     }
 
+    private void showConnectionError() {
+        if (totalPages != Integer.MAX_VALUE)
+            view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+        else
+            view.showPlaceholder(Constants.PlaceholderType.NETWORK);
+    }
+
+    private void showUnknownError() {
+        if (totalPages != Integer.MAX_VALUE)
+            view.showMessage(Constants.MessageType.UNKNOWN);
+        else
+            view.showPlaceholder(Constants.PlaceholderType.UNKNOWN);
+    }
+
     @Override
     public void unsubscribe() {
         compositeDisposable.clear();
@@ -154,7 +168,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         Log.d("myLogs", "Error! " + throwable.getMessage());
         throwable.printStackTrace();
         view.hideProgress();
-        if (totalPages != 0)
+        if (totalPages != Integer.MAX_VALUE)
             if (throwable instanceof ConnectionException) {
                 view.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
             } else {

@@ -2,43 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/rlPlaceholder_VC"
-                tools:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:padding="@dimen/padding_double"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
     <TextView
         android:id="@+id/tvPlaceholderMessage_VC"
-        tools:text="Connection problems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_large"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:textSize="@dimen/text_size_large"
+        tools:text="Connection problems"/>
 
     <ImageView
         android:id="@+id/ivPlaceholderImage_VC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/avatar_large"
-        android:minWidth="@dimen/avatar_large"
-        android:layout_marginBottom="@dimen/margin_default"
         android:layout_above="@id/tvPlaceholderMessage_VC"
         android:layout_centerHorizontal="true"
-        tools:src="@drawable/ic_cloud_off" />
+        android:layout_marginBottom="@dimen/margin_default"
+        android:minHeight="@dimen/avatar_large"
+        android:minWidth="@dimen/avatar_large"
+        tools:src="@drawable/ic_cloud_off"/>
 
     <Button
         android:id="@+id/btnPlaceholderAction_VC"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_button_height"
-        android:layout_marginTop="@dimen/margin_triple"
         android:layout_below="@id/tvPlaceholderMessage_VC"
         android:layout_centerHorizontal="true"
-        android:text="@string/btn_retry" />
+        android:layout_marginTop="@dimen/margin_triple"
+        android:background="@drawable/bg_placeholder"
+        android:text="@string/btn_retry"
+        android:textColor="@android:color/white"/>
 
 </RelativeLayout>
