@@ -6,10 +6,12 @@ import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.data.models.movie.MoviesResponse;
 import com.shtainyky.tvproject.data.models.movie.SearchMovieResponse;
 import com.shtainyky.tvproject.data.models.request_body.ActionRequest;
+import com.shtainyky.tvproject.data.models.request_body.RateRequest;
 import com.shtainyky.tvproject.data.models.response.ResponseMessage;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListContract;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.rating_dialog.RatingDialogContract;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.SignedUserManager;
@@ -27,7 +29,7 @@ import io.reactivex.Observable;
 @EBean(scope = EBean.Scope.Singleton)
 public class MovieRepository extends NetworkRepository implements
         SearchMovieContract.SearchMovieModel, MovieDetailsContract.MovieDetailsModel,
-        MoviesInListContract.MoviesInListModel{
+        MoviesInListContract.MoviesInListModel, RatingDialogContract.RatingDialogModel {
 
     @Bean
     protected Rest rest;
@@ -43,7 +45,7 @@ public class MovieRepository extends NetworkRepository implements
 
     @Override
     public Observable<GenresResponse> getGenres() {
-        return  getNetworkObservable(mMovieService.getGenres());
+        return getNetworkObservable(mMovieService.getGenres());
     }
 
     @Override
@@ -57,7 +59,7 @@ public class MovieRepository extends NetworkRepository implements
     }
 
     public Observable<ResponseMessage> deleteMovie(int listID, int movieID) {
-        return getNetworkObservable(mMovieService.deleteMovie(listID, userManager.getSessionId(), new ActionRequest(movieID)));
+        return getNetworkObservable(mMovieService.deleteMovie(listID, new ActionRequest(movieID)));
     }
 
     @Override
@@ -67,16 +69,21 @@ public class MovieRepository extends NetworkRepository implements
 
     @Override
     public Observable<ResponseMessage> addMovie(int listID, int movieID) {
-        return getNetworkObservable(mMovieService.addMovie(listID, userManager.getSessionId(), new ActionRequest(movieID)));
+        return getNetworkObservable(mMovieService.addMovie(listID, new ActionRequest(movieID)));
     }
 
     @Override
     public Observable<ResponseMessage> deleteList(int listID, String sessionID) {
-        return getNetworkObservable(mMovieService.deleteList(listID, sessionID));
+        return getNetworkObservable(mMovieService.deleteList(listID));
     }
 
     @Override
     public SignedUserManager getSignedUserManager() {
         return userManager;
+    }
+
+    @Override
+    public Observable<ResponseMessage> rateMovie(float rating, int movieID) {
+        return getNetworkObservable(mMovieService.rateMovie(movieID, new RateRequest(rating)));
     }
 }

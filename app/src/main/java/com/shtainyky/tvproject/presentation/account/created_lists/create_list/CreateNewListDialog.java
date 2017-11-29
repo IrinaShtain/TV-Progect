@@ -52,14 +52,12 @@ public class CreateNewListDialog extends DialogFragment implements CreateNewList
     protected InputMethodManager inputMethodManager;
 
     @Bean
-    protected SignedUserManager userManager;
-    @Bean
     protected AccountRepository repository;
 
     @AfterInject
     @Override
     public void initPresenter() {
-        new CreateNewListPresenter(this, userManager, repository);
+        new CreateNewListPresenter(this, repository);
     }
 
     @Override

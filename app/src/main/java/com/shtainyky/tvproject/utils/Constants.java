@@ -26,6 +26,7 @@ public class Constants {
 
     /*----------------- REQUEST CODE ------------------*/
     public static final int REQUEST_CODE_CREATE_NEW_LIST = 100;
+    public static final int REQUEST_CODE_RATE_MOVIE = 101;
 
     /*----------------- KEY CODE ------------------*/
     public static final String KEY_TITLE = "list_title";
@@ -42,6 +43,7 @@ public class Constants {
         LIST_WAS_DELETED(R.string.err_msg_list_was_deleted, true),
         NEW_LIST_CREATED_SUCCESSFULLY(R.string.msg_new_list_created_successfully, false),
         NEW_MOVIE_ADDED_SUCCESSFULLY(R.string.msg_new_movie_added_successfully, false),
+        MOVIE_RATED_SUCCESSFULLY(R.string.msg_movie_rated_successfully, false),
         NEW_MOVIE_REMOVED_SUCCESSFULLY(R.string.msg_new_movie_removed_successfully, true),
         INPUT_MOVIE_TITLE(R.string.error_msg_input_movie_title, true),
         INPUT_STAR_NAME(R.string.error_msg_star_name, true),
@@ -115,6 +117,7 @@ public class Constants {
         ADDED_NEW_MOVIE("event_added_new_movie", "Event: Added new movie"),
         DELETED_MOVIE("event_deleted_movie", "Event: Deleted new movie"),
         ADDED_NEW_LIST("event_added_new_list", "Event: Added new list"),
+        ADDED_MOVIE_RATING("event_added_movie_rating", "Event: Added movie rating"),
         DELETED_LIST("event_deleted_list", "Event: Deleted new list"),
         APP_GOES_BACKGROUND("app_goes_background", "Event: Application goes Background");
 

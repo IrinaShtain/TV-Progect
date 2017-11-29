@@ -35,7 +35,7 @@ public interface CreatedListsContract {
     }
 
     interface CreatedListsModel {
-        Observable<CreatedListsData> getLists(int userID, String sessionID, int page);
-        Observable<ResponseMessage> deleteList(int listID, String sessionID);
+        Observable<CreatedListsData> getLists(int userID, int page);
+        Observable<ResponseMessage> deleteList(int listID);
     }
 }

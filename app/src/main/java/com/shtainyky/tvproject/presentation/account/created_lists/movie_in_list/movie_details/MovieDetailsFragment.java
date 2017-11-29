@@ -1,8 +1,10 @@
 package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +14,8 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.rating_dialog.RatingDialogFragment;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.rating_dialog.RatingDialogFragment_;
 import com.shtainyky.tvproject.presentation.base.BasePresenter;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
 import com.shtainyky.tvproject.utils.Constants;
@@ -22,6 +26,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.ColorRes;
 import org.androidannotations.annotations.res.StringRes;
@@ -50,6 +55,8 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
     @ViewById
     Button bt_add_online;
     @ViewById
+    FloatingActionButton fabRating;
+    @ViewById
     protected CollapsingToolbarLayout collapsingToolbar;
     @ViewById
     protected Toolbar toolbar;
@@ -64,6 +71,7 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
     protected ArrayList<MovieItem> moviesInList;
 
     private MovieDetailsContract.MovieDetailsPresenter mPresenter;
+    private RatingDialogFragment dialogRating;
     @Bean
     protected MovieRepository mMovieRepository;
 
@@ -100,12 +108,15 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
         toolbar.setNavigationOnClickListener(v -> mActivity.onBackPressed());
         RxView.clicks(bt_add_online)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> mPresenter.buttonClicked(listID));
+                .subscribe(aVoid -> mPresenter.buttonMovieActionClicked(listID));
+        RxView.clicks(fabRating)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> mPresenter.fabClicked());
         setupCollapsingToolbar();
         mPresenter.subscribe();
     }
 
-    private void setupCollapsingToolbar(){
+    private void setupCollapsingToolbar() {
         mActivity.getToolbarManager().displayToolbar(false);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int scrollRange = -1;
@@ -135,12 +146,21 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
         tvTitle.setText(movieItem.title);
         tv_genre.setText(getResources().getString(R.string.genre, movieItem.genresString));
         tv_releaseDate.setText(movieItem.release_date);
-        tv_popularity.setText(String.valueOf(movieItem.vote_count));
+        tv_popularity.setText(String.valueOf(movieItem.vote_average));
         Picasso.with(getContext())
                 .load(movieItem.avatarUrl)
                 .error(R.drawable.placeholder_movie)
                 .into(imageView);
 
+    }
+
+    @Override
+    public void showRatingDialog() {
+        dialogRating = RatingDialogFragment_.builder()
+                .movieID(movieID)
+                .build();
+        dialogRating.setTargetFragment(this, Constants.REQUEST_CODE_RATE_MOVIE);
+        dialogRating.show(mActivity.getSupportFragmentManager(), "rate_ movie");
     }
 
     @Override
@@ -171,8 +191,18 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
 
     @Override
     public void onDestroyView() {
-        mActivity.getToolbarManager().displayToolbar(true);
         super.onDestroyView();
+        mActivity.getToolbarManager().displayToolbar(true);
+        if (dialogRating != null && dialogRating.isVisible())
+            dialogRating.dismiss();
+    }
+
+    @OnActivityResult(Constants.REQUEST_CODE_RATE_MOVIE)
+    public void onDialogFragmentResult(int resultCode,
+                                       @OnActivityResult.Extra(value = Constants.KEY_ERROR_CODE) int errorCode) {
+        if (resultCode == Activity.RESULT_OK) {
+            mPresenter.showResult(errorCode);
+        }
     }
 
     @Override

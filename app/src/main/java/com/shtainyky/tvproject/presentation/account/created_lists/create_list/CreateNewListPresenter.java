@@ -16,15 +16,12 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class CreateNewListPresenter implements CreateNewListContract.CreateNewListPresenter {
     private CreateNewListContract.CreateNewListView view;
-    private SignedUserManager userManager;
     private CompositeDisposable сompositeDisposable;
     private CreateNewListContract.CreateNewListModel model;
 
     public CreateNewListPresenter(CreateNewListContract.CreateNewListView view,
-                                  SignedUserManager userManager,
                                   CreateNewListContract.CreateNewListModel model) {
         this.view = view;
-        this.userManager = userManager;
         this.model = model;
         сompositeDisposable = new CompositeDisposable();
         view.setPresenter(this);
@@ -48,7 +45,7 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
         else {
             view.hideError();
             view.showProgress();
-            сompositeDisposable.add(model.createList(userManager.getSessionId(), title, description)
+            сompositeDisposable.add(model.createList(title, description)
                     .subscribe(response -> {
                         view.clearInput();
                         view.hideProgress();

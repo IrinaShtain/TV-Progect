@@ -26,7 +26,7 @@ public interface CreateNewListContract {
     }
 
     interface CreateNewListModel{
-        Observable<ResponseMessage> createList(String sessionID, String listTitle, String listDesc);
+        Observable<ResponseMessage> createList(String listTitle, String listDesc);
     }
 
 }

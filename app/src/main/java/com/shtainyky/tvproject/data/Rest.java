@@ -11,9 +11,12 @@ import com.shtainyky.tvproject.data.services.AccountService;
 import com.shtainyky.tvproject.data.services.LoginService;
 import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.utils.Constants;
+import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.net.SocketTimeoutException;
 import java.util.Locale;
@@ -35,7 +38,8 @@ public class Rest {
 
     @App
     protected TVProjectApplication application;
-
+    @Bean
+    protected SignedUserManager sharedPrefManager;
 
     private Retrofit retrofit;
     private LoginService userService;
@@ -57,8 +61,11 @@ public class Rest {
                             HttpUrl url = request.url().newBuilder()
                                     .addQueryParameter("api_key", BuildConfig.API_KEY)
                                     .addQueryParameter("language", Locale.getDefault().toString())
+                                    .addQueryParameter("session_id", sharedPrefManager.getSessionId())
                                     .build();
                             request = request.newBuilder().url(url).build();
+                            Log.e("myLog","Rest called " + request.url());
+
                             return chain.proceed(request);
                         }
                     } catch (SocketTimeoutException e) {

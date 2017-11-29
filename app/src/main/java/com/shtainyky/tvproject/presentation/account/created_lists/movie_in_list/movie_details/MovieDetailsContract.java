@@ -18,10 +18,13 @@ public class MovieDetailsContract {
     interface MovieDetailsView extends BaseView<MovieDetailsContract.MovieDetailsPresenter>, ContentView {
         void setupButton(boolean isMovieAdded);
         void setupUI(MovieItem movieItem);
+        void showRatingDialog();
     }
 
     interface MovieDetailsPresenter extends BasePresenter {
-        void buttonClicked(int listID);
+        void buttonMovieActionClicked(int listID);
+        void fabClicked();
+        void showResult(int errorCode);
     }
 
     public interface MovieDetailsModel {

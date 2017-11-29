@@ -25,13 +25,11 @@ public interface AccountService {
 
     @GET("/3/account/{account_id}/lists")
     Observable<CreatedListsData> getLists(@Path("account_id") int account_id,
-                                          @Query("session_id") String sessionId,
                                           @Query("page") int page);
 
 
     @Headers("content-type: application/json;charset=utf-8")
     @POST("/3/list")
-    Observable<ResponseMessage> createList(@Query("session_id") String sessionId,
-                                           @Body NewListRequest request);
+    Observable<ResponseMessage> createList(@Body NewListRequest request);
 
 }

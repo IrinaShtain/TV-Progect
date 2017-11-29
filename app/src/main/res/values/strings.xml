@@ -15,6 +15,7 @@
     <string name="description">Description: %s</string>
     <string name="type">Type: %s</string>
     <string name="genre">Genre: %s</string>
+    <string name="title_rating" formatted="true">Movie rating %s</string>
 
     /*Star details*/
     <string name="famous_for">Famous for</string>
@@ -29,6 +30,8 @@
     /*Buttons titles*/
     <string name="btn_search">Search</string>
     <string name="btn_retry">Retry</string>
+    <string name="btn_rate">Rate</string>
+    <string name="btn_cancel">Cancel</string>
     <string name="btn_add_to_list">Add to list</string>
     <string name="btn_add_list">Add list</string>
     <string name="btn_delete_from_list">Delete from list</string>
@@ -40,6 +43,7 @@
     /*Messages/
     <string name="msg_new_list_created_successfully">New list is successfully created</string>
     <string name="msg_new_movie_added_successfully">The movie is successfully added</string>
+    <string name="msg_movie_rated_successfully">Thank you for your rating</string>
     <string name="msg_new_movie_removed_successfully">The movie is successfully removed</string>
     <string name="msg_no_famous_for_movies">No information about famous movies</string>
     <string name="question_about_deleting">Do you want to delete movie</string>
@@ -69,6 +73,7 @@
     <string name="error_msg_no_movies">No movies in this list</string>
     <string name="error_msg_no_movies_with_such_title">No movies with such title</string>
     <string name="error_msg_no_star_with_such_name">No star with such name</string>
+    <string name="err_message_input_rating">Set Rating</string>
 
     /*Menu*/
     <string name="menu_delete">Delete</string>

@@ -66,7 +66,7 @@ public abstract class ContentFragment extends BaseFragment implements ContentVie
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View parent = inflater.inflate(getRootLayoutRes(), container, false);
         ViewGroup flContent = (ViewGroup) parent.findViewById(R.id.flContent_VC);
-        View.inflate(getActivity(), getLayoutRes(), flContent);
+       View.inflate(getActivity(), getLayoutRes(), flContent);
         return parent;
     }
 

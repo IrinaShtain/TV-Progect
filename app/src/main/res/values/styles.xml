@@ -16,4 +16,16 @@
         <item name="android:textSize">@dimen/text_size_title</item>
     </style>
 
+   
+
+    <style name="StarRatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/green</item>
+        <item name="colorControlActivated">@color/accent</item>
+    </style>
+
+    <style name="StarSmallRatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:minHeight">24dp</item>
+        <item name="android:maxHeight">24dp</item>
+    </style>
+
 </resources>

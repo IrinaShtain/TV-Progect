@@ -66,7 +66,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
     @Override
     public void loadPage(int pageNumber) {
         compositeDisposable.add(
-                model.getLists(user.id, userManager.getSessionId(), pageNumber)
+                model.getLists(user.id,pageNumber)
                         .subscribe(userListResponse -> {
                             view.hideProgress();
                             totalPages = userListResponse.total_pages;
@@ -100,7 +100,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
     @Override
     public void removeList(CreatedListsDH item, int pos) {
         view.showProgressPagination();
-        compositeDisposable.add(model.deleteList(item.getListsID(), userManager.getSessionId())
+        compositeDisposable.add(model.deleteList(item.getListsID())
                 .subscribe(responseMessage -> {
                     AnalyticManager.trackCustomEvent(Constants.AnalyticCustomEvent.DELETED_LIST);
                     view.hideProgress();

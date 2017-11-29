@@ -73,7 +73,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
     }
 
     @Override
-    public void buttonClicked(int listID) {
+    public void buttonMovieActionClicked(int listID) {
         Log.e("myLog", "movieID " + movieID);
         Log.e("myLog", "listID " + listID);
         mView.showProgressPagination();
@@ -95,6 +95,25 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
                         isMovieAddedToList = false;
                         mView.setupButton(false);
                     }, throwableConsumer));
+        }
+    }
+
+    @Override
+    public void fabClicked() {
+        mView.showRatingDialog();
+    }
+
+    @Override
+    public void showResult(int errorCode) {
+        switch (errorCode) {
+            case Constants.ERROR_CODE_CONNECTION_LOST:
+                mView.showMessage(Constants.MessageType.CONNECTION_PROBLEMS);
+                break;
+            case Constants.ERROR_CODE_UNKNOWN:
+                mView.showMessage(Constants.MessageType.UNKNOWN);
+                break;
+            default:
+                mView.showMessage(Constants.MessageType.MOVIE_RATED_SUCCESSFULLY);
         }
     }
 
