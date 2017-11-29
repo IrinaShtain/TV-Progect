@@ -6,6 +6,7 @@ import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.account.ListItem;
 import com.shtainyky.tvproject.data.models.account.User;
 import com.shtainyky.tvproject.presentation.account.created_lists.adapter.CreatedListsDH;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -101,6 +102,7 @@ public class CreateListsPresenter implements CreatedListsContract.CreatedListsPr
         view.showProgressPagination();
         compositeDisposable.add(model.deleteList(item.getListsID(), userManager.getSessionId())
                 .subscribe(responseMessage -> {
+                    AnalyticManager.trackCustomEvent(Constants.AnalyticCustomEvent.DELETED_LIST);
                     view.hideProgress();
                     view.deleteItem(pos);
                     --totalResults;

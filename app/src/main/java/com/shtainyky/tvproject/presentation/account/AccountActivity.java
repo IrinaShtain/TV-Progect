@@ -19,6 +19,8 @@ import com.shtainyky.tvproject.presentation.account.created_lists.CreatedListsFr
 import com.shtainyky.tvproject.presentation.account.details_account.DetailsFragment_;
 import com.shtainyky.tvproject.presentation.account.find_star.SearchStarFragment_;
 import com.shtainyky.tvproject.presentation.base.BaseActivity;
+import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -42,6 +44,13 @@ public class AccountActivity extends BaseActivity {
 
         getSupportFragmentManager().addOnBackStackChangedListener(() ->
                 enableViews(getSupportFragmentManager().getBackStackEntryCount() > 1));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(getContainerId());
+        AnalyticManager.trackScreenOpen(this, fragment.getScreenName());
     }
 
     @Override

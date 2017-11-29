@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 
 import java.util.ArrayList;
@@ -79,6 +80,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
         if (!isMovieAddedToList)
             compositeDisposable.add(mModel.addMovie(listID, movieID)
                     .subscribe(response -> {
+                        AnalyticManager.trackCustomEvent(Constants.AnalyticCustomEvent.ADDED_NEW_MOVIE);
                         mView.hideProgress();
                         mView.showMessage(Constants.MessageType.NEW_MOVIE_ADDED_SUCCESSFULLY);
                         isMovieAddedToList = true;
@@ -87,6 +89,7 @@ public class MovieDetailsPresenter implements MovieDetailsContract.MovieDetailsP
         else {
             compositeDisposable.add(mModel.deleteMovie(listID, movieID)
                     .subscribe(response -> {
+                        AnalyticManager.trackCustomEvent(Constants.AnalyticCustomEvent.DELETED_MOVIE);
                         mView.hideProgress();
                         mView.showMessage(Constants.MessageType.NEW_MOVIE_REMOVED_SUCCESSFULLY);
                         isMovieAddedToList = false;

@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "186587510347",
+    "project_id": "tv-progect"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186587510347:android:102e9984707387f5",
+        "android_client_info": {
+          "package_name": "com.shtainyky.tvproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186587510347-flgikn5r525dsvat0sgerqk8skvpt320.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV2k424RxtvWx2NbcrO-0DVgu2sDVYY0o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-110294114-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

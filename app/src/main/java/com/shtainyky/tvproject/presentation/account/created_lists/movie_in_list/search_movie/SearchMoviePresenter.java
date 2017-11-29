@@ -5,6 +5,7 @@ import android.util.Log;
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class SearchMoviePresenter implements SearchMovieContract.SearchMoviePres
 
     @Override
     public void onSearchClick(String title) {
+        AnalyticManager.trackClick(Constants.AnalyticClick.SEARCH_A_MOVIE);
         if (!title.isEmpty()) {
             this.movieTitle = title;
             view.showProgressMain();

@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.login;
 import android.util.Log;
 
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -73,6 +74,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
                         .subscribe(loginResponse -> {
                             userManager.saveAuthToken(loginResponse.request_token);
                             getSessionID(userManager.getAuthToken());
+                            AnalyticManager.trackLogin();
                             Log.e("myLog", "getValidatedToken .auth_token " + loginResponse.request_token);
                         }, throwableConsumer));
 

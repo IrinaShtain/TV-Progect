@@ -218,4 +218,9 @@ public class CreatedListsFragment extends RefreshableFragment implements Created
         super.onDestroyView();
         if (newListDialog != null && newListDialog.isVisible()) newListDialog.dismiss();
     }
+
+    @Override
+    public String getScreenName() {
+        return "Created Lists Fragment";
+    }
 }

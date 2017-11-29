@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatDelegate;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.shtainyky.tvproject.data.Rest;
+import com.shtainyky.tvproject.utils.AnalyticManager;
+import com.shtainyky.tvproject.utils.ScreensCallback;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.Bean;
@@ -28,6 +30,7 @@ public class TVProjectApplication extends Application {
     protected Rest rest;
     @SystemService
     protected ConnectivityManager connectivityManager;
+    private ScreensCallback lifecycleCallbacks;
 
     @Override
     public void onCreate() {
@@ -35,6 +38,11 @@ public class TVProjectApplication extends Application {
         initPicasso();
         Stetho.initializeWithDefaults(this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        AnalyticManager.init(this);
+        lifecycleCallbacks = new ScreensCallback(this);
+
+        registerActivityLifecycleCallbacks(lifecycleCallbacks);
     }
 
     private void initPicasso() {

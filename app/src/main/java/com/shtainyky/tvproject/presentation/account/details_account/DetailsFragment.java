@@ -124,4 +124,8 @@ public class DetailsFragment extends ContentFragment implements DetailsContract.
                 .start();
     }
 
+    @Override
+    public String getScreenName() {
+        return "Account details Fragment";
+    }
 }

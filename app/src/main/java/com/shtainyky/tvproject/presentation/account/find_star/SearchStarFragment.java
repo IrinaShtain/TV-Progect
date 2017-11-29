@@ -148,4 +148,9 @@ public class SearchStarFragment extends RefreshableFragment implements SearchSta
                 super.showPlaceholder(placeholderType);
         }
     }
+
+    @Override
+    public String getScreenName() {
+        return "Search Star Fragment";
+    }
 }

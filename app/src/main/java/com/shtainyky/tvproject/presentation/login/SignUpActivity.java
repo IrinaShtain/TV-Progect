@@ -4,6 +4,8 @@ import android.support.v7.widget.Toolbar;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.base.BaseActivity;
+import com.shtainyky.tvproject.presentation.base.BaseFragment;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -30,5 +32,12 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected Toolbar getToolbar() {
         return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(getContainerId());
+        AnalyticManager.trackScreenOpen(this, fragment.getScreenName());
     }
 }

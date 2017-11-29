@@ -174,4 +174,9 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
         mActivity.getToolbarManager().displayToolbar(true);
         super.onDestroyView();
     }
+
+    @Override
+    public String getScreenName() {
+        return "Movie Details Fragment";
+    }
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.ToolbarManager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -45,19 +46,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(BaseFragment fragment) {
+        AnalyticManager.trackScreenOpen(this, fragment.getScreenName());
         replaceFragment(fragment, Collections.emptyList());
     }
 
     public void replaceFragment(BaseFragment fragment, List<View> sharedViews) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             for (View view : sharedViews) {
                 transaction.addSharedElement(view, view.getTransitionName());
             }
         }
-
         transaction.replace(getContainerId(), fragment)
                 .addToBackStack(null)
                 .commit();
@@ -76,6 +75,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStackImmediate();
+            BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentById(getContainerId());
+            AnalyticManager.trackScreenOpen(this, fragment.getScreenName());
         } else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
             finish();
         else

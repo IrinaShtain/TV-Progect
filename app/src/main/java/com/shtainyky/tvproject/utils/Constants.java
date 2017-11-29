@@ -89,5 +89,51 @@ public class Constants {
         }
     }
 
+    public enum AnalyticClick {
+        LOGIN("click_login", "AnalyticClick: LOGIN Button"),
+        SEARCH_A_MOVIE("click_search_movie", "AnalyticClick: Search a movie"),
+        SEARCH_A_STAR("click_search_read_about_star", "AnalyticClick: Search read about star");
+
+        private String name;
+        private String description;
+
+        AnalyticClick(String name, String description) {
+            this.name = name;
+            this.description = description;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
+    public enum AnalyticCustomEvent {
+        ADDED_NEW_MOVIE("event_added_new_movie", "Event: Added new movie"),
+        DELETED_MOVIE("event_deleted_movie", "Event: Deleted new movie"),
+        ADDED_NEW_LIST("event_added_new_list", "Event: Added new list"),
+        DELETED_LIST("event_deleted_list", "Event: Deleted new list"),
+        APP_GOES_BACKGROUND("app_goes_background", "Event: Application goes Background");
+
+        private String name;
+        private String description;
+
+        AnalyticCustomEvent(String name, String description) {
+            this.name = name;
+            this.description = description;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+    }
+
 
 }

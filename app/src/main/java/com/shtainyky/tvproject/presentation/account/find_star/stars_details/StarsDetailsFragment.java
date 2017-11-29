@@ -166,4 +166,9 @@ public class StarsDetailsFragment extends ContentFragment implements StarsDetail
         mActivity.getToolbarManager().displayToolbar(true);
         super.onDestroyView();
     }
+
+    @Override
+    public String getScreenName() {
+        return "Stars Details Fragment";
+    }
 }

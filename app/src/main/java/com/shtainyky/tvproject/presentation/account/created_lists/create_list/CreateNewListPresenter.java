@@ -3,6 +3,7 @@ package com.shtainyky.tvproject.presentation.account.created_lists.create_list;
 import android.util.Log;
 
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -51,6 +52,7 @@ public class CreateNewListPresenter implements CreateNewListContract.CreateNewLi
                     .subscribe(response -> {
                         view.clearInput();
                         view.hideProgress();
+                        AnalyticManager.trackCustomEvent(Constants.AnalyticCustomEvent.ADDED_NEW_LIST);
                         view.updateTargetFragment(response.list_id, title, description);
                     }, throwable -> {
                         view.hideProgress();

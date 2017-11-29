@@ -162,4 +162,8 @@ public class SearchMovieFragment extends RefreshableFragment implements SearchMo
         }
     }
 
+    @Override
+    public String getScreenName() {
+        return "Search Movie Fragment";
+    }
 }

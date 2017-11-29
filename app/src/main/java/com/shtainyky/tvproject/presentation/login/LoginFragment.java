@@ -119,4 +119,8 @@ public class LoginFragment extends ContentFragment implements LoginContract.Logi
         return mPresenter;
     }
 
+    @Override
+    public String getScreenName() {
+        return "Login Fragment";
+    }
 }

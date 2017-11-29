@@ -162,4 +162,9 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
             tvPlaceholderMessage_VC.setText(R.string.error_msg_no_movies);
         }
     }
+
+    @Override
+    public String getScreenName() {
+        return "Movies In List Fragment";
+    }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.shtainyky.tvproject.data.exceptions.ConnectionException;
 import com.shtainyky.tvproject.data.models.star.StarItem;
 import com.shtainyky.tvproject.presentation.account.find_star.adapters.StarDH;
+import com.shtainyky.tvproject.utils.AnalyticManager;
 import com.shtainyky.tvproject.utils.Constants;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -56,6 +57,7 @@ public class SearchStarPresenter implements SearchStarContract.SearchStarPresent
 
     @Override
     public void onSearchClick(String starName) {
+        AnalyticManager.trackClick(Constants.AnalyticClick.SEARCH_A_STAR);
         if (!starName.isEmpty()) {
             this.name = starName;
             current_page = 1;
