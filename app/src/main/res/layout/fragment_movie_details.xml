@@ -2,9 +2,9 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -52,8 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:titleTextColor="@android:color/white"
-                app:navigationIcon="@drawable/ic_arrow_back_white"/>
+                app:navigationIcon="@drawable/ic_arrow_back_white"
+                app:titleTextColor="@android:color/white"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -75,10 +75,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_half"
-                android:text="@string/title"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_large"
                 android:textStyle="bold|italic"
+                tools:text="Best movie"
                 />
 
             <TextView
@@ -112,10 +112,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_description"
                 android:layout_margin="@dimen/margin_half"
-                android:text="@string/releaseDate"
+                android:drawablePadding="@dimen/padding_quart"
+                android:drawableStart="@drawable/ic_release_date"
+                android:gravity="center_vertical"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
+                tools:text="27/06/1396"
                 />
 
             <TextView
@@ -126,11 +129,13 @@
                 android:layout_below="@id/tv_description"
                 android:layout_margin="@dimen/margin_half"
                 android:layout_toEndOf="@id/tv_releaseDate"
-                android:gravity="end"
-                android:text="@string/popularity"
+                android:drawableEnd="@drawable/ic_rating_green"
+                android:drawablePadding="@dimen/padding_quart"
+                android:gravity="end|center_vertical"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_default"
                 android:textStyle="bold|italic"
+                tools:text="12345"
                 />
 
             <Button
@@ -139,9 +144,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_popularity"
                 android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/margin_default"
                 android:layout_marginEnd="@dimen/margin_half"
                 android:layout_marginStart="@dimen/margin_half"
-                android:layout_marginBottom="@dimen/margin_default"
                 android:background="@drawable/bg_button"
                 android:text="@string/btn_add_to_list"
                 android:textColor="@android:color/white"/>

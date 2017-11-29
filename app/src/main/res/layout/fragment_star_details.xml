@@ -2,9 +2,9 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -43,15 +43,19 @@
                     android:layout_height="80dp"
                     android:layout_alignParentBottom="true"
                     android:background="@color/colorBlackTransparent"/>
+
                 <TextView
                     android:id="@+id/tv_popularity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_large"
-                    android:paddingEnd="@dimen/padding_large"
-                    android:paddingTop="@dimen/padding_default"
-                    android:paddingBottom="@dimen/padding_default"
                     android:layout_alignParentBottom="true"
+                    android:drawablePadding="@dimen/padding_quart"
+                    android:drawableStart="@drawable/ic_rating_white"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_large"
+                    android:paddingStart="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_default"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/text_size_default"
                     tools:text="Rating : 0.5254"/>
@@ -80,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-           >
+            >
 
             <TextView
                 android:id="@+id/tvFamousFor"
@@ -88,9 +92,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_half"
                 android:gravity="center"
-                android:textSize="@dimen/text_size_large"
+                android:text="@string/famous_for"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/famous_for"/>
+                android:textSize="@dimen/text_size_large"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvListFamousFor"

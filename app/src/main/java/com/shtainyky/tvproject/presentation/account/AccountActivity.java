@@ -71,7 +71,7 @@ public class AccountActivity extends BaseActivity {
                 .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.activity_navigation_view_header)
                 .withHeaderHeight(DimenHolder.fromDp(175))
-                .withSelectedItem(-1)
+                .withSelectedItem(0)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(R.string.title_my_account)
                                 .withIcon(R.drawable.ic_user_color_primary)

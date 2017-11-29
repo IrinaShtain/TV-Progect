@@ -48,7 +48,7 @@
                 android:paddingTop="@dimen/padding_default"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_large"
-                tools:text="@string/title"
+                tools:text="Best movie"
                 />
 
             <TextView

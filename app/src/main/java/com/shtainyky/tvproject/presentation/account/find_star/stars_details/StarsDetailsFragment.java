@@ -120,7 +120,7 @@ public class StarsDetailsFragment extends ContentFragment implements StarsDetail
     public void setStarDetail(StarItem starItem) {
         collapsingToolbar.setTitle(starItem.name);
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
-        tv_popularity.setText(getResources().getString(R.string.popularity, String.valueOf(starItem.popularity)));
+        tv_popularity.setText(String.valueOf(starItem.popularity));
         Picasso.with(getContext())
                 .load(starItem.avatarUrl)
                 .error(R.drawable.placehoder_star)

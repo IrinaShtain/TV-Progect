@@ -131,11 +131,11 @@ public class MovieDetailsFragment extends ContentFragment implements MovieDetail
     public void setupUI(MovieItem movieItem) {
         collapsingToolbar.setTitle(movieItem.title);
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
-        tv_description.setText(getResources().getString(R.string.description, movieItem.overview));
+        tv_description.setText(movieItem.overview);
         tvTitle.setText(movieItem.title);
         tv_genre.setText(getResources().getString(R.string.genre, movieItem.genresString));
-        tv_releaseDate.setText(getResources().getString(R.string.releaseDate, movieItem.release_date));
-        tv_popularity.setText(getResources().getString(R.string.popularity, String.valueOf(movieItem.vote_count)));
+        tv_releaseDate.setText(movieItem.release_date);
+        tv_popularity.setText(String.valueOf(movieItem.vote_count));
         Picasso.with(getContext())
                 .load(movieItem.avatarUrl)
                 .error(R.drawable.placeholder_movie)
