@@ -24,13 +24,18 @@ public interface MoviesInListContract {
         void openSearchScreen(int listID, ArrayList<MovieItem> movieItems);
         void closeFragment();
         void showAlert();
+        void closeFabMenu();
+        void openFabMenu();
     }
 
     interface MoviesInListPresenter extends RefreshablePresenter {
         void showDetails(int lisID);
         void deleteList(int listID);
-        void onFABClick();
+        void onMainFABClick();
         void menuPressed();
+        void onFabFindUsingTitleClick();
+        void onFabFindUsingGenreClick();
+        void onFabFindPopularClick();
     }
 
     interface MoviesInListModel {

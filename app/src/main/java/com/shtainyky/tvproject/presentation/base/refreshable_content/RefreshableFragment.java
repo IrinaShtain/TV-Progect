@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.presentation.base.content.ContentFragment;
@@ -25,6 +26,23 @@ public abstract class RefreshableFragment extends ContentFragment {
     protected SwipeRefreshLayout swipeContainer_VC;
     @ViewById
     protected FloatingActionButton fabAdd_VC;
+    @ViewById
+    protected LinearLayout llFindUsingTitle;
+    @ViewById
+    protected LinearLayout llFindUsingGenre;
+    @ViewById
+    protected LinearLayout llFindPopular;
+    @ViewById
+    protected LinearLayout llFindLatest;
+    @ViewById
+    protected FloatingActionButton fabFindUsingTitle;
+    @ViewById
+    protected FloatingActionButton fabFindUsingGenre;
+    @ViewById
+    protected FloatingActionButton fabFindPopular;
+    @ViewById
+    protected FloatingActionButton fabFindLatest;
+
 
     protected abstract RefreshablePresenter getPresenter();
 

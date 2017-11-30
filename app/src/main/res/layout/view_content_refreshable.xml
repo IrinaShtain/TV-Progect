@@ -39,6 +39,162 @@
 
     <include layout="@layout/view_placeholder"/>
 
+    <LinearLayout
+        android:id="@+id/llFindUsingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="280dp"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_half"
+            android:paddingStart="@dimen/padding_half"
+            android:text="@string/menu_fab_find_by_title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_default"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabFindUsingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_find_with_title"
+            app:backgroundTint="@color/green"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFindUsingGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="215dp"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_half"
+            android:paddingStart="@dimen/padding_half"
+            android:text="@string/menu_fab_find_by_genres"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_default"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabFindUsingGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_find_with_genres"
+            app:backgroundTint="@color/green"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFindPopular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="150dp"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_half"
+            android:paddingStart="@dimen/padding_half"
+            android:text="@string/menu_fab_popular_movies"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_default"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabFindPopular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rating_white"
+            app:backgroundTint="@color/green"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFindLatest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="85dp"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:paddingEnd="@dimen/padding_half"
+            android:paddingStart="@dimen/padding_half"
+            android:text="@string/menu_fab_latest_movies"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_default"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabFindLatest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_latest_movies"
+            app:backgroundTint="@color/green"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabSize="mini"
+            app:pressedTranslationZ="12dp"
+            />
+
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAdd_VC"
         android:layout_width="wrap_content"

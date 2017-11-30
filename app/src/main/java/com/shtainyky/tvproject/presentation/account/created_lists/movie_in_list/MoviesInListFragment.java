@@ -3,13 +3,13 @@ package com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 
 import com.jakewharton.rxbinding2.view.RxMenuItem;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.shtainyky.tvproject.R;
 import com.shtainyky.tvproject.data.models.movie.MovieItem;
 import com.shtainyky.tvproject.domain.MovieRepository;
@@ -30,6 +30,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.AnimationRes;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -58,6 +59,11 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     @OptionsMenuItem(R.id.delete)
     protected MenuItem menuDelete;
 
+    @AnimationRes(R.anim.menu_fab_open)
+    protected Animation mAnimFabOpen;
+    @AnimationRes(R.anim.menu_fab_close)
+    protected Animation mAnimFabClose;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_recycler_view;
@@ -75,20 +81,31 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @AfterViews
-    public void init(){
+    public void init() {
         mActivity.getToolbarManager().setTitle(listTitle);
         setHasOptionsMenu(true);
         setupRecyclerView();
-        setupFAB();
+        setupFABs();
         presenter.subscribe();
     }
 
-    private void setupFAB(){
+    private void setupFABs() {
         fabAdd_VC.setVisibility(View.VISIBLE);
-        fabAdd_VC.setOnClickListener(v -> {
-            Log.e("myLog", "onClick FAB ");
-            presenter.onFABClick();
-        });
+        RxView.clicks(fabAdd_VC)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> presenter.onMainFABClick());
+        RxView.clicks(fabFindUsingTitle)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> presenter.onFabFindUsingTitleClick());
+        RxView.clicks(fabFindUsingGenre)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> presenter.onFabFindUsingGenreClick());
+        RxView.clicks(fabFindPopular)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> presenter.onFabFindPopularClick());
+        RxView.clicks(fabFindLatest)
+                .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
+                .subscribe(aVoid -> presenter.onFabFindPopularClick());
     }
 
     private void setupRecyclerView() {
@@ -96,6 +113,44 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
         rvLists.setLayoutManager(layoutManager);
         rvLists.setAdapter(adapter);
         adapter.setListener(this);
+    }
+
+
+    @Override
+    public void closeFabMenu() {
+        setClickableViews(false);
+        fabAdd_VC.setImageResource(R.drawable.ic_add);
+        seAnimation(mAnimFabClose);
+        updateContainerAlpha(1f);
+    }
+
+    @Override
+    public void openFabMenu() {
+        fabAdd_VC.setImageResource(R.drawable.ic_close);
+        setClickableViews(true);
+        seAnimation(mAnimFabOpen);
+        updateContainerAlpha(0.15f);
+    }
+
+    private void updateContainerAlpha(float value) {
+        if (rlPlaceholder_VC.getVisibility() == View.VISIBLE)
+            rlPlaceholder_VC.setAlpha(value);
+        else
+            flContent_VC.setAlpha(value);
+    }
+
+    private void setClickableViews(boolean isViewsClickable) {
+        fabFindUsingTitle.setClickable(isViewsClickable);
+        fabFindUsingGenre.setClickable(isViewsClickable);
+        fabFindPopular.setClickable(isViewsClickable);
+        fabFindLatest.setClickable(isViewsClickable);
+    }
+
+    private void seAnimation(Animation animation) {
+        llFindUsingTitle.startAnimation(animation);
+        llFindUsingGenre.startAnimation(animation);
+        llFindPopular.startAnimation(animation);
+        llFindLatest.startAnimation(animation);
     }
 
     @Override
@@ -144,7 +199,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @Override
-    public void showAlert(){
+    public void showAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.question_about_goal);
         builder.setPositiveButton(R.string.answer_yes,

@@ -22,6 +22,7 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     private MoviesInListContract.MoviesInListModel model;
     private int listID;
     private ArrayList<MovieItem> movieItems;
+    private boolean mIsFabOpen = false;
 
     public MoviesInListPresenter(MoviesInListContract.MoviesInListView view,
                                  MoviesInListContract.MoviesInListModel model,
@@ -83,17 +84,42 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
 
     @Override
     public void onRefresh() {
+        if (mIsFabOpen)
+            view.closeFabMenu();
         loadMovies();
     }
 
     @Override
     public void showDetails(int moviesID) {
+        mIsFabOpen = false;
         view.openMovieDetails(moviesID, movieItems);
     }
 
     @Override
-    public void onFABClick() {
+    public void onMainFABClick() {
+        if (mIsFabOpen) { //if user touch and FAB is open, close all menu
+            view.closeFabMenu();
+            mIsFabOpen =false;
+        } else {//if user touch and FAB is not open, open all menu
+            view.openFabMenu();
+            mIsFabOpen = true;
+        }
+    }
+
+    @Override
+    public void onFabFindUsingTitleClick() {
+        mIsFabOpen = false;
         view.openSearchScreen(listID, movieItems);
+    }
+
+    @Override
+    public void onFabFindUsingGenreClick() {
+
+    }
+
+    @Override
+    public void onFabFindPopularClick() {
+
     }
 
     @Override

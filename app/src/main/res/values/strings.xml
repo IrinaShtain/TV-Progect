@@ -78,4 +78,8 @@
     /*Menu*/
     <string name="menu_delete">Delete</string>
     <string name="menu_logout">Logout</string>
+    <string name="menu_fab_latest_movies">Find the latest movies</string>
+    <string name="menu_fab_popular_movies">Find the popular movies</string>
+    <string name="menu_fab_find_by_genres">Find a movie by genre</string>
+    <string name="menu_fab_find_by_title">Find a movie by title</string>
 </resources>
