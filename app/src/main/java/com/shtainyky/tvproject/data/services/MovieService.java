@@ -36,8 +36,16 @@ public interface MovieService {
                                             @Body ActionRequest action);
 
     @GET("/3/search/movie")
-    Observable<SearchMovieResponse> searchMovie(@Query("query") String title,
-                                                @Query("page") int page);
+    Observable<SearchMovieResponse> searchMovieByTitle(@Query("query") String title,
+                                                       @Query("page") int page);
+    @GET("/3/movie/popular")
+    Observable<SearchMovieResponse> searchPopularMovies(@Query("page") int page);
+
+    @GET("/3/movie/now_playing")
+    Observable<SearchMovieResponse> searchLatestMovies(@Query("page") int page);
+
+    @GET("/3/genre/{genre_id}/movies")
+    Observable<SearchMovieResponse> searchMovieByGenre(@Path("genre_id") int genre_id, @Query("page") int page);
 
     @GET("/3/movie/{movie_id}")
     Observable<MovieItem> getMovieDetails(@Path("movie_id") int movie_id);

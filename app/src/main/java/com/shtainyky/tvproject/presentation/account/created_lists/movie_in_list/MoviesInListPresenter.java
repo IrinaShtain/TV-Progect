@@ -45,7 +45,7 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     private void loadMovies() {
         compositeDisposable.add(model.getMovies(listID)
                 .subscribe(moviesList -> {
-                    Log.e("myLog", "getMovies " + listID);
+                    Log.e("myLog", "getMoviesByTitle " + listID);
                     view.hideProgress();
                     movieItems = moviesList.movies;
                     if (!movieItems.isEmpty())
@@ -97,10 +97,10 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
 
     @Override
     public void onMainFABClick() {
-        if (mIsFabOpen) { //if user touch and FAB is open, close all menu
+        if (mIsFabOpen) {
             view.closeFabMenu();
             mIsFabOpen =false;
-        } else {//if user touch and FAB is not open, open all menu
+        } else {
             view.openFabMenu();
             mIsFabOpen = true;
         }
@@ -109,17 +109,25 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     @Override
     public void onFabFindUsingTitleClick() {
         mIsFabOpen = false;
-        view.openSearchScreen(listID, movieItems);
+        view.openSearchByTitleScreen(listID, movieItems);
     }
 
     @Override
     public void onFabFindUsingGenreClick() {
-
+        mIsFabOpen = false;
+        view.openSearchByGenreScreen(listID, movieItems);
     }
 
     @Override
     public void onFabFindPopularClick() {
+        mIsFabOpen = false;
+        view.openPopularSearchScreen(listID, movieItems);
+    }
 
+    @Override
+    public void onFabFindLatestClick() {
+        mIsFabOpen = false;
+        view.openLatestSearchScreen(listID, movieItems);
     }
 
     @Override
@@ -130,7 +138,7 @@ public class MoviesInListPresenter implements MoviesInListContract.MoviesInListP
     @Override
     public void deleteList(int listID) {
         Log.e("myLog", "deleteItem listID = " + listID);
-        compositeDisposable.add(model.deleteList(listID, model.getSignedUserManager().getSessionId())
+        compositeDisposable.add(model.deleteList(listID)
                 .subscribe(responseMessage -> {
                     view.hideProgress();
                     view.showMessage(Constants.MessageType.LIST_WAS_DELETED);

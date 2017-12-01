@@ -35,7 +35,7 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemVH> {
         notifyDataSetChanged();
     }
 
-    public void deleteItem(int position){
+    public void deleteItem(int position) {
         items.remove(position);
         notifyItemChanged(position);
     }
@@ -62,6 +62,6 @@ public class MovieItemAdapter extends RecyclerView.Adapter<MovieItemVH> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return items == null ? 0 : items.size();
     }
 }

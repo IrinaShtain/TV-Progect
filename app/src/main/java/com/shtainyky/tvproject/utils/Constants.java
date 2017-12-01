@@ -28,6 +28,12 @@ public class Constants {
     public static final int REQUEST_CODE_CREATE_NEW_LIST = 100;
     public static final int REQUEST_CODE_RATE_MOVIE = 101;
 
+    /*----------------- Search type ------------------*/
+    public static final int SEARCH_TYPE_LATEST_MOVIES = 201;
+    public static final int SEARCH_TYPE_POPULAR_MOVIES = 202;
+    public static final int SEARCH_TYPE_MOVIES_BY_TITLE = 203;
+    public static final int SEARCH_TYPE_MOVIES_BY_GENRE = 204;
+
     /*----------------- KEY CODE ------------------*/
     public static final String KEY_TITLE = "list_title";
     public static final String KEY_DESCRIPTION = "list_desc";

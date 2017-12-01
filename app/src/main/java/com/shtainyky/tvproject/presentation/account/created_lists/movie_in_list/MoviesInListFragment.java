@@ -16,9 +16,14 @@ import com.shtainyky.tvproject.domain.MovieRepository;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemAdapter;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.adapter.MovieItemDH;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsFragment_;
-import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.SearchMovieFragment_;
+
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search.latest_movies.SearchLatestMovieFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search.movies_by_genres.SearchMovieByGenreFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search.movies_by_title.SearchMovieByTitleFragment_;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search.popular_movies.SearchPopularMovieFragment_;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshableFragment;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
+import com.shtainyky.tvproject.presentation.listeners.OnGenreClickListener;
 import com.shtainyky.tvproject.presentation.listeners.OnCardClickListener;
 import com.shtainyky.tvproject.utils.Constants;
 
@@ -105,7 +110,7 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
                 .subscribe(aVoid -> presenter.onFabFindPopularClick());
         RxView.clicks(fabFindLatest)
                 .throttleFirst(Constants.CLICK_DELAY, TimeUnit.MILLISECONDS)
-                .subscribe(aVoid -> presenter.onFabFindPopularClick());
+                .subscribe(aVoid -> presenter.onFabFindLatestClick());
     }
 
     private void setupRecyclerView() {
@@ -178,10 +183,38 @@ public class MoviesInListFragment extends RefreshableFragment implements MoviesI
     }
 
     @Override
-    public void openSearchScreen(int listID, ArrayList<MovieItem> movieItems) {
-        mActivity.replaceFragment(SearchMovieFragment_.builder()
+    public void openSearchByTitleScreen(int listID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(SearchMovieByTitleFragment_.builder()
                 .listID(listID)
                 .moviesInList(movieItems)
+                .searchType(Constants.SEARCH_TYPE_MOVIES_BY_TITLE)
+                .build());
+    }
+
+    @Override
+    public void openSearchByGenreScreen(int listID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(SearchMovieByGenreFragment_.builder()
+                .listID(listID)
+                .moviesInList(movieItems)
+                .searchType(Constants.SEARCH_TYPE_MOVIES_BY_GENRE)
+                .build());
+    }
+
+    @Override
+    public void openLatestSearchScreen(int listID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(SearchLatestMovieFragment_.builder()
+                .listID(listID)
+                .moviesInList(movieItems)
+                .searchType(Constants.SEARCH_TYPE_LATEST_MOVIES)
+                .build());
+    }
+
+    @Override
+    public void openPopularSearchScreen(int listID, ArrayList<MovieItem> movieItems) {
+        mActivity.replaceFragment(SearchPopularMovieFragment_.builder()
+                .listID(listID)
+                .moviesInList(movieItems)
+                .searchType(Constants.SEARCH_TYPE_POPULAR_MOVIES)
                 .build());
     }
 

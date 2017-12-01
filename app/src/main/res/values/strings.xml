@@ -26,6 +26,8 @@
     <string name="title_find_movie">Find movie</string>
     <string name="title_my_account">My account details</string>
     <string name="read_about_star">Read about star</string>
+    <string name="title_latest_movies">The latest movies</string>
+    <string name="title_popular_movies">The popular movies</string>
 
     /*Buttons titles*/
     <string name="btn_search">Search</string>

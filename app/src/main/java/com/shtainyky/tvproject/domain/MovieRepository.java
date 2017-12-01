@@ -12,7 +12,7 @@ import com.shtainyky.tvproject.data.services.MovieService;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.MoviesInListContract;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.MovieDetailsContract;
 import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.movie_details.rating_dialog.RatingDialogContract;
-import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search_movie.SearchMovieContract;
+import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.search.SearchMovieContract;
 import com.shtainyky.tvproject.presentation.base.NetworkRepository;
 import com.shtainyky.tvproject.utils.SignedUserManager;
 
@@ -33,8 +33,6 @@ public class MovieRepository extends NetworkRepository implements
 
     @Bean
     protected Rest rest;
-    @Bean
-    protected SignedUserManager userManager;
 
     private MovieService mMovieService;
 
@@ -63,8 +61,23 @@ public class MovieRepository extends NetworkRepository implements
     }
 
     @Override
-    public Observable<SearchMovieResponse> getMovies(String title, int page) {
-        return getNetworkObservable(mMovieService.searchMovie(title, page));
+    public Observable<SearchMovieResponse> getMoviesByTitle(String title, int page) {
+        return getNetworkObservable(mMovieService.searchMovieByTitle(title, page));
+    }
+
+    @Override
+    public Observable<SearchMovieResponse> searchMovieByGenre(int genreId, int page) {
+        return getNetworkObservable(mMovieService.searchMovieByGenre(genreId, page));
+    }
+
+    @Override
+    public Observable<SearchMovieResponse> getLatestMovies(int page) {
+        return getNetworkObservable(mMovieService.searchLatestMovies(page));
+    }
+
+    @Override
+    public Observable<SearchMovieResponse> getPopularMovies(int page) {
+        return getNetworkObservable(mMovieService.searchPopularMovies(page));
     }
 
     @Override
@@ -73,13 +86,8 @@ public class MovieRepository extends NetworkRepository implements
     }
 
     @Override
-    public Observable<ResponseMessage> deleteList(int listID, String sessionID) {
+    public Observable<ResponseMessage> deleteList(int listID) {
         return getNetworkObservable(mMovieService.deleteList(listID));
-    }
-
-    @Override
-    public SignedUserManager getSignedUserManager() {
-        return userManager;
     }
 
     @Override

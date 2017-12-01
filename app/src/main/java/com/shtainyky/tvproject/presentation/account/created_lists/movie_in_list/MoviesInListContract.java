@@ -7,7 +7,6 @@ import com.shtainyky.tvproject.presentation.account.created_lists.movie_in_list.
 import com.shtainyky.tvproject.presentation.base.BaseView;
 import com.shtainyky.tvproject.presentation.base.content.ContentView;
 import com.shtainyky.tvproject.presentation.base.refreshable_content.RefreshablePresenter;
-import com.shtainyky.tvproject.utils.SignedUserManager;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,10 @@ public interface MoviesInListContract {
     interface MoviesInListView extends BaseView<MoviesInListContract.MoviesInListPresenter>, ContentView {
         void setLists(ArrayList<MovieItemDH> itemDHS);
         void openMovieDetails(int listID, ArrayList<MovieItem> movieItems);
-        void openSearchScreen(int listID, ArrayList<MovieItem> movieItems);
+        void openSearchByTitleScreen(int listID, ArrayList<MovieItem> movieItems);
+        void openSearchByGenreScreen(int listID, ArrayList<MovieItem> movieItems);
+        void openLatestSearchScreen(int listID, ArrayList<MovieItem> movieItems);
+        void openPopularSearchScreen(int listID, ArrayList<MovieItem> movieItems);
         void closeFragment();
         void showAlert();
         void closeFabMenu();
@@ -36,11 +38,11 @@ public interface MoviesInListContract {
         void onFabFindUsingTitleClick();
         void onFabFindUsingGenreClick();
         void onFabFindPopularClick();
+        void onFabFindLatestClick();
     }
 
     interface MoviesInListModel {
         Observable<MoviesResponse> getMovies(int listID);
-        Observable<ResponseMessage> deleteList(int listID, String sessionID);
-        SignedUserManager getSignedUserManager();
+        Observable<ResponseMessage> deleteList(int listID);
     }
 }
